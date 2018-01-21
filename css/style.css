@@ -64,3 +64,48 @@ body {
 .posts .post-meta .post-time {
   font-size: 1rem;
 }
+.archive {
+  padding: 1.2rem 2.3rem;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+.archive .post-archive {
+  list-style: none;
+  padding: 0;
+}
+.archive .post-archive .post-item {
+  margin: 5px 0;
+}
+.archive .post-archive .post-item .post-date {
+  display: inline-block;
+  margin-right: 10px;
+  color: #bababa;
+}
+.archive .post-archive .post-item .post-title {
+  color: #368ccb;
+  text-decoration: none;
+}
+.page-nav {
+  padding: 0.5rem 0;
+  text-align: center;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+.page-nav .prev,
+.page-nav .next,
+.page-nav .page-number {
+  padding: 0.1rem 0.5rem;
+}
+.page-nav .prev {
+  float: left;
+}
+.page-nav .next {
+  float: right;
+}
+.page-nav a {
+  columns: #777;
+  text-decoration: none;
+}
+.page-nav a:hover {
+  color: #368ccb;
+}
