@@ -11,13 +11,14 @@ body {
   margin-top: 2rem;
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
 }
 .header .blog-title,
 .header .logo {
   color: #9ac389;
   font-size: 3rem;
   text-decoration: none;
+  margin-right: 1.5rem;
 }
 .header .menu {
   margin: 0;
@@ -35,44 +36,51 @@ body {
   color: #000;
 }
 .post {
-  margin: 1rem auto;
+  margin: 0 auto 1rem;
   padding: 1.2rem 2.3rem;
   background-color: #fff;
-  border: 1px solid c-bordergray;
-  box-shadow: 0 0 2px #ddd;
+  border: 1px solid #ddd;
 }
-.post .post:first-child,
-.posts .post:first-child {
-  margin-top: 0;
-}
-.post .post-title,
-.posts .post-title {
+.post .post-title {
   font-size: 1.5rem;
 }
-.post .post-title .post-title-link,
-.posts .post-title .post-title-link {
+.post .post-title .title {
+  margin: 1.5rem 0 0 0;
+}
+.post .post-title .post-title-link {
   color: #9ac389;
   text-decoration: none;
 }
-.post .post-content,
-.posts .post-content {
+.post .post-content {
   font-size: 1.2rem;
 }
-.post .post-content a,
-.posts .post-content a {
+.post .post-content a {
   color: #bbb;
 }
-.post .post-content a:hover,
-.posts .post-content a:hover {
+.post .post-content a:hover {
   color: #000;
 }
-.post .post-meta,
-.posts .post-meta {
+.post .post-meta {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   color: #bbb;
-}
-.post .post-meta .post-time,
-.posts .post-meta .post-time {
   font-size: 1rem;
+}
+.post .post-meta ul {
+  padding: 0;
+  margin: 0;
+}
+.post .post-meta a {
+  color: #bbb;
+  text-decoration: none;
+}
+.post .post-meta .post-tags .tag-list {
+  display: flex;
+}
+.post .post-meta .post-tags .tag-list .tag-list-item {
+  margin-left: 0.7rem;
+  list-style: none;
 }
 .archive {
   padding: 1.2rem 2.3rem;
@@ -85,6 +93,8 @@ body {
 }
 .archive .post-archive .post-item {
   margin: 5px 0;
+  display: flex;
+  justify-content: space-between;
 }
 .archive .post-archive .post-item .post-date {
   display: inline-block;
@@ -94,6 +104,9 @@ body {
 .archive .post-archive .post-item .post-title {
   color: #bbb;
   text-decoration: none;
+}
+.archive .post-archive .post-item .post-title:hover {
+  color: #000;
 }
 .page-nav {
   padding: 0.5rem 0;
@@ -118,4 +131,77 @@ body {
 }
 .page-nav a:hover {
   color: #000;
+}
+.tagcloud {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 1.2rem 2.3rem;
+}
+.tagcloud a {
+  text-decoration: none;
+}
+.tagcloud a:hover {
+  text-decoration: underline;
+}
+.tagTitle {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  text-align: center;
+  color: #9ac389;
+}
+.categories {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 1.2rem 2.3rem;
+}
+.categories .category-list {
+  margin: 0;
+  padding: 0;
+}
+.categories .category-list-item {
+  color: #bbb;
+}
+.categories .category-list-item a {
+  text-decoration: none;
+  color: #bbb;
+}
+.categories .category-list-item a:hover {
+  color: #000;
+}
+.categories .category-list-item span {
+  float: right;
+}
+.categories .category-list-item span::before {
+  content: "(";
+}
+.categories .category-list-item span::after {
+  content: ")";
+}
+.categoryTitle {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  text-align: center;
+  color: #9ac389;
+}
+.paper-style {
+  position: relative;
+}
+.paper-style:before,
+.paper-style:after {
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 15px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width: 300px;
+  background: #777;
+  box-shadow: 0 15px 10px #777;
+  transform: rotate(-3deg);
+}
+.paper-style:after {
+  transform: rotate(3deg);
+  right: 10px;
+  left: auto;
 }
