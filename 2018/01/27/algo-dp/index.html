@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> 动态规划 </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/简介/">简介</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-01-27
+        </span>
+    </div>
+    <div class="post-content">
+        <p>是一种通过把原问题分解为相对简单的子问题的方式求解复杂问题的方法。</p>
+<a id="more"></a>
+<p>##要素</p>
+<ol>
+<li><p>最优子结构<br> 问题的最优解中包含了子问题的最优解<br> 比如矩阵连乘中的最优解min2d[1][4]中肯定也包含了min[2][4]的最优解</p>
+<p> 动态规划是自底向上的，在前面步骤做出了最优决策，那么之后的最优决策也必须在前面的最优决策基础上建立<br> 如果不能保证最优原则（–所谓最优化原理即不管前面的策略如何，此后的决策必须是基于当前状态（由上一次决策产生）的最优决策。）<br> 那么不能采用动态规划</p>
+</li>
+<li>子问题重叠<br> –用递归算法子顶向下求解问题时，每次产生的子问题之间存在重叠现象。<br>如果子问题不重叠，那其实和直接递归分治没什么区别</li>
+</ol>
+<h2 id="动态规划的标准解题方法"><a href="#动态规划的标准解题方法" class="headerlink" title="动态规划的标准解题方法"></a>动态规划的标准解题方法</h2><p>1.先分析问题的最优子结构，这一过程的关键就是你去先用一个变量来表示问题的最优值，比如m[i][j]或者m(i,j)之类的，其中i或者j是代表问题的规模n。另一个是一个常量，限制条件什么的。这样的话就可以把问题的解化为去求m[n][1],m(n,c)之类的式子。将问题抽象表示完了之后，再去试图分析m[n][1]和m[n-1][1]之类的关系，把一个规模为n的问题化成规模变小为n-1的问题，试图去证明m[n][1]中的解包含了m[n-1][1]问题的解，这里一般用反证法。</p>
+<p>2.紧接着第1步分析，根据实际问题去推理出，m[i][1]和m[i-1][1]之间的关系，并用数学式子表现出来。一般情况下会是m[i][1]=m[i-1][1]+p之类的形式。这一步可能需要分情形讨论，同时应该会有一个递归出口，即i到了一定小的规模 等于0啊或者等于1之类的时候有直接的解，不需要再递归调用。</p>
+<p>3.计算最优值，根据第2步分析出来的递归公式，一般采用递归函数的形式去模拟递归公式。比如说m[i][1] = m[i-1][1] +p可以换成类似mfunc(i)=mfunc(i-1)之类的式子，我们定义的求最优值的函数就是这个mfunc，函数前面部分会定义递归出口，或者查找备忘录之类的</p>
+<p>4.在计算最优值中一般会记录一些关键信息，比如矩阵连乘中记录分点。然后之后再根据记录的这些信息Backtrace出最优解(这一步不一定需要)</p>
+<h2 id="备忘录方法"><a href="#备忘录方法" class="headerlink" title="备忘录方法"></a>备忘录方法</h2><p><img src="/2018/01/27/algo-dp/dp0.png" width="100%"></p>
+<h3 id="以上这个算法的分析"><a href="#以上这个算法的分析" class="headerlink" title="以上这个算法的分析"></a>以上这个算法的分析</h3><p>首先先查看m[i][j]这个的值，如果已经存在了就直接返回 避免重复计算//解决重叠子问题<br>其次如果i==j的话直接返回0,矩阵和自身相乘无需计算，这也是一个递归出口<br>递归调用LookupChain是将i和j的差逐渐缩小，所以出口就是i=j时</p>
+<p>定义好了递归出口，同时建好了备忘录，以下就开始递归调用了</p>
+<p>假设现在要求A1A2A3A4A5的最优解，那么显然需要知道先分成哪两半相乘<br>则有A1(A2A3A4A5)  | (A1A2)(A3A4A5) | (A1A2A3)(A4A5) | (A1A2A3A4)A5<br>这些选择，要知道哪个是最优的，则只好循环、比较<br>先假设第一个是最优的所以有</p>
+<pre><code class="cpp">m[i][j]=LookupChain(i+1, j)+p[i-1]*p[i]*p[j];
+s[i][j]=i;
+</code></pre>
+<p>然后遍历后几个与他比较</p>
+<pre><code class="cpp">for (k=i+1; k&lt;j; k++) {
+    t=LookupChain(i, k)+LookupChain(k+1, j)+p[i-1]*p[k]*p[j];
+    if ( t&lt;m[i][j] ) {  
+        m[i][j]=t;   
+        s[i][j]=k;  
+    }
+}
+</code></pre>
+<p>找出真正最小的<br>之后将这个最小的值返回，以供调用</p>
+<pre><code class="cpp">u=m[i][j];
+return u;
+</code></pre>
+<h4 id="两种方法应用方面的比较"><a href="#两种方法应用方面的比较" class="headerlink" title="两种方法应用方面的比较"></a>两种方法应用方面的比较</h4><p><img src="/2018/01/27/algo-dp/dp1.png" width="100%"></p>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
+    </body>
+</html>

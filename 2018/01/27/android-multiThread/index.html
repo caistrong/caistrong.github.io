@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">
 </head>
     <body>
@@ -63,23 +65,78 @@
         <p>当我们需要执行一些耗时操作，比如说发起一条网络请求时，服务器未必会立即响应我们的请求。如果不将这类操作放在子线程里去执行，就会导致主线程被阻塞住。从而影响用户对软件的正常使用</p>
 <a id="more"></a>
 <h3 id="3种方式开启新线程"><a href="#3种方式开启新线程" class="headerlink" title="3种方式开启新线程"></a>3种方式开启新线程</h3><ul>
-<li>新建一个继承Thread的类<br>定义一个线程只需要继承Thread，并重写父类的run()方法即可<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//处理耗时的逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li><p>新建一个继承Thread的类<br>定义一个线程只需要继承Thread，并重写父类的run()方法即可</p>
+<pre><code class="java">  class MyThread extends Thread {
+      @Override
+      public void run(){
+          //处理耗时的逻辑
+      }
+  }
+</code></pre>
+<p>如何启动这个线程?<br>new一个示例，然后调用实例的start()方法</p>
+<pre><code class="java">new MyThread().start();
+</code></pre>
+</li>
+<li><p>新建一个实现Runnable接口的类<br>使用上面所说的继承方法耦合性有点高。更多时候选择实现Runable接口的方法来定义一个线程</p>
 </li>
 </ul>
-<p>如何启动这个线程?<br>new一个示例，然后调用实例的start()方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> MyThread().start();</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>新建一个实现Runnable接口的类<br>使用上面所说的继承方法耦合性有点高。更多时候选择实现Runable接口的方法来定义一个线程</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//处理耗时逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如何启动这个线程?<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MyThread myThread = <span class="keyword">new</span> MyThread();</span><br><span class="line"><span class="keyword">new</span> Thread(myThread).start();</span><br></pre></td></tr></table></figure></p>
+<pre><code class="java">    class MyThread implements Runnable{
+        @Override
+        public void run(){
+            //处理耗时逻辑
+        }
+    }
+</code></pre>
+<p>如何启动这个线程?</p>
+<pre><code class="java">MyThread myThread = new MyThread();
+new Thread(myThread).start();
+</code></pre>
 <p>我们new出了一个实现了Runnable接口的对象myThread，而Thread构造函数可以接收一个Runnable参数。所以我们将myThread传入Thread构造函数new出Thread实例，然后再调用start()启动线程</p>
 <ul>
-<li>匿名类的方式<br>这个方法其实本质上和上一个相同<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//这里处理耗时逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<li>匿名类的方式<br>这个方法其实本质上和上一个相同<pre><code class="java">new Thread(new Runnable(){
+  @Override
+  public void run(){
+      //这里处理耗时逻辑
+  }
+})
+</code></pre>
 </li>
 </ul>
 <h3 id="必须在主线程更新UI"><a href="#必须在主线程更新UI" class="headerlink" title="必须在主线程更新UI"></a>必须在主线程更新UI</h3><p>在子线程中更新UI会导致程序崩溃，更新UI的操作必须在主线程中进行</p>
 <p>有些时候，我们必须在子线程里去执行一些耗时任务，然后根据任务的执行结果来更新相应的UI控件。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title">View</span>.<span class="title">OnClickListener</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> UPDATE_TEXT = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">private</span> TextView text;</span><br><span class="line">    <span class="keyword">private</span> Handler handler = <span class="keyword">new</span> Handler()&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span></span>&#123;</span><br><span class="line">            <span class="keyword">switch</span>(msg.what)&#123;</span><br><span class="line">                <span class="keyword">case</span> UPDATE_TEXT:</span><br><span class="line">                    <span class="comment">//在这里可以进行UI操作</span></span><br><span class="line">                    text.setText(<span class="string">"Nice to meet you"</span>);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span></span>&#123;</span><br><span class="line">        <span class="keyword">case</span> R.id.change_text:</span><br><span class="line">            <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable()&#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">                    Message message = <span class="keyword">new</span> Message();</span><br><span class="line">                    message.what = UPDATE_TEXT;</span><br><span class="line">                    handler.sendMessage(message);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;).start();</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">    public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+        public static final int UPDATE_TEXT = 1;
+        private TextView text;
+        private Handler handler = new Handler(){
+            public void handleMessage(Message msg){
+                switch(msg.what){
+                    case UPDATE_TEXT:
+                        //在这里可以进行UI操作
+                        text.setText(&quot;Nice to meet you&quot;);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        ...
+        @Override
+        public void onClick(View v){
+            case R.id.change_text:
+                new Thread(new Runnable(){
+                    @Override
+                    public void run(){
+                        Message message = new Message();
+                        message.what = UPDATE_TEXT;
+                        handler.sendMessage(message);
+                    }
+                }).start();
+                break;
+            default:
+                break;
+        }
+    }
+</code></pre>
 <p>关于以上这段代码的解释如下<br><img src="/2018/01/27/android-multiThread/messageHandler.png" width="100%"></p>
 <h3 id="异步消息处理机制"><a href="#异步消息处理机制" class="headerlink" title="异步消息处理机制"></a>异步消息处理机制</h3><p><img src="/2018/01/27/android-multiThread/async1.jpg" width="100%"><br>再过一遍<br><img src="/2018/01/27/android-multiThread/async2.png" width="100%"></p>
 <h4 id="安卓的AsyncTask"><a href="#安卓的AsyncTask" class="headerlink" title="安卓的AsyncTask"></a>安卓的AsyncTask</h4><p>AsyncTask简介<br><img src="/2018/01/27/android-multiThread/asynctask1.png" width="100%"></p>
@@ -92,5 +149,8 @@
 <!-- 由于这里是post的模板,所以page表示的是post的数据-->
         </div>
       </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
     </body>
 </html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> 回溯与分支限界法 </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/简介/">简介</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-01-27
+        </span>
+    </div>
+    <div class="post-content">
+        <p>回溯法是一种选优搜索法，又称为试探法，按选优条件向前搜索，以达到目标。 但当探索到某一步时，发现原先选择并不优或达不到目标，就退回一步重新选择，这种走不通就退回再走的技术为回溯法，而满足回溯条件的某个状态的点称为“回溯点”。</p>
+<a id="more"></a>
+<h3 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h3><p>解空间：问题可行解的集合</p>
+<p>回溯法：以深度优先的方式 系统搜索问题的解</p>
+<p>避免无效搜索<br>剪枝函数(以下两类函数都是剪枝函数)</p>
+<ol>
+<li>约束函数–用约束函数在扩展结点处剪去不满足约束的子树；<br>•见0-1背包问题</li>
+<li>限界函数–用限界函数剪去得不到最优解的子树；<br>•见TSP问题</li>
+</ol>
+<h3 id="两种类型的解空间树"><a href="#两种类型的解空间树" class="headerlink" title="两种类型的解空间树"></a>两种类型的解空间树</h3><h4 id="子集树"><a href="#子集树" class="headerlink" title="子集树"></a>子集树</h4><p>2^n个叶结点  01背包问题<br><img src="/2018/01/27/algo-backTrack/zijitree.png" width="100%"></p>
+<p><strong>搜索子集树的一般算法</strong><br>（完全n叉树属于子集树）</p>
+<pre><code class="cpp">//t表示当时搜的深度
+//n一般是问题规模，是数组x的长度，诸如背包问题中石块的数量
+//x是解集
+void backtrack( int t)
+{  
+       //如果递归到最深层了，就输出结果，找到符合问题的一个解了
+       if(t&gt;n) output(x);
+       else
+            for(int i=0;i&lt;=1;i++)
+           //0是左子树，1是右子树
+           {
+                x[t]=i;
+                if(constrain(t)&amp;&amp;bound(t)) backtrack(t+1);
+               //如果不符合这一约束的话，函数会接着执行i=1看看是不是能进入backtrack(t+1),如果都不行的话才会回溯回backtrack(t-1)去重新决定x[t-1]这个是不是要改成1
+            }
+}
+</code></pre>
+<h4 id="排列树"><a href="#排列树" class="headerlink" title="排列树"></a>排列树</h4><p>n!个叶结点   TSP旅行商问题<br><img src="/2018/01/27/algo-backTrack/pailietree.png" width="100%"><br><strong>搜索排列树的一般算法</strong></p>
+<pre><code class="cpp">//n是问题的规模
+//t是当前搜索的深度
+//x是解集
+void backtrack( int t)
+{  
+       //依旧是搜索到最深一层时，输出结果
+       if(t&gt;n) output(x);
+       else
+         //随着搜索的深入，x解集中已被选中的元素数量为t，剩下的可以选择的数量则为n-t
+         for(int i=t;i&lt;=n;i++)
+         {
+             //搜索深度t可以代表当前我们要决定的元素是x[t]
+             //t的选择在这里有 t、t+1、t+2...、n这些可以选择
+             //因为1、2、..、t-1这些选择已经被选走了
+             swap(x[t],x[i]);
+             if (constrain(t)&amp;&amp;bound(t))     backtrack(t+1);
+             //如果不符合约束条件的话我们需要把x[t]换回来
+             swap(x[t],x[i]);
+             //然后继续搜索i=t+1这个可不可以，如果直到n都不可以，这时候我们回溯到backtrack(t-1)去重新决定x[t-1]要放什么元素
+           }
+}
+</code></pre>
+<h3 id="分支限界法的基本策略"><a href="#分支限界法的基本策略" class="headerlink" title="分支限界法的基本策略"></a>分支限界法的基本策略</h3><p>(自己的不严谨语言描述版)<br>同回溯法一样，先构造出解空间，一般是树的数据结构，形成解空间树<br>同回溯法一样，选取一个结点作为扩展结点，之后与回溯法(深度搜索优先)不同的是，分支限界法在扩展结点处会先遍历其所有的子结点(分支)。然后根据剪枝函数，确定哪些子节点将导致不可行或者非最优解(具体根据题意是要找可行还是找最优解)。将这些子节点剔除，也就是将子节点以及他的分支剪掉。完成之后将剩下的这些子节点构造成当前的活结点表。之后从该表中选取一个结点为当前的扩展，之后继续重复上述过程。</p>
+<p>根据从活结点表中选取新的扩展结点的方式不同可以分为<br>1.队列式FIFO分支限界法 和 2.优先队列式分支限界法 两种不同的分支限界法</p>
+<p>其中队列式FIFO分支限界法，将活结点表组织成一个队列，并按队列的先进先出FIFO原则选取下一个结点作为当前扩展结点</p>
+<p>优先队列式分支限界法，将活结点表组织成一个优先队列，并按优先队列中规定的结点优先级，选取剩余队列中优先级最高的下一个结点作为当前扩展结点；</p>
+<h4 id="和回溯法的异同"><a href="#和回溯法的异同" class="headerlink" title="和回溯法的异同"></a>和回溯法的异同</h4><p><img src="/2018/01/27/algo-backTrack/yitong1.png" width="100%"><br><img src="/2018/01/27/algo-backTrack/yitong2.png" width="100%"></p>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
+    </body>
+</html>

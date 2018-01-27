@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">
 </head>
     <body>
@@ -49,10 +51,10 @@
     
        <article class="post paper-style">
            <div class="post-title">
-               <a class="post-title-link" href="/2018/01/27/android-content-provider/">四大组件之Content Provider</a>
+               <a class="post-title-link" href="/2018/01/27/algo-backTrack/">回溯与分支限界法</a>
            </div>
            <div class="post-content">
-               <p>数据持久化提到的技术所保存的数据只能在当前的应用程序中访问，内容提供器突破了这一限制<br></p>
+               <p>回溯法是一种选优搜索法，又称为试探法，按选优条件向前搜索，以达到目标。 但当探索到某一步时，发现原先选择并不优或达不到目标，就退回一步重新选择，这种走不通就退回再走的技术为回溯法，而满足回溯条件的某个状态的点称为“回溯点”。</p>
            </div>
            <div class="post-meta">
                <span class="post-time">2018-01-27</span>
@@ -61,10 +63,10 @@
     
        <article class="post paper-style">
            <div class="post-title">
-               <a class="post-title-link" href="/2018/01/27/android-permission/">安卓的运行时权限</a>
+               <a class="post-title-link" href="/2018/01/27/algo-knapsack/">(贪心算法)活动安排问题</a>
            </div>
            <div class="post-content">
-               <p>运行时权限是安卓6.0引入的新特性<br></p>
+               <p>自己写得js背包问题的贪心算法实现</p>
            </div>
            <div class="post-meta">
                <span class="post-time">2018-01-27</span>
@@ -73,10 +75,10 @@
     
        <article class="post paper-style">
            <div class="post-title">
-               <a class="post-title-link" href="/2018/01/27/android-localdata/">安卓3种数据持久化方式</a>
+               <a class="post-title-link" href="/2018/01/27/algo-activityArrangement/">(贪心算法)活动安排问题</a>
            </div>
            <div class="post-content">
-               <p>Android系统中提供了3种方式用于简单地实现数据持久化，分别是 文件存储、SharedPreferences存储<br>、SQLite数据库存储</p>
+               <p>自己写得关于js贪心算法活动安排问题的实现</p>
            </div>
            <div class="post-meta">
                <span class="post-time">2018-01-27</span>
@@ -85,10 +87,10 @@
     
        <article class="post paper-style">
            <div class="post-title">
-               <a class="post-title-link" href="/2018/01/27/android-broadcast/">四大组件之Broadcast Receiver</a>
+               <a class="post-title-link" href="/2018/01/27/algo-greedy/">贪心算法</a>
            </div>
            <div class="post-content">
-               <p>Android中的广播机制很灵活，Android中每个应用程序都可以对自己感兴趣的广播进行注册。这样该程序就只会接收到自己所关心的广播内容。这些广播可能是来自于系统的，也可能是来自于其他应用程序的。Android提供了一套完整的API，允许应用程序自由地发送和接收广播。发送广播的方法之前稍微提到过。是借助Intent。而接收广播的方法需要引入全新的概念–广播接收器(Broadcast Receiver)</p>
+               <p>贪心算法是一种在每一步选择中都采取在当前状态下最好或最优（即最有利）的选择，从而希望导致结果是最好或最优的算法。</p>
            </div>
            <div class="post-meta">
                <span class="post-time">2018-01-27</span>
@@ -97,12 +99,10 @@
     
        <article class="post paper-style">
            <div class="post-title">
-               <a class="post-title-link" href="/2018/01/27/android-service/">四大组件之Service</a>
+               <a class="post-title-link" href="/2018/01/27/algo-01knapsack/">(动态规划)0-1背包问题</a>
            </div>
            <div class="post-content">
-               <p>服务的运行不依赖于任何用户界面，即使程序被切换到后台，或者用户打开了另一个应用程序，服务仍然能够保持正常运行</p>
-<p>尽管如此，服务并不是运行在一个独立的进程当中的，而是依赖于创建服务时所在的应用程序进程。当某个应用程序进程被杀掉时，所有依赖于该进程的服务也会停止运行</p>
-<p>实际上服务也并不会自动开启线程，所有的代码都是默认运行在主线程当中的，也就是说我们需要在服务的内部手动创建子线程，并在这里执行具体的任务，否则可能出现主线程被阻塞的情况</p>
+               <p>自己实现的js动态规划算法01背包问题</p>
            </div>
            <div class="post-meta">
                <span class="post-time">2018-01-27</span>
@@ -113,10 +113,13 @@
 
 
     <nav class="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">></a>
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">></a>
     </nav>
 
         </div>
       </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
     </body>
 </html>

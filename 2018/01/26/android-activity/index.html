@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">
 </head>
     <body>
@@ -63,43 +65,222 @@
         <p>本篇是Android四大组件之一的Activity一些基本的操作，Activity的生命周期。以及Intent，Activity间的数据传递的一些基本介绍。</p>
 <a id="more"></a>
 <h3 id="创建一个新Activity"><a href="#创建一个新Activity" class="headerlink" title="创建一个新Activity"></a>创建一个新Activity</h3><p>一个活动对应一个布局</p>
-<p><strong>活动</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FirstActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>布局</strong><br>在app/src/main/res目录下新建一个layout目录，然后在该目录下新建first_layout.xml布局文件<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schema.android.com/aok/res/android"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:orientation</span>=<span class="string">"vertical"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>在活动里将布局引入进来</strong><br>setContentView(R.layout.first_layout);<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FirstActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.first_layout);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>活动</strong></p>
+<pre><code class="java">public class FirstActivity extends AppCompatActivity{
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+    }
+}
+</code></pre>
+<p><strong>布局</strong><br>在app/src/main/res目录下新建一个layout目录，然后在该目录下新建first_layout.xml布局文件</p>
+<pre><code class="xml">&lt;LinearLayout xmlns:android=&quot;http://schema.android.com/aok/res/android&quot;
+            android:orientation=&quot;vertical&quot;
+            android:layout_width=&quot;match_parent&quot;
+            android:layout_height=&quot;match_parent&quot;&gt;
+&lt;/LinearLayout&gt;
+</code></pre>
+<p><strong>在活动里将布局引入进来</strong><br>setContentView(R.layout.first_layout);</p>
+<pre><code class="java">public class FirstActivity extends AppCompatActivity{
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.first_layout);
+    }
+}
+</code></pre>
 <p>记得在AndroidManifest.xml里注册这个Activity</p>
-<h3 id="销毁Activity"><a href="#销毁Activity" class="headerlink" title="销毁Activity"></a>销毁Activity</h3><p>在想要销毁的Activity内部使用finish();<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">button1.setOnClickListener(<span class="keyword">new</span> View.OnClickListener()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span> <span class="params">(View v)</span></span>&#123;</span><br><span class="line">        finish();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="销毁Activity"><a href="#销毁Activity" class="headerlink" title="销毁Activity"></a>销毁Activity</h3><p>在想要销毁的Activity内部使用finish();</p>
+<pre><code class="java">button1.setOnClickListener(new View.OnClickListener(){
+    @Override
+    public void onClick (View v){
+        finish();
+    }
+})
+</code></pre>
 <p>按button1这个按钮就可以销毁活动</p>
-<h2 id="Intent"><a href="#Intent" class="headerlink" title="Intent"></a>Intent</h2><h3 id="显示Intent"><a href="#显示Intent" class="headerlink" title="显示Intent"></a>显示Intent</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">button1.setOnClickListener(<span class="keyword">new</span> View.OnClickListener()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span> <span class="params">(View v)</span></span>&#123;</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(FirstActivity.<span class="keyword">this</span>,SecondAticity.class);</span><br><span class="line">        startActivity(intent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="Intent"><a href="#Intent" class="headerlink" title="Intent"></a>Intent</h2><h3 id="显示Intent"><a href="#显示Intent" class="headerlink" title="显示Intent"></a>显示Intent</h3><pre><code class="java">button1.setOnClickListener(new View.OnClickListener(){
+    @Override
+    public void onClick (View v){
+        Intent intent = new Intent(FirstActivity.this,SecondAticity.class);
+        startActivity(intent);
+    }
+})
+</code></pre>
 <h3 id="隐式Intent"><a href="#隐式Intent" class="headerlink" title="隐式Intent"></a>隐式Intent</h3><p>在AndroidManifest.xml为相应的Activity添加抽象的action和category信息，这些信息标注在他所处的Activity里的，在这里也就是SecondActivity</p>
-<h4 id="隐式Intent-action"><a href="#隐式Intent-action" class="headerlink" title="隐式Intent action"></a>隐式Intent action</h4><p><strong>AndroidManifest.xml</strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">".SecondActivity"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"com.example.activitytest.ACTION_START"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.DEFAULT"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>FirstActivity.java</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">button1.setOnClickListener(<span class="keyword">new</span> View.OnClickListener()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span> <span class="params">(View v)</span></span>&#123;</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(<span class="string">"com.example.activitytest.ACTION_START"</span>);</span><br><span class="line">        startActivity(intent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<h4 id="隐式Intent-action-category"><a href="#隐式Intent-action-category" class="headerlink" title="隐式Intent action+category"></a>隐式Intent action+category</h4><p><strong>AndroidManifest.xml</strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">".SecondActivity"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"com.example.activitytest.ACTION_START"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.DEFAULT"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"com.example.activitytest.MY_CATEGORY"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>FirstActivity.java</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">button1.setOnClickListener(<span class="keyword">new</span> View.OnClickListener()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span> <span class="params">(View v)</span></span>&#123;</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(<span class="string">"com.example.activitytest.ACTION_START"</span>);</span><br><span class="line">        intent.addCategory(<span class="string">"com.example.activitytest.MY_CATEGORY"</span>)</span><br><span class="line">        startActivity(intent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<h4 id="更多隐式Intent"><a href="#更多隐式Intent" class="headerlink" title="更多隐式Intent"></a>更多隐式Intent</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">button1.setOnClickListener(<span class="keyword">new</span> View.OnClickListener()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span></span>&#123;</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(Intent.ACTION_VIEW);</span><br><span class="line">        intent.setData(Uri.parse(<span class="string">"http://www.baidu.com"</span>));</span><br><span class="line">        startActivity(intent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="隐式Intent-action"><a href="#隐式Intent-action" class="headerlink" title="隐式Intent action"></a>隐式Intent action</h4><p><strong>AndroidManifest.xml</strong></p>
+<pre><code class="xml">&lt;activity android:name=&quot;.SecondActivity&quot;&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.example.activitytest.ACTION_START&quot;/&gt;
+        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot;/&gt;
+    &lt;/intent-filter&gt;
+&lt;/activity&gt;
+</code></pre>
+<p><strong>FirstActivity.java</strong></p>
+<pre><code class="java">button1.setOnClickListener(new View.OnClickListener(){
+    @Override
+    public void onClick (View v){
+        Intent intent = new Intent(&quot;com.example.activitytest.ACTION_START&quot;);
+        startActivity(intent);
+    }
+})
+</code></pre>
+<h4 id="隐式Intent-action-category"><a href="#隐式Intent-action-category" class="headerlink" title="隐式Intent action+category"></a>隐式Intent action+category</h4><p><strong>AndroidManifest.xml</strong></p>
+<pre><code class="xml">&lt;activity android:name=&quot;.SecondActivity&quot;&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.example.activitytest.ACTION_START&quot;/&gt;
+        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot;/&gt;
+        &lt;category android:name=&quot;com.example.activitytest.MY_CATEGORY&quot;/&gt;
+    &lt;/intent-filter&gt;
+&lt;/activity&gt;
+</code></pre>
+<p><strong>FirstActivity.java</strong></p>
+<pre><code class="java">button1.setOnClickListener(new View.OnClickListener(){
+    @Override
+    public void onClick (View v){
+        Intent intent = new Intent(&quot;com.example.activitytest.ACTION_START&quot;);
+        intent.addCategory(&quot;com.example.activitytest.MY_CATEGORY&quot;)
+        startActivity(intent);
+    }
+})
+</code></pre>
+<h4 id="更多隐式Intent"><a href="#更多隐式Intent" class="headerlink" title="更多隐式Intent"></a>更多隐式Intent</h4><pre><code class="java">button1.setOnClickListener(new View.OnClickListener(){
+    @Override
+    public void onClick(View v){
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(&quot;http://www.baidu.com&quot;));
+        startActivity(intent);
+    }
+})
+</code></pre>
 <p><img src="/2018/01/26/android-activity/ysIntent.png" width="100%"></p>
 <p>在AndroidManifest.xml中修改ThirdActivity的intent-filter</p>
 <p><strong>AndroidManifest.xml</strong></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">".ThirdActivity"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.VIEW"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.DEFAULT"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:schema</span>=<span class="string">"http"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="xml">&lt;activity android:name=&quot;.ThirdActivity&quot;&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;android.intent.action.VIEW&quot;/&gt;
+        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot;/&gt;
+        &lt;data android:schema=&quot;http&quot;/&gt;
+    &lt;/intent-filter&gt;
+&lt;/activity&gt;
+</code></pre>
 <p>添加了data android:scheme=”http”之后ThirdActivity可以响应action是Intent.ACTION_VIEW的常量值同时。他可以响应数据协议是http协议。这样的时候在FirstActivy中点击button1时</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">button1.setOnClickListener(<span class="keyword">new</span> View.OnClickListener()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span></span>&#123;</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(Intent.ACTION_VIEW);</span><br><span class="line">        intent.setData(Uri.parse(<span class="string">"http://www.baidu.com"</span>));</span><br><span class="line">        startActivity(intent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<pre><code class="java">button1.setOnClickListener(new View.OnClickListener(){
+    @Override
+    public void onClick(View v){
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(&quot;http://www.baidu.com&quot;));
+        startActivity(intent);
+    }
+})
+</code></pre>
 <p>就会让我们在Browser和ActivityTest(含有ThirdActivity这个Activity的app)中二选一<br><img src="android-activity/httpIntent.png" width="100%"></p>
-<p>除了http以外还有很多协议，geo表示显示地理位置，tel表示拨打电话<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">button1.setOnClickListener(<span class="keyword">new</span> View.OnClickListener()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span></span>&#123;</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(Intent.ACTION_DIAL);</span><br><span class="line">        intent.setData(Uri.parse(<span class="string">"tel:10086"</span>));</span><br><span class="line">        startActivity(intent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>除了http以外还有很多协议，geo表示显示地理位置，tel表示拨打电话</p>
+<pre><code class="java">button1.setOnClickListener(new View.OnClickListener(){
+    @Override
+    public void onClick(View v){
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse(&quot;tel:10086&quot;));
+        startActivity(intent);
+    }
+})
+</code></pre>
 <h2 id="活动间数据传递"><a href="#活动间数据传递" class="headerlink" title="活动间数据传递"></a>活动间数据传递</h2><h3 id="向下一个活动传递数据"><a href="#向下一个活动传递数据" class="headerlink" title="向下一个活动传递数据"></a>向下一个活动传递数据</h3><p>Intent中提供了一些列的putExtra()方法的重载，这可以把我们想要传递的数据暂存在Intent中，启动了另一个活动后，再把这个数据从Intent中取出</p>
-<p>在FirstActivity中，存入数据 ↓<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">button1.setOnClickListener(<span class="keyword">new</span> View.OnClickListener()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span></span>&#123;</span><br><span class="line">        String data = <span class="string">"Hello SecondActivity"</span>;</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(FirstActivity.<span class="keyword">this</span>,SecondActivity.class);</span><br><span class="line">        intent.putExtra(<span class="string">"extra_data"</span>,data)</span><br><span class="line">        startActivity(intent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>在FirstActivity中，存入数据 ↓</p>
+<pre><code class="java">button1.setOnClickListener(new View.OnClickListener(){
+    @Override
+    public void onClick(View v){
+        String data = &quot;Hello SecondActivity&quot;;
+        Intent intent = new Intent(FirstActivity.this,SecondActivity.class);
+        intent.putExtra(&quot;extra_data&quot;,data)
+        startActivity(intent);
+    }
+})
+</code></pre>
 <p>在SecondActivity中  取出数据 ↓</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecondActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.second_layout);</span><br><span class="line">        Intent intent = getIntent();</span><br><span class="line">        <span class="comment">// getIntent()方法取到启动SecondActivity的Intent</span></span><br><span class="line">        String data = intent.getStringExtra(<span class="string">"extra_data"</span>);</span><br><span class="line">        Log.d(<span class="string">"SecondActivity"</span>,data);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">public class SecondActivity extends AppCompatActivity{
+    @override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.second_layout);
+        Intent intent = getIntent();
+        // getIntent()方法取到启动SecondActivity的Intent
+        String data = intent.getStringExtra(&quot;extra_data&quot;);
+        Log.d(&quot;SecondActivity&quot;,data);
+    }
+}
+</code></pre>
 <h3 id="返回数据给上一个活动"><a href="#返回数据给上一个活动" class="headerlink" title="返回数据给上一个活动"></a>返回数据给上一个活动</h3><p>按Back键没有一个用于启动活动的Intent来传递数据<br>Activity有一个startActivityForResult()方法也是启动活动，但这个方法期望活动销毁的时候能返回一个结果给上一个活动</p>
-<p>在FirstActivity(期望得到数据的Activity)中编写如下代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">button1.setOnClickListener(<span class="keyword">new</span> View.OnClickListener()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span></span>&#123;</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(FirstActivity.<span class="keyword">this</span>,SecondActivity.class);</span><br><span class="line">        startActivityForResult(intent,<span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 这个1是requestCode</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>在FirstActivity(期望得到数据的Activity)中编写如下代码</p>
+<pre><code class="java">button1.setOnClickListener(new View.OnClickListener(){
+    @Override
+    public void onClick(View v){
+        Intent intent = new Intent(FirstActivity.this,SecondActivity.class);
+        startActivityForResult(intent,1);
+        // 这个1是requestCode
+    }
+})
+</code></pre>
 <p>这样点击button1就会用startActivityForResult()打开SecondActivity（打开这个Activity的目的就是为了它传数据回来）</p>
-<p>SecondActivity传回数据的方法    ↓<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecondActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.second_layout);</span><br><span class="line">        Button button2 = (Button) findViewById(R.id.button2);</span><br><span class="line">        button2.setOnClickListener(<span class="keyword">new</span> View.OnClickListener()&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span></span>&#123;</span><br><span class="line">                Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line">                <span class="comment">//这个Intent仅仅是用于传递数据而已</span></span><br><span class="line">                intent.putExtra(<span class="string">"data_return"</span>,<span class="string">"Hello FirstActivity"</span>);</span><br><span class="line">                setResult(RESULT_OK,intent);</span><br><span class="line">                <span class="comment">//setResult()是关键方法，专门用于向上一个活动返回数据</span></span><br><span class="line">                finish();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>由于我们是使用startActivityForResult()方法来启动SecondActivity的，在SecondActivity被销毁之后会回调上一个活动的<strong>onActivityResult()</strong>方法，因此我们需要在FirstActivity中重写这个方法来得到返回的数据，如下所示<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">OnActivityResult</span><span class="params">(<span class="keyword">int</span> requestCode,<span class="keyword">int</span> resultCode,Intent data)</span></span>&#123;</span><br><span class="line">    <span class="keyword">switch</span>(requestCode)&#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">if</span>(resultCode==RESULT_OK)&#123;</span><br><span class="line">                String returnedData = data.getStringExtra(<span class="string">"data_return"</span>);</span><br><span class="line">                Log.d(<span class="string">"FirstActivity"</span>,returnedData)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>SecondActivity传回数据的方法    ↓</p>
+<pre><code class="java">public class SecondActivity extends AppCompatActivity{
+    @override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.second_layout);
+        Button button2 = (Button) findViewById(R.id.button2);
+        button2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent();
+                //这个Intent仅仅是用于传递数据而已
+                intent.putExtra(&quot;data_return&quot;,&quot;Hello FirstActivity&quot;);
+                setResult(RESULT_OK,intent);
+                //setResult()是关键方法，专门用于向上一个活动返回数据
+                finish();
+            }
+        })
+    }
+}
+</code></pre>
+<p>由于我们是使用startActivityForResult()方法来启动SecondActivity的，在SecondActivity被销毁之后会回调上一个活动的<strong>onActivityResult()</strong>方法，因此我们需要在FirstActivity中重写这个方法来得到返回的数据，如下所示</p>
+<pre><code class="java">@Override
+protected void OnActivityResult(int requestCode,int resultCode,Intent data){
+    switch(requestCode){
+        case 1:
+            if(resultCode==RESULT_OK){
+                String returnedData = data.getStringExtra(&quot;data_return&quot;);
+                Log.d(&quot;FirstActivity&quot;,returnedData)
+            }
+            break;
+        default:
+    }
+}
+</code></pre>
 <p>关于onActivityResult()<br>  <img src="/2018/01/26/android-activity/onActivityResult.png" width="100%"></p>
 <h2 id="Activity的生命周期"><a href="#Activity的生命周期" class="headerlink" title="Activity的生命周期"></a>Activity的生命周期</h2><h4 id="活动状态"><a href="#活动状态" class="headerlink" title="活动状态"></a>活动状态</h4><p><img src="/2018/01/26/android-activity/activityState.png" width="100%"></p>
 <h4 id="生命周期钩子"><a href="#生命周期钩子" class="headerlink" title="生命周期钩子"></a>生命周期钩子</h4><p><img src="/2018/01/26/android-activity/activityHooks.png" width="100%"><br><img src="/2018/01/26/android-activity/activityHooks2.png" width="100%"></p>
 <h4 id="生命周期图"><a href="#生命周期图" class="headerlink" title="生命周期图"></a>生命周期图</h4><p><img src="/2018/01/26/android-activity/lifecycle.png" width="100%"></p>
 <h3 id="onSaveInstanceState"><a href="#onSaveInstanceState" class="headerlink" title="onSaveInstanceState()"></a>onSaveInstanceState()</h3><p>Activity提供了一个onSaveInstanceState()回调方法，这个方法它可以保证活动在被回收之前一定会被调用。用来保存要被回收的活动的一些重要数据</p>
-<p><strong>保存</strong><br>在MainActivity.java<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onSaveInstanceState</span><span class="params">(Bundle outState)</span></span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onSaveInstanceState(outState);</span><br><span class="line">    String temData = <span class="string">"Something you just type"</span>;</span><br><span class="line">    outState.putString(<span class="string">"data_key"</span>,temData);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>读取</strong><br>也在MainActivity.java<br>onCreate()方法其实也有一个Bundle类型的参数。这个参数在一般情况下都是null,但是如果在活动被系统回收之前有通过onSaveInstanceState()方法保存数据的话，这个参数就会带有之前保存的全部数据，我们只需要通过相应的取值方法取出即可<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span></span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    setContentView(R.layout.second_layout);</span><br><span class="line">    <span class="keyword">if</span>(savedInstanceState != <span class="keyword">null</span>)&#123;</span><br><span class="line">        String temData = savedInstanceState.getString(<span class="string">"data_key"</span>);</span><br><span class="line">        Log.d(<span class="string">"SecondActivity"</span>,temData)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>保存</strong><br>在MainActivity.java</p>
+<pre><code class="java">@Override
+protected void onSaveInstanceState(Bundle outState){
+    super.onSaveInstanceState(outState);
+    String temData = &quot;Something you just type&quot;;
+    outState.putString(&quot;data_key&quot;,temData);
+}
+</code></pre>
+<p><strong>读取</strong><br>也在MainActivity.java<br>onCreate()方法其实也有一个Bundle类型的参数。这个参数在一般情况下都是null,但是如果在活动被系统回收之前有通过onSaveInstanceState()方法保存数据的话，这个参数就会带有之前保存的全部数据，我们只需要通过相应的取值方法取出即可</p>
+<pre><code class="java">@override
+public void onCreate(Bundle savedInstanceState){
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.second_layout);
+    if(savedInstanceState != null){
+        String temData = savedInstanceState.getString(&quot;data_key&quot;);
+        Log.d(&quot;SecondActivity&quot;,temData)
+    }
+}
+</code></pre>
 <h3 id="Intent结合Bundle使用"><a href="#Intent结合Bundle使用" class="headerlink" title="Intent结合Bundle使用"></a>Intent结合Bundle使用</h3><p>Intent可以结合Bundle使用，一起用于传递数据。首先可以把需要传递的数据都保存在Bundle对象中，然后再将Bundle对象存放在Intent里。到了目标活动后先从Intent中取出Bundle。再从Bundle中一一取出数据</p>
 <h3 id="活动的启动模式"><a href="#活动的启动模式" class="headerlink" title="活动的启动模式"></a>活动的启动模式</h3><p>详细的就不写了</p>
 <ul>
@@ -115,5 +296,8 @@
 <!-- 由于这里是post的模板,所以page表示的是post的数据-->
         </div>
       </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
     </body>
 </html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> (贪心算法)活动安排问题 </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-01-27
+        </span>
+    </div>
+    <div class="post-content">
+        <p>自己写得关于js贪心算法活动安排问题的实现</p>
+<a id="more"></a>
+<pre><code class="js">// 贪心算法 - 活动安排问题
+// compareFunction()
+function compareEndTime(a,b){
+    if(a.endTime&lt;b.endTime){
+        return -1
+    }
+    if(a.endTime&gt;b.endTime){
+        return 1
+    }
+    return 0
+}
+
+// 贪心算法有两个基本要素
+// 　 1.贪心选择性质
+// 　  假设E是所有活动
+// 　  那么A包含于E，且A是该活动安排问题的一个最优解
+// 　  假设A的第一个活动是k
+// 　  假设k = 1，那么A就是以贪心选择开始的最优解
+// 　 假设k ≠ 1，那么设B = {A-{k}}∪{1} 即把A的第一个选择k去掉换成是1
+// 　 在这个情况下 B 的数量等于 A-1+1
+// 　 则B也是该问题的一个最优解
+// 2.最优子结构性质
+//    假设首先将1加进A中，即活动1是最优解的第一个活动
+//    那么问题就变成了求E中所有与活动1相容的最大子集合
+//    假设A是原问题最优解，那么A&#39; = A - {1}就是新的问题
+//    E&#39; = {i∈E，si&gt;f1} 即求剩下活动中的最大相容子集的最优解
+//    反证法
+//    假设A&#39;不是这个新问题的最优解，这个新问题存在一个最优解B&#39;且B&#39;活动数大于A’
+//    那么B&#39;+{1} = B （B的活动数大于A） 的这个解也会是原问题 E 的最优解
+//    自相矛盾
+class Activity {
+    constructor(start,end){
+        this.startTime = start
+        this.endTime = end
+    }
+}
+
+var activities = new Array(12)
+
+activities[5]=new Activity(1,4)
+activities[11]=new Activity(3,5)
+activities[4]=new Activity(0,6)
+activities[3]=new Activity(5,7)
+activities[1]=new Activity(3,8)
+activities[9]=new Activity(5,9)
+activities[7]=new Activity(6,10)
+activities[8]=new Activity(8,11)
+activities[6]=new Activity(8,12)
+activities[10]=new Activity(2,13)
+activities[2]=new Activity(12,14)
+
+//这些活动已经按结束时间的非递减序排列好
+
+function greedySelect(activityArr){
+    var resultArr = []
+    var currentEnd = 0
+    activityArr.sort(compareEndTime).forEach(element =&gt; {
+        if(element.startTime&gt;currentEnd){
+            resultArr.push(element)
+            currentEnd = element.endTime
+        }
+    });
+    return resultArr
+}
+
+console.log(greedySelect(activities))
+</code></pre>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
+    </body>
+</html>

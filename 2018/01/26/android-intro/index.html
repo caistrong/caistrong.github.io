@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">
 </head>
     <body>
@@ -70,8 +72,22 @@
 <li>Content Provider</li>
 </ul>
 <p><img src="/2018/01/26/android-intro/4componetintro.png" width="100%"></p>
-<h3 id="AndroidManifest-xml"><a href="#AndroidManifest-xml" class="headerlink" title="AndroidManifest.xml"></a>AndroidManifest.xml</h3><p>四大组件都需要在这个文件里进行注册，具体注册查看文档<br>以注册Activity组件为例<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">".HelloWorldActivity"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.MAIN"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.LAUNCHER"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="HelloWorldActivity-java"><a href="#HelloWorldActivity-java" class="headerlink" title="HelloWorldActivity.java"></a>HelloWorldActivity.java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.hello_world_layout);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="AndroidManifest-xml"><a href="#AndroidManifest-xml" class="headerlink" title="AndroidManifest.xml"></a>AndroidManifest.xml</h3><p>四大组件都需要在这个文件里进行注册，具体注册查看文档<br>以注册Activity组件为例</p>
+<pre><code class="xml">&lt;activity android:name=&quot;.HelloWorldActivity&quot;&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;android.intent.action.MAIN&quot;&gt;
+        &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;&gt;
+    &lt;/intent-filter&gt;
+&lt;/activity&gt;
+</code></pre>
+<h3 id="HelloWorldActivity-java"><a href="#HelloWorldActivity-java" class="headerlink" title="HelloWorldActivity.java"></a>HelloWorldActivity.java</h3><pre><code class="java">public class HelloWorldActivity extends AppCompatActivity{
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.hello_world_layout);
+    }
+}
+</code></pre>
 <p>继承AppCompatActivity,向下兼容的Activity，可以将Activity在各个系统版本中增加的特性和功能最低兼容到Android 2.1系统。Activity是Android系统提供的一个活动基类。我们项目中所有活动都必须继承它或者它的子类才能拥有活动的特性。(AppCompatActivity是Activity的子类)</p>
 <p>onCreate()方法是一个活动被创建时必定要执行的方法。</p>
 <h4 id="逻辑和视图分离"><a href="#逻辑和视图分离" class="headerlink" title="逻辑和视图分离"></a>逻辑和视图分离</h4><p>setContentView()方法，为当前活动引入一个hello_world_layout布局</p>
@@ -86,5 +102,8 @@
 <!-- 由于这里是post的模板,所以page表示的是post的数据-->
         </div>
       </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
     </body>
 </html>

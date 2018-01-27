@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> 贪心算法 </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/简介/">简介</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-01-27
+        </span>
+    </div>
+    <div class="post-content">
+        <p>贪心算法是一种在每一步选择中都采取在当前状态下最好或最优（即最有利）的选择，从而希望导致结果是最好或最优的算法。</p>
+<a id="more"></a>
+<h2 id="贪心算法两个基本要素的证明"><a href="#贪心算法两个基本要素的证明" class="headerlink" title="贪心算法两个基本要素的证明"></a>贪心算法两个基本要素的证明</h2><ol>
+<li>贪心选择性质<br>首先你需要想好要用怎样的贪心策略，按什么样的顺序排列，从大的一边贪心还是小的一边。然后你随意举出问题的一个解，并假设这个解就是问题的最优解。然后如果这个解已经包含了贪心选择策略的第一个元素，则它直接满足贪心选择的最优解。如果不包括的话，你就将这个解中的一个元素替换为从贪心选择开始（也就是以你的贪心选择策略开始的第一个元素）。完了之后证明替换后的这个解也是该问题的一个最优解。这样就证明了问题具有贪心选择性质。</li>
+<li>最优子结构性质<br>将你第一个贪心选择的元素从解集合中去掉。同时将问题的规模缩小，把这个从解集合去掉的元素也从问题的条件中去掉，把它带来的收益或者代价也从问题的限制中去掉。这样问题就缩小为比原问题更小的规模。之后你去证明，这个缩小的解集合是这个缩小的问题的解。这个问题就具有最优子结构性质</li>
+</ol>
+<h2 id="以活动安排为例"><a href="#以活动安排为例" class="headerlink" title="以活动安排为例"></a>以活动安排为例</h2><ol>
+<li>贪心选择性质<br>　 假设E是所有活动<br>　 那么A包含于E，且A是该活动安排问题的一个最优解<br>　 假设A的第一个活动是k<br>　 假设k = 1，那么A就是以贪心选择开始的最优解<br>　 假设k ≠ 1，那么设B = {A-{k}}∪{1} 即把A的第一个选择k去掉换成是1<br>　 在这个情况下 B 的数量等于 A-1+1<br>　 则B也是该问题的一个最优解</li>
+<li>最优子结构性质<br> 假设首先将1加进A中，即活动1是最优解的第一个活动<br>  那么问题就变成了求E中所有与活动1相容的最大子集合<br> 假设A是原问题最优解，那么A’ = A - {1}就是新的问题<br> E’ = {i∈E，si&gt;f1} 即求剩下活动中的最大相容子集的最优解<br>反证法<br> 假设A’不是这个新问题的最优解，这个新问题存在一个最优解B’且B’活动数大于A’<br> 那么B’+{1} = B （B的活动数大于A） 的这个解也会是原问题 E 的最优解<br> 自相矛盾</li>
+</ol>
+<p>另一个例子可以看<br>…背包问题</p>
+<h3 id="贪心选择与动态规划方法的区别"><a href="#贪心选择与动态规划方法的区别" class="headerlink" title="贪心选择与动态规划方法的区别"></a>贪心选择与动态规划方法的区别</h3><p><img src="/2018/01/27/algo-greedy/greedy0.png" width="100%"></p>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
+    </body>
+</html>

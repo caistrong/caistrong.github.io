@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> (动态规划)0-1背包问题 </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-01-27
+        </span>
+    </div>
+    <div class="post-content">
+        <p>自己实现的js动态规划算法01背包问题</p>
+<a id="more"></a>
+<pre><code class="js">//0-1背包问题
+//http://www.hawstein.com/posts/dp-knapsack.html
+
+//helper
+function creat2dArray(rows,columns){
+    let resultArr=new Array(rows)
+    for(let i=0;i&lt;rows;i++){
+        resultArr[i]=new Array(columns)
+    }
+    return resultArr
+}
+
+//n个宝石（先假设n=3）
+// 宝石i     0    1    2
+// 重量w(i)  5    4    3
+// 价值v(i)  20   10   12
+
+//背包的容量为C（假设C=10）
+//选择装进背包的宝石使得（V最大）
+
+//问题的解 x[i]=0表示宝石i不装，=1表示装进去
+
+//定义状态  solution[a][b]
+// 表示前a装到剩余体积为b的背包里能达到的最大价值
+//问题 即为 solution[n][C]
+
+//状态转移(最优子结构)
+//例 当求解solution[3][10]
+//其实在考虑2号宝石要不要装不装入的问题
+//要装入的话 = solution[2][10-w[2]]+v[2]
+//不装入 = solution[2][10]
+//比较大小 选择大的那一部分
+
+//去特殊化
+//在能装入的前提下 if b&gt; w[a-1]
+//solution[a][b] = solution[a-1][10-w[a-1]]+v[a-1] :solution[a-1][b]? 
+//    solution[a-1][10-w[a-1]]+v[a-1] :solution[a-1][b]
+function knapsack(weightArr,valueArr,c){
+    if(!weightArr instanceof Array ||
+       !valueArr instanceof Array) return
+    if(!c) return
+    if(weightArr.length != valueArr.length ) return
+
+    let n = weightArr.length //宝石数量
+
+    var solutionArr = creat2dArray(n+1,c+1)
+
+    for(let i=0;i&lt;=n;i++){
+        for(let j=0;j&lt;=c;j++){
+            solutionArr[i][j] = i==0? 0:solutionArr[i-1][j];
+            //这一步把所有solution都初始为不能装的情况
+            //即求solution[2][10] = solution[0][10]
+            //此时solution[0][10] = 0
+            if(i&gt;0 &amp;&amp; j&gt;=weightArr[i-1]){
+                solutionArr[i][j] = solutionArr[i][j]&gt;solutionArr[i-1][ j-weightArr[i-1] ]+valueArr[i-1]?
+                        solutionArr[i][j]:solutionArr[i-1][ j-weightArr[i-1] ]+valueArr[i-1];
+            } 
+        }
+    }
+
+    console.log(solutionArr[n][c])
+
+    var xArr = new Array(n)
+    var tmpc = c
+    for(let i=n;i&gt;0;i--){
+        //初始是false表示不放
+        xArr[i-1]=false
+        if(solutionArr[i][tmpc]&gt;solutionArr[i-1][tmpc]){
+            xArr[i-1]=true
+            tmpc = tmpc-weightArr[i-1]
+        }
+    }
+    console.log(xArr)
+}
+
+var w = [5,4,3]
+var v = [20,10,12]
+
+knapsack(w,v,10)
+</code></pre>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
+    </body>
+</html>

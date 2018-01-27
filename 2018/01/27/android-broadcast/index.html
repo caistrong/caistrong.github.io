@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">
 </head>
     <body>
@@ -71,20 +73,67 @@
 <p><img src="/2018/01/27/android-broadcast/sysbr3.png" width="100%"></p>
 <p><strong>同时以下代码还使用了获得系统服务的实例</strong></p>
 <p><img src="/2018/01/27/android-broadcast/sysbr4.png" width="100%"></p>
-<p>以下代码需要加在AndroidManifest.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">use-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.ACCESS_NETWORK_STATE"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>以下代码需要加在AndroidManifest.xml</p>
+<pre><code class="xml">&lt;use-permission android:name=&quot;android.permission.ACCESS_NETWORK_STATE&quot;/&gt;
+</code></pre>
 <h4 id="静态注册实现开机启动"><a href="#静态注册实现开机启动" class="headerlink" title="静态注册实现开机启动"></a>静态注册实现开机启动</h4><p><strong>动态注册的不足</strong><br><img src="/2018/01/27/android-broadcast/weakd.png" width="100%"><br>比如说需要实现开机启动就没办法了</p>
 <p><strong>新建一个BroadcastReceiver</strong><br><img src="/2018/01/27/android-broadcast/newbr.png" width="100%"></p>
 <p><strong>在AndroidManifest.xml注册</strong><br><img src="/2018/01/27/android-broadcast/newbrregi.png" width="100%"></p>
-<p>在AndroidManifest.xml中添加权限<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">use-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.RECEIVE_BOOT_COMPLETED"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在AndroidManifest.xml中添加权限</p>
+<pre><code class="xml">&lt;use-permission android:name=&quot;android.permission.RECEIVE_BOOT_COMPLETED&quot;/&gt;
+</code></pre>
 <p>Android系统启动完成后会发出一条值为android.intent.action.BOOT_COMPLETED的广播，我们需要在receiver中用intent-filter来监听这条广播</p>
 <p><img src="/2018/01/27/android-broadcast/recefilter.png" width="100%"></p>
-<h3 id="发送广播"><a href="#发送广播" class="headerlink" title="发送广播"></a>发送广播</h3><h4 id="发送标准广播"><a href="#发送标准广播" class="headerlink" title="发送标准广播"></a>发送标准广播</h4><p><strong>发送前先设置监听器</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyBroadcastReceiver</span> <span class="keyword">extends</span> <span class="title">BroadcastReceiver</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReceive</span><span class="params">(Context context,Intent intent)</span></span>&#123;</span><br><span class="line">        Toast.makeText(context,<span class="string">"received in MyBroadcastReceiver"</span>,Toast.LENGTH_SHORT).show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>静态监听的xml</strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">receiver</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">".MyBroadcastReceiver"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:enabled</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:exported</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"com.example.broadcasttest.MY_BROADCAST"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">receiver</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>发送自定义广播</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">button.setOnClickListener(<span class="keyword">new</span> View.OnClickListener()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span></span>&#123;</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(<span class="string">"com.example.broadcasttest.MY_BROADCAST"</span>);</span><br><span class="line">        sendBroadcast(intent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="发送广播"><a href="#发送广播" class="headerlink" title="发送广播"></a>发送广播</h3><h4 id="发送标准广播"><a href="#发送标准广播" class="headerlink" title="发送标准广播"></a>发送标准广播</h4><p><strong>发送前先设置监听器</strong></p>
+<pre><code class="java">public class MyBroadcastReceiver extends BroadcastReceiver{
+    @Override
+    public void onReceive(Context context,Intent intent){
+        Toast.makeText(context,&quot;received in MyBroadcastReceiver&quot;,Toast.LENGTH_SHORT).show();
+    }
+}
+</code></pre>
+<p><strong>静态监听的xml</strong></p>
+<pre><code class="xml">&lt;receiver
+    android:name=&quot;.MyBroadcastReceiver&quot;
+    android:enabled=&quot;true&quot;
+    android:exported=&quot;true&quot;&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.example.broadcasttest.MY_BROADCAST&quot;&gt;
+    &lt;/intent-filter&gt;
+&lt;/receiver&gt;
+</code></pre>
+<p><strong>发送自定义广播</strong></p>
+<pre><code class="java">button.setOnClickListener(new View.OnClickListener(){
+    @Override
+    public void onClick(View v){
+        Intent intent = new Intent(&quot;com.example.broadcasttest.MY_BROADCAST&quot;);
+        sendBroadcast(intent);
+    }
+});
+</code></pre>
 <p>因为广播是通过intent发送的。所以同时还可以传递数据</p>
-<h4 id="发送有序广播"><a href="#发送有序广播" class="headerlink" title="发送有序广播"></a>发送有序广播</h4><p><strong>也是先创建一个广播接收器</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AnotherBroadcastReceiver</span> <span class="keyword">extends</span> <span class="title">BroadcastReceiver</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReceive</span><span class="params">(Context context,Intent intent)</span></span>&#123;</span><br><span class="line">        Toast.makeText(context,<span class="string">"received in AnotherBroadcastReceiver"</span>,Toast.LENGTH_SHORT).show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>静态监听的xml</strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">receiver</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">".AnotherBroadcastReceiver"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:enabled</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:exported</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"com.example.broadcasttest.MY_BROADCAST"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">receiver</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>发送有序与发送标准广播有不同之处</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent(<span class="string">"com.example.broadcasttest.MY_BROADCAST"</span>);</span><br><span class="line">sendOrderedBroadcast(intent,<span class="keyword">null</span>);</span><br></pre></td></tr></table></figure></p>
+<h4 id="发送有序广播"><a href="#发送有序广播" class="headerlink" title="发送有序广播"></a>发送有序广播</h4><p><strong>也是先创建一个广播接收器</strong></p>
+<pre><code class="java">public class AnotherBroadcastReceiver extends BroadcastReceiver{
+    @Override
+    public void onReceive(Context context,Intent intent){
+        Toast.makeText(context,&quot;received in AnotherBroadcastReceiver&quot;,Toast.LENGTH_SHORT).show();
+    }
+}
+</code></pre>
+<p><strong>静态监听的xml</strong></p>
+<pre><code class="xml">&lt;receiver
+    android:name=&quot;.AnotherBroadcastReceiver&quot;
+    android:enabled=&quot;true&quot;
+    android:exported=&quot;true&quot;&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.example.broadcasttest.MY_BROADCAST&quot;&gt;
+    &lt;/intent-filter&gt;
+&lt;/receiver&gt;
+</code></pre>
+<p><strong>发送有序与发送标准广播有不同之处</strong></p>
+<pre><code class="java">Intent intent = new Intent(&quot;com.example.broadcasttest.MY_BROADCAST&quot;);
+sendOrderedBroadcast(intent,null);
+</code></pre>
 <p>这个时候广播接收器有先后顺序的，而且前面的广播接收器可以将广播截断，阻止他继续传播</p>
 <p><strong>设定广播接收器优先级</strong><br><img src="/2018/01/27/android-broadcast/brpri.png" width="100%"></p>
 <p><strong>截断广播</strong><br><img src="/2018/01/27/android-broadcast/brabort.png" width="100%"></p>
@@ -99,5 +148,8 @@
 <!-- 由于这里是post的模板,所以page表示的是post的数据-->
         </div>
       </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
     </body>
 </html>

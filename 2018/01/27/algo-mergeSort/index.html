@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> (递归分治)归并排序 </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-01-27
+        </span>
+    </div>
+    <div class="post-content">
+        <p>自己实现的js归并排序算法</p>
+<a id="more"></a>
+<pre><code class="js">var a = [34, 203, 3, 746, 200, 984, 198, 764, 9];
+
+function mergeSort(arr){
+    if(! arr instanceof Array) return
+    //这一句是关键
+    //它意味着你必须把数组分到每个数组只有一个值
+    //当arr.length&lt;2就没办法再分成两份了
+    if(arr.length&lt;2) return arr
+
+    let mid = Math.floor(arr.length/2)
+    var leftArr = arr.slice(0,mid)
+    var rightArr = arr.slice(mid)
+    return merge(arguments.callee(leftArr),arguments.callee(rightArr))
+}
+
+//把两个已排好序的数组合成一个数组
+function merge(left,right){
+    //left和rigth是两个已经排好序的数组
+    if(!left instanceof Array || !right instanceof Array) return
+
+    var resultArr = []
+    //当两边数组都还有数字
+    while(left.length &amp;&amp; right.length){
+        //比较两边最小的一个元素
+        if(left[0]&lt;right[0]){
+            resultArr.push(left.shift())
+        }
+        else{
+            resultArr.push(right.shift())
+        }
+    }
+
+    //到最后肯定是只有left剩或者只有right剩不能二者都剩
+    while(left.length){
+        resultArr.push(left.shift())
+    }
+    while(right.length){
+        resultArr.push(right.shift())
+    }
+
+    return resultArr
+}
+
+console.log(mergeSort(a))
+</code></pre>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
+    </body>
+</html>

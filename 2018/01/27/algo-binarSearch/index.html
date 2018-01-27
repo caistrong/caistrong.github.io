@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> (递归分治)二分查找 </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/查找/">查找</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-01-27
+        </span>
+    </div>
+    <div class="post-content">
+        <p>自己实现的js二分查找算法<br><a id="more"></a></p>
+<pre><code class="js">var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+function binarySearch(target, arr, start, end) {
+    if (!target || !(arr instanceof Array)) return;
+
+    var start = typeof start !== &quot;number&quot; ? 0 : start
+    var end = typeof end !== &quot;number&quot; ? arr.length - 1 : end
+    // var start = start || 0
+    // var end = end || arr.length-1
+    //这样的写法会报错，比如查找1，需要start,end都为0，如果end为0时 则会end又变成arr.length-1
+    if (start &gt; end) return -1
+
+    var mid = Math.floor((end + start) / 2)
+    if (target == arr[mid]) return mid
+
+    if (target &gt; arr[mid])  return arguments.callee(target, arr, mid + 1, end)
+    else  return arguments.callee(target, arr, start, mid - 1)
+}
+
+//不存在
+console.log(binarySearch(100, arr))
+
+//存在
+arr.forEach((item) =&gt; {
+    console.log(binarySearch(item, arr))
+})
+</code></pre>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
+    </body>
+</html>

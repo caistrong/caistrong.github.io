@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> (递归分治)快速排序 </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-01-27
+        </span>
+    </div>
+    <div class="post-content">
+        <p>自己实现的js快速排序算法</p>
+<a id="more"></a>
+<h3 id="快排总体思想"><a href="#快排总体思想" class="headerlink" title="快排总体思想"></a>快排总体思想</h3><pre><code class="cpp">template&lt;class Type&gt;
+quickSort(Type a[],int p,int r){
+    if(p&gt;=r) return;
+    q = Partition(a,p,r);
+    QuickSort(a,p,q-1);//对左半段进行排序
+    QuickSort(a,q+1,r);//对右半段进行排序
+}
+</code></pre>
+<ol>
+<li>选择Pivot</li>
+<li>Partition<br>先将数组分为左右两半  左半段小于pivot，右半段大于pivot</li>
+<li>quickSort</li>
+<li>不断重复1，2</li>
+</ol>
+<pre><code class="js">//quickSort in JavaScript By Cai xiao cong
+var a = [10, 20, 30, 40, 100, 1, 2, 3, 9];
+
+function swap(arr, leftIndex, rightIndex) {
+    if (arr[leftIndex] == arr[rightIndex]) return
+    var tmp = arr[leftIndex]
+    arr[leftIndex] = arr[rightIndex]
+    arr[rightIndex] = tmp
+}
+
+
+//partition(arr,start,end)函数的作用是将arr中的数组分成两份小的在左大的在右，并返回pivot
+function partition(arr, startIndex, endIndex) {
+    var pivot = arr[endIndex]
+    //如果pivotIndex不是最后一个，需要先把pivot换到末尾
+    //以下的partition操作需要依赖这个前提条件
+
+    //partitionIndex是最后存放pivot的地方，先初始化为start
+    var partitionIndex = startIndex
+
+    //遍历函数，partitionIndex总是在大于pivot的地方停留等待i遍历到一个小于pivot的地方与其交换
+    //之后partitionIndex继续往前直到下一个大于pivot的地方
+    for (let i = startIndex; i &lt; endIndex; i++) {
+        if (arr[i] &lt; pivot) {
+            swap(arr, partitionIndex, i)
+            partitionIndex++
+        }
+    }
+    //将partitionIndex和pivot所在的endIndex兑换
+    //可以保证partitionIndex前面的都小于pivot,后面都大于pivot
+    swap(arr, partitionIndex, endIndex)
+    return partitionIndex
+}
+
+
+
+//quickSort的作用在于。将arr的start和end之间排好序
+function quickSort(arr, start, end) {
+    if (!arr instanceof Array) return
+
+    //递归出口(如果只剩一个元素则不用排序了)
+    if(end-start&lt;2) return 
+
+    var startIndex = typeof start == &quot;number&quot; ? start : 0,//这个逗号忘了加导致了很多问题
+        endIndex = typeof end == &quot;number&quot; ? end : arr.length - 1,
+        pivotIndex = partition(arr, startIndex, endIndex)
+
+    arguments.callee(arr, startIndex, pivotIndex - 1)
+    arguments.callee(arr, pivotIndex + 1, endIndex)
+
+    return arr
+ }
+
+console.log(quickSort(a))
+</code></pre>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
+    </body>
+</html>

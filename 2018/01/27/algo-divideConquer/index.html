@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> 递归分治策略 </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/简介/">简介</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-01-27
+        </span>
+    </div>
+    <div class="post-content">
+        <p>分治法的思想便是：将一个难以直接解决的大问题，分割成规模较小的相同问题，再解决这些子问题，<br><a id="more"></a></p>
+<h3 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h3><p>递归与分治<br>计算机求解问题所需时间与其规模有关，问题规模越小时越容易处理，以n个元素排序问题为例<br>当n=1根本不用比较，当n=2时要经过一次比较，当n比较大时问题的处理就没那么容易了<br>分治法的思想便是：将一个难以直接解决的大问题，分割成规模较小的相同问题，再解决这些子问题，<br>然后通过子问题的解求解出原问题的解。当子问题是原问题的较小模式时，往往就可以利用递归来解决<br>(归并排序是一个挺典型的例子)</p>
+<h3 id="递归定义"><a href="#递归定义" class="headerlink" title="递归定义"></a>递归定义</h3><p>直接或间接调用自身的算法</p>
+<h4 id="菲波纳茨数列"><a href="#菲波纳茨数列" class="headerlink" title="菲波纳茨数列"></a>菲波纳茨数列</h4><pre><code class="js">int fibonacci(int n){
+  if(n&lt;=1) return 1;
+  return fibonacci(n-1)+fibonacci(n-2)
+}
+</code></pre>
+<h4 id="以Hanoi塔问题来加深递归的解题思路"><a href="#以Hanoi塔问题来加深递归的解题思路" class="headerlink" title="以Hanoi塔问题来加深递归的解题思路"></a>以Hanoi塔问题来加深递归的解题思路</h4><pre><code class="cpp">void hanoi(int n,int a,int b,int c){
+    if(n&gt;0){
+        hanoi(n-1,a,c,b)
+        move(a,b)
+        hanoi(n-1,c,b,a)
+    }
+}
+</code></pre>
+<p>当问题的规模为n时，在写Hanoi问题解的函数时，可以先假设Hanoi函数已经是正确的了，<br>所以hanoi(n,a,b,c)的作用是将n个圆盘从a移到b上去并且这个过程满足Hanoi的游戏规则，c为辅助塔座。当然n要大于0<br>//所以Hanoi函数的具体实现里运用到Hanoi函数的时候要把他当作是已经可行的函数，具有相应的功能。<br>求解n个圆盘的Hanoi问题时可以将n-1个圆盘先从a移动到c,b为辅助塔座，所以运用hanoi(n-1,a,c,b)<br>完了之后将a剩下的最大圆盘移动到b上去，现在情形是a上没有圆盘，b上有一个最大圆盘，c上有n-1个圆盘<br>此时再将这n-1个圆盘从c移动到b，a为辅助塔座即可完成任务，则运用Hanoi(n-1,c,b,a)。完成！</p>
+<p><strong>一些技巧</strong><br>在使用递归的思想时，调用自身函数的时候无需去考虑自身函数的实现，应当成自身函数是正确的来进行调用，<br>你只需要把问题规模为n的函数写正确，自然而然你调用自身时解决的n-1规模的问题是正确的，同时应注意递归出口。<br>汉诺塔问题的递归出口是当问题的规模n小于等于0时，并且每一次调用自身时问题的规模都会是当前问题的规模减一(n-1),就这样逐步去接近递归出口</p>
+<h3 id="尾递归"><a href="#尾递归" class="headerlink" title="尾递归"></a>尾递归</h3><p>//关于递归性能的优化可以考虑使用尾递归</p>
+<p>//尾调用是指在函数的最后一步调用另一个函数，尾递归则是指最后一步调用的这个函数是自身</p>
+<p><a href="http://www.jianshu.com/p/2fef7fa486d4" target="_blank" rel="noopener">尾递归参考1</a><br><a href="https://flyyang.github.io/2017/07/24/JavaScript-%E4%B8%AD%E7%9A%84%E5%B0%BE%E8%B0%83%E7%94%A8%E4%BC%98%E5%8C%96%EF%BC%88tail-call-optimization%EF%BC%89/" target="_blank" rel="noopener">尾递归参考2</a><br><a href="http://www.ruanyifeng.com/blog/2015/04/tail-call.html" target="_blank" rel="noopener">尾递归参考3</a><br>尾调用之所以与其他调用不同，就在于它的特殊的调用位置。<br>我们知道，函数调用会在内存形成一个“调用记录”，又称“调用帧”（call frame），保存调用位置和内部变量等信息。如果在函数A的内部调用函数B，那么在A的调用帧上方，还会形成一个B的调用帧。等到B运行结束，将结果返回到A，B的调用帧才会消失。如果函数B内部还调用函数C，那就还有一个C的调用帧，以此类推。所有的调用帧，就形成一个“调用栈”（call stack）。<br>尾调用由于是函数的最后一步操作，所以不需要保留外层函数的调用帧，因为调用位置、内部变量等信息都不会再用到了，只要直接用内层函数的调用帧，取代外层函数的调用帧就可以了。</p>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
+    </body>
+</html>

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">
 </head>
     <body>
@@ -72,30 +74,137 @@
 <li>AlertDiag</li>
 <li>…</li>
 </ul>
-<p>在Activity相应的layout.xml文件里引用诸如<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">"@+id/text_view"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"mactch_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:gravity</span>=<span class="string">"center"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:textSize</span>=<span class="string">"24sp"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:textColor</span>=<span class="string">"#00ff00"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:text</span>=<span class="string">"This is TextView"</span></span></span><br><span class="line"><span class="tag">   /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在Activity相应的layout.xml文件里引用诸如</p>
+<pre><code class="xml">&lt;TextView
+    android:id=&quot;@+id/text_view&quot;
+    android:layout_width=&quot;mactch_parent&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:gravity=&quot;center&quot;
+    android:textSize=&quot;24sp&quot;
+    android:textColor=&quot;#00ff00&quot;
+    android:text=&quot;This is TextView&quot;
+   /&gt;
+</code></pre>
 <p><em>安卓没有像前端的css技术来决定内容的布局和样式，通过给xml添加attr来实现</em></p>
 <p>其余的控件也是大致的方式使用，就不一一介绍了</p>
 <h3 id="两种实现事件监听的方法"><a href="#两种实现事件监听的方法" class="headerlink" title="两种实现事件监听的方法"></a>两种实现事件监听的方法</h3><ol>
-<li><p>匿名类方式注册监听器</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        Button button = (Button) findViewById(R.id.button);</span><br><span class="line">        button.setOnClickListener(<span class="keyword">new</span> View.OnClickListener()&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span></span>&#123;</span><br><span class="line">                <span class="comment">//在此处添加逻辑</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>匿名类方式注册监听器<pre><code class="java">public class MainActivity extends AppCompatActivity{
+ @Override
+ protected void onCreate(Bundle savedInstanceState){
+     super.onCreate(savedInstanceState);
+     setContentView(R.layout.activity_main);
+     Button button = (Button) findViewById(R.id.button);
+     button.setOnClickListener(new View.OnClickListener(){
+         @Override
+         public void onClick(View v){
+             //在此处添加逻辑
+         }
+     })
+ }
+}
+</code></pre>
 </li>
-<li><p>实现接口方式注册监听器</p>
-</li>
+<li>实现接口方式注册监听器</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title">View</span>.<span class="title">OnClickListener</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        Button button = (Button) findViewById(R.id.button);</span><br><span class="line">        button.setOnClickListener(<span class="keyword">this</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span></span>&#123;</span><br><span class="line">        swith(v.getId())&#123;</span><br><span class="line">            <span class="keyword">case</span> R.id.button:</span><br><span class="line">                <span class="comment">// 在此处添加逻辑</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Button button = (Button) findViewById(R.id.button);
+        button.setOnClickListener(this)
+    }
+
+    @Override
+    public void onClick(View v){
+        swith(v.getId()){
+            case R.id.button:
+                // 在此处添加逻辑
+                break;
+            default:
+                break;
+        }
+    }
+
+}
+</code></pre>
 <p><em>后面一种方法有点类似前端中的事件委托</em></p>
-<h3 id="Menu"><a href="#Menu" class="headerlink" title="Menu"></a>Menu</h3><p>在res目录下新建menu文件夹，然后新建一个menu.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">menu</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/add_item"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:title</span>=<span class="string">"Add"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/remove_item"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:title</span>=<span class="string">"Remove"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">menu</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Menu"><a href="#Menu" class="headerlink" title="Menu"></a>Menu</h3><p>在res目录下新建menu文件夹，然后新建一个menu.xml</p>
+<pre><code class="xml">&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+    &lt;item
+        android:id=&quot;@+id/add_item&quot;
+        android:title=&quot;Add&quot;/&gt;
+    &lt;item
+        android:id=&quot;@+id/remove_item&quot;
+        android:title=&quot;Remove&quot;/&gt;
+&lt;/menu&gt;
+</code></pre>
 <p>item里面可以在<item>和</item>中间插入menu创建二级菜单<br>在需要引入这个目录的activity.java里<br>重写onCreateOptinosMenu()</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onCreateOptionsMenu</span><span class="params">(Menu menu)</span></span>&#123;</span><br><span class="line">    getMenuInflater().inflate(R.menu.main,menu);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">@Override
+public boolean onCreateOptionsMenu(Menu menu){
+    getMenuInflater().inflate(R.menu.main,menu);
+    return true
+}
+</code></pre>
 <p>又重写onOptionsItemSelected(MenuItem item)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onOptionsItemSelected</span><span class="params">(MenuItem item)</span></span>&#123;</span><br><span class="line">    <span class="keyword">switch</span>(item.getItemId())&#123;</span><br><span class="line">        <span class="keyword">case</span> R.id.add_item:</span><br><span class="line">            Toast.makeText(<span class="keyword">this</span>,<span class="string">"You click Add"</span>,Toast.LENGTH_SHORT).show();</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> R.id.remove_item:</span><br><span class="line">            Toast.makeText(<span class="keyword">this</span>,<span class="string">"You click Remove"</span>,Toast.LENGTH_SHORT).show();</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">public boolean onOptionsItemSelected(MenuItem item){
+    switch(item.getItemId()){
+        case R.id.add_item:
+            Toast.makeText(this,&quot;You click Add&quot;,Toast.LENGTH_SHORT).show();
+            break;
+        case R.id.remove_item:
+            Toast.makeText(this,&quot;You click Remove&quot;,Toast.LENGTH_SHORT).show();
+            break;
+    }
+}
+</code></pre>
 <p>除了OptionsMenu(按点击按钮，属于一整个Activity)还有ContextMenu（长按View）、PopupMenu（可以添加在任何事件里，用.show()弹出）</p>
 <h3 id="安卓控件的可见属性"><a href="#安卓控件的可见属性" class="headerlink" title="安卓控件的可见属性"></a>安卓控件的可见属性</h3><p>android:visibility= visible | invisible | gone<br>visible:表示控件是可见的<br>invisible:表示控件不可见，但是它仍然占据着原来的位置和大小<br>gone:控件不仅不可及，而且不再占用任何屏幕空间<br>setVisibility():可传入View.VISIBLE、View.INVISIBLE和View.GONE</p>
 <h2 id="4种基本布局"><a href="#4种基本布局" class="headerlink" title="4种基本布局"></a>4种基本布局</h2><h3 id="线性布局LinearLayout"><a href="#线性布局LinearLayout" class="headerlink" title="线性布局LinearLayout"></a>线性布局LinearLayout</h3><p>会将它所包含的控件在线性方向上依次排列<br>通过android:orientation=” vertical(默认) | horizontal “</p>
 <p>android:layout_gravity:指定控件在布局(父控件)中的对齐方式<br>可选值和gravity差不多 也是 top | bottom | left | right | center | center_horizontal | center_vertical<br>(android:gravity:指定文字在控件中的对齐方式)</p>
-<p>当LinearLayout的排列方式是horizontal时，只有垂直方向上的对齐方式才会生效，因为此时水平方向上的长度是不固定的，每添加一个控件，水平方向上的长度都会改变，因而无法指定该方向的对齐方式(下面一个例子)<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span>        <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>    <span class="attr">android:orientation</span>=<span class="string">"horizontal"</span></span></span><br><span class="line"><span class="tag"><span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag"><span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/button1"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_gravity</span>=<span class="string">"top"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"Button 1"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/button2"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_gravity</span>=<span class="string">"center_vertical"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"Button 2"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/button3"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_gravity</span>=<span class="string">"bottom"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"Button 3"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>当LinearLayout的排列方式是horizontal时，只有垂直方向上的对齐方式才会生效，因为此时水平方向上的长度是不固定的，每添加一个控件，水平方向上的长度都会改变，因而无法指定该方向的对齐方式(下面一个例子)</p>
+<pre><code class="xml">&lt;LinearLayout        xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;    android:orientation=&quot;horizontal&quot;
+android:layout_width=&quot;match_parent&quot;
+android:layout_height=&quot;match_parent&quot;&gt;
+    &lt;Button
+        android:id=&quot;@+id/button1&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_gravity=&quot;top&quot;
+        android:text=&quot;Button 1&quot;/&gt;
+    &lt;Button
+        android:id=&quot;@+id/button2&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_gravity=&quot;center_vertical&quot;
+        android:text=&quot;Button 2&quot;/&gt;
+    &lt;Button
+        android:id=&quot;@+id/button3&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_gravity=&quot;bottom&quot;
+        android:text=&quot;Button 3&quot;/&gt;
+&lt;/LinearLayout&gt;
+</code></pre>
 <p>以上代码的效果如图<br><img src="/2018/01/26/android-ui/linearlayoutResult.png" width="100%"></p>
-<p>另一个重要属性android:layout_weight<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span>        <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>    <span class="attr">android:orientation</span>=<span class="string">"horizontal"</span></span></span><br><span class="line"><span class="tag"><span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag"><span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">EditText</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/input_message"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"0dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_weight</span>=<span class="string">"1"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"Type Something"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/send"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"0dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_weight</span>=<span class="string">"1"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"Send"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>另一个重要属性android:layout_weight</p>
+<pre><code class="xml">&lt;LinearLayout        xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;    android:orientation=&quot;horizontal&quot;
+android:layout_width=&quot;match_parent&quot;
+android:layout_height=&quot;match_parent&quot;&gt;
+    &lt;EditText
+        android:id=&quot;@+id/input_message&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_weight=&quot;1&quot;
+        android:text=&quot;Type Something&quot;/&gt;
+    &lt;Button
+        android:id=&quot;@+id/send&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_weight=&quot;1&quot;
+        android:text=&quot;Send&quot;/&gt;
+&lt;/LinearLayout&gt;
+</code></pre>
 <p>以上代码效果如图<br><img src="/2018/01/26/android-ui/linearlayoutResult2.png" width="100%"></p>
 <p><strong>使用了android:layout_weight之后控件的宽度不再由android:layout_width决定</strong></p>
 <h3 id="相对布局RelativeLayout"><a href="#相对布局RelativeLayout" class="headerlink" title="相对布局RelativeLayout"></a>相对布局RelativeLayout</h3><p>它通过相对定位的方式让控件出现在布局的任何位置。也正因如此，RelativeLayout中的属性非常多，但都是有规律可循的</p>
@@ -114,30 +223,124 @@
 <li>layout_toLeftOf</li>
 <li>layout_toRightOf</li>
 </ul>
-<h3 id="帧布局FrameLayout"><a href="#帧布局FrameLayout" class="headerlink" title="帧布局FrameLayout"></a>帧布局FrameLayout</h3><p>所有的控件都默认摆放在布局的左上角<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">FrameLayout</span>        <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>    </span></span><br><span class="line"><span class="tag"><span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag"><span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/text_view"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"This is TextView"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ImageView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/image_view"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"@mipmap/ic_launcher"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">FrameLayout</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="帧布局FrameLayout"><a href="#帧布局FrameLayout" class="headerlink" title="帧布局FrameLayout"></a>帧布局FrameLayout</h3><p>所有的控件都默认摆放在布局的左上角</p>
+<pre><code class="xml">&lt;FrameLayout        xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;    
+android:layout_width=&quot;match_parent&quot;
+android:layout_height=&quot;match_parent&quot;&gt;
+    &lt;TextView
+        android:id=&quot;@+id/text_view&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:text=&quot;This is TextView&quot;/&gt;
+    &lt;ImageView
+        android:id=&quot;@+id/image_view&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:text=&quot;@mipmap/ic_launcher&quot;/&gt;
+&lt;/FrameLayout&gt;
+</code></pre>
 <p>以上代码效果如图<br><img src="/2018/01/26/android-ui/framelayoutResult.png" width="100%"></p>
 <h3 id="百分比布局"><a href="#百分比布局" class="headerlink" title="百分比布局"></a>百分比布局</h3><p>…有点麻烦不想写了</p>
 <h2 id="自定义控件的方法"><a href="#自定义控件的方法" class="headerlink" title="自定义控件的方法"></a>自定义控件的方法</h2><p><em>在常见的MVVM框架中，我们也经常写一些自定义组件</em></p>
 <p>目标: 创建一个自定义标题栏，两个Button和一个TextView,在布局中摆好</p>
 <ol>
-<li>引入布局<br><em>例如Vue里面的组件也要有template</em><br>新建一个布局title.xml<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span>        <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag"><span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag"><span class="attr">android:layout_height</span>=<span class="string">"wrap_parent"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- LinearLayout的默认布局为Verticle --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/title_back"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_gravity</span>=<span class="string">"center"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_margin</span>=<span class="string">"5dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:backgroud</span>=<span class="string">"@drawable/back_bg"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"Back"</span>        <span class="attr">android:textColor</span>=<span class="string">"#fff"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/title_text"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"0dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_gravity</span>=<span class="string">"center"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_weight</span>=<span class="string">"1"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:gravity</span>=<span class="string">"center"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:textColor</span>=<span class="string">"#fff"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:textSize</span>=<span class="string">"24sp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"Title_Text"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- layout_gravity则是垂直于Liner方向上的对齐方式 --&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- gravity则是平行于Liner方向上的对齐方式 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/title_edit"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_margin</span>=<span class="string">"5dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_gravity</span>=<span class="string">"center"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:backgroud</span>=<span class="string">"@drawable/edit_bg"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:textColor</span>=<span class="string">"#fff"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"Edit"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
+<li>引入布局<br><em>例如Vue里面的组件也要有template</em><br>新建一个布局title.xml<pre><code class="xml">&lt;LinearLayout        xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+android:layout_width=&quot;match_parent&quot;
+android:layout_height=&quot;wrap_parent&quot;&gt;
+&lt;!-- LinearLayout的默认布局为Verticle --&gt;
+ &lt;Button
+     android:id=&quot;@+id/title_back&quot;
+     android:layout_width=&quot;wrap_content&quot;
+     android:layout_height=&quot;wrap_content&quot;
+     android:layout_gravity=&quot;center&quot;
+     android:layout_margin=&quot;5dp&quot;
+     android:backgroud=&quot;@drawable/back_bg&quot;
+     android:text=&quot;Back&quot;        android:textColor=&quot;#fff&quot;/&gt;
+ &lt;TextView
+     android:id=&quot;@+id/title_text&quot;
+     android:layout_width=&quot;0dp&quot;
+     android:layout_height=&quot;wrap_content&quot;
+     android:layout_gravity=&quot;center&quot;
+     android:layout_weight=&quot;1&quot;
+     android:gravity=&quot;center&quot;
+     android:textColor=&quot;#fff&quot;
+     android:textSize=&quot;24sp&quot;
+     android:text=&quot;Title_Text&quot;/&gt;
+     &lt;!-- layout_gravity则是垂直于Liner方向上的对齐方式 --&gt;
+     &lt;!-- gravity则是平行于Liner方向上的对齐方式 --&gt;
+ &lt;Button
+     android:id=&quot;@+id/title_edit&quot;
+     android:layout_width=&quot;wrap_content&quot;
+     android:layout_height=&quot;wrap_content&quot;
+     android:layout_margin=&quot;5dp&quot;
+     android:layout_gravity=&quot;center&quot;
+     android:backgroud=&quot;@drawable/edit_bg&quot;
+     android:textColor=&quot;#fff&quot;
+     android:text=&quot;Edit&quot;/&gt;
+&lt;/LinearLayout&gt;
+</code></pre>
+<strong>引入这个布局</strong><pre><code class="xml">&lt;LinearLayout        xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+android:layout_width=&quot;match_parent&quot;
+android:layout_height=&quot;wrap_parent&quot;&gt;
+&lt;!-- LinearLayout的默认布局为Verticle --&gt;
+ &lt;include layout=&quot;@layout/title&quot;&gt;
+&lt;/LinearLayout&gt;
+</code></pre>
+如上这样子引入布局没办法引入java也就没办法为控件添加响应事件等，下面会提到引入Java的方法</li>
 </ol>
-<p><strong>引入这个布局</strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span>        <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag"><span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag"><span class="attr">android:layout_height</span>=<span class="string">"wrap_parent"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- LinearLayout的默认布局为Verticle --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">include</span> <span class="attr">layout</span>=<span class="string">"@layout/title"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>如上这样子引入布局没办法引入java也就没办法为控件添加响应事件等，下面会提到引入Java的方法</p>
-<p><strong>隐藏掉系统自带的标题栏</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        ActionBar actionBar = getSupportActionBar();</span><br><span class="line">        <span class="keyword">if</span>(actionBar != <span class="keyword">null</span>)&#123;</span><br><span class="line">            actionBar.hide();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>隐藏掉系统自带的标题栏</strong></p>
+<pre><code class="java">public class MainActivity extends AppCompatActivity{
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null){
+            actionBar.hide();
+        }
+    }
+}
+</code></pre>
 <ol>
 <li>为自定义控件添加事件监听代码</li>
 </ol>
 <p><em>Vue里通过v:on一些methods里的函数</em></p>
-<p>新建TitleLayout继承自LinearLayout，让它成为我们自定义的标题栏控件，同时<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TitleLayout</span> <span class="keyword">extends</span> <span class="title">LinearLayout</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TitleLayout</span><span class="params">(Context context ,AttributeSet attrs)</span></span>&#123;</span><br><span class="line">        LayoutInflater.from(context).inflate(R.layout.title,<span class="keyword">this</span>);</span><br><span class="line">        Button titleBack = (Button) findViewById(R.id.title_back);</span><br><span class="line">        Button titleEdit = (Button) findViewById(R.id.title_edit);</span><br><span class="line">        titleBack.setOnClickListener(<span class="keyword">new</span> OnClickListener()&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span></span>&#123;</span><br><span class="line">                ((Activity) getContext()).finish();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        titleEdit.setOnClickListener(<span class="keyword">new</span> OnClickListener()&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span></span>&#123;</span><br><span class="line">               Toast.makeText(getContext(),<span class="string">"You click Edit Button"</span>,Toast.LENGTH_SHORT).show();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>新建TitleLayout继承自LinearLayout，让它成为我们自定义的标题栏控件，同时</p>
+<pre><code class="java">public class TitleLayout extends LinearLayout{
+    public TitleLayout(Context context ,AttributeSet attrs){
+        LayoutInflater.from(context).inflate(R.layout.title,this);
+        Button titleBack = (Button) findViewById(R.id.title_back);
+        Button titleEdit = (Button) findViewById(R.id.title_edit);
+        titleBack.setOnClickListener(new OnClickListener(){
+            @Override
+            public void onClick(View v){
+                ((Activity) getContext()).finish();
+            }
+        });
+        titleEdit.setOnClickListener(new OnClickListener(){
+            @Override
+            public void onClick(View v){
+               Toast.makeText(getContext(),&quot;You click Edit Button&quot;,Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+}
+</code></pre>
 <p>这里用了LayoutInflater的from()可以构建一个LayouInflater对象，然后调用inflate()方法可以动态加载一个布局文件。</p>
 <p>现在自定义控件已经创建好了.</p>
 <ol>
 <li>使用控件</li>
 </ol>
 <p>然后我们需要在布局文件中添加这个自定义控件，修改activity_main.xml中的代码。如下</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span>        <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag"><span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag"><span class="attr">android:layout_height</span>=<span class="string">"wrap_parent"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- LinearLayout的默认布局为Verticle --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">me.caistrong.uicustomviews.TitleLayout</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">“match_parent”</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">“wrap_content”/</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="xml">&lt;LinearLayout        xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+android:layout_width=&quot;match_parent&quot;
+android:layout_height=&quot;wrap_parent&quot;&gt;
+&lt;!-- LinearLayout的默认布局为Verticle --&gt;
+    &lt;me.caistrong.uicustomviews.TitleLayout
+        android:layout_width=“match_parent”
+        android:layout_height=“wrap_content”/&gt;
+&lt;/LinearLayout&gt;
+</code></pre>
 <p>添加自定义控件和添加普通控件的方式基本一样，不同之处在于添加自定义控件的时候我们需要指定控件的完整类名，包名在这里不可省略</p>
 
     </div>
@@ -146,5 +349,8 @@
 <!-- 由于这里是post的模板,所以page表示的是post的数据-->
         </div>
       </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
     </body>
 </html>
