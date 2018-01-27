@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> 安卓3种数据持久化方式 </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/指南/">指南</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-01-27
+        </span>
+    </div>
+    <div class="post-content">
+        <p>Android系统中提供了3种方式用于简单地实现数据持久化，分别是 文件存储、SharedPreferences存储<br>、SQLite数据库存储</p>
+<a id="more"></a>
+<h3 id="文件存储"><a href="#文件存储" class="headerlink" title="文件存储"></a>文件存储</h3><h4 id="存"><a href="#存" class="headerlink" title="存"></a>存</h4><p><strong>简介</strong><br><img src="/2018/01/27/android-localdata/fileintro.png" width="100%"></p>
+<p><strong>文件存储示例</strong><br><img src="/2018/01/27/android-localdata/file1.png" width="100%"></p>
+<p><strong>以上代码解释</strong><br><img src="/2018/01/27/android-localdata/file2.png" width="100%"></p>
+<h4 id="取"><a href="#取" class="headerlink" title="取"></a>取</h4><p><strong>简介</strong><br><img src="/2018/01/27/android-localdata/file3.png" width="100%"><br><strong>从文件中读取数据示例</strong><br><img src="/2018/01/27/android-localdata/file4.png" width="100%"><br><strong>以上代码的解释</strong><br><img src="/2018/01/27/android-localdata/file5.png" width="100%"></p>
+<h3 id="SharedPreferences存储"><a href="#SharedPreferences存储" class="headerlink" title="SharedPreferences存储"></a>SharedPreferences存储</h3><p><em>感觉和web浏览器的localStroage类似</em></p>
+<p><strong>简介</strong><br><img src="/2018/01/27/android-localdata/sp0.png" width="100%"></p>
+<h4 id="Android中提供了3种方法来用于得到SharedPreferences对象"><a href="#Android中提供了3种方法来用于得到SharedPreferences对象" class="headerlink" title="Android中提供了3种方法来用于得到SharedPreferences对象"></a>Android中提供了3种方法来用于得到SharedPreferences对象</h4><p><img src="/2018/01/27/android-localdata/sp1.png" width="100%"></p>
+<p><strong>第一种方法来存储数据到SharedPreferences</strong><br><img src="/2018/01/27/android-localdata/sp2.png" width="100%"></p>
+<p><strong>SharedPreferences是使用XML格式来对数据进行管理的</strong><br><img src="/2018/01/27/android-localdata/sp3.png" width="100%"></p>
+<p><strong>存储完之后从SharedPreferences中读取数据</strong><br><img src="/2018/01/27/android-localdata/sp4.png" width="100%"></p>
+<p><strong>对以上代码的解释</strong><br><img src="/2018/01/27/android-localdata/sp5.png" width="100%"></p>
+<p>可使用SharedPreferences来实现记住密码的功能</p>
+<h3 id="SQLite数据库存储"><a href="#SQLite数据库存储" class="headerlink" title="SQLite数据库存储"></a>SQLite数据库存储</h3><h4 id="安卓为什么需要一个本地的关系型数据库？"><a href="#安卓为什么需要一个本地的关系型数据库？" class="headerlink" title="安卓为什么需要一个本地的关系型数据库？"></a>安卓为什么需要一个本地的关系型数据库？</h4><p><img src="/2018/01/27/android-localdata/sqlite0.png" width="100%"></p>
+<h4 id="安卓的SQLiteOpenHelper帮助类"><a href="#安卓的SQLiteOpenHelper帮助类" class="headerlink" title="安卓的SQLiteOpenHelper帮助类"></a>安卓的SQLiteOpenHelper帮助类</h4><p><strong>一些理论知识</strong><br><img src="/2018/01/27/android-localdata/sqlite1.png" width="100%"><br><strong>首先建立一个MyDatabaseHelper类去继承SQLiteOpenHelper（我们必须有自己的帮助类）</strong><br><img src="/2018/01/27/android-localdata/sqlite2.png" width="100%"><br>在onCreate()方法中调用了execSQL()这样能保证在数据库创建完成的同时还能成功创建Book表<br><strong>调用创建数据库的方法</strong><br><img src="/2018/01/27/android-localdata/sqlite3.png" width="100%"><br>关键的代码是使用<br>private MyDatabaseHelper dbHelper<br>得到一个实例<br>然后调用构造函数<br>new MyDatabaseHelper(this,”BookStore.db”,null,1)<br>来构造这个实例<br>然后再用这个实例使用相应的实例方法dbHelper.getWritableDatabase()</p>
+<p><strong>升级数据库</strong><br>//比如想往数据库再新增一张表<br>修改MyDatabaseHelper（加粗是修改的内容）<br><img src="/2018/01/27/android-localdata/sqlite4.png" width="100%"></p>
+<p><strong>以上代码的解释</strong><br><img src="/2018/01/27/android-localdata/sqlite5.png" width="100%"></p>
+<p>修改完MyDatabaseHelper之后就是想办法让onUpgrade()方法执行了<br><img src="/2018/01/27/android-localdata/sqlite6.png" width="100%"><br><strong>关键点:</strong>数据库版本号是2，这时候就会new这个操作就会调用onUpgrade()</p>
+<p><strong>添加数据</strong><br><img src="/2018/01/27/android-localdata/sqlite7.png" width="100%"></p>
+<h4 id="SQLiteDatabase中提供了insert-update-delete-query"><a href="#SQLiteDatabase中提供了insert-update-delete-query" class="headerlink" title="SQLiteDatabase中提供了insert()update()delete()query()"></a>SQLiteDatabase中提供了insert()update()delete()query()</h4><h5 id="insert"><a href="#insert" class="headerlink" title="insert()"></a>insert()</h5><p><img src="/2018/01/27/android-localdata/sqlite8.png" width="100%"></p>
+<p><strong>以上代码的解释</strong><br><img src="/2018/01/27/android-localdata/sqlite9.png" width="100%"></p>
+<h5 id="update"><a href="#update" class="headerlink" title="update()"></a>update()</h5><p><img src="/2018/01/27/android-localdata/sqlite10.png" width="100%"></p>
+<p><strong>以上代码的解释</strong><br><img src="/2018/01/27/android-localdata/sqlite11.png" width="100%"></p>
+<h5 id="delete"><a href="#delete" class="headerlink" title="delete()"></a>delete()</h5><p><img src="/2018/01/27/android-localdata/sqlite12.png" width="100%"><br><strong>以上代码的解释</strong><br><img src="/2018/01/27/android-localdata/sqlite13.png" width="100%"></p>
+<h5 id="query"><a href="#query" class="headerlink" title="query()"></a>query()</h5><p><img src="/2018/01/27/android-localdata/sqlite14.png" width="100%"><br><strong>query示例</strong><br><img src="/2018/01/27/android-localdata/sqlite15.png" width="100%"><br><strong>以上代码的解释</strong><br><img src="/2018/01/27/android-localdata/sqlite16.png" width="100%"></p>
+<h4 id="使用LitePal操作数据库"><a href="#使用LitePal操作数据库" class="headerlink" title="使用LitePal操作数据库"></a>使用LitePal操作数据库</h4><p>LitePal是一款开源的Android数据库框架，采用了ORM的模式</p>
+<p><em>突然感觉这里的ORM，和在前端里的DOM两种的思想有某种相似之处</em></p>
+<p><em>对于ORM而言，O是Object,而R是relational,M是Mapping<br>Java应用程序需要和SQL数据库进行交互，无奈Java应用程序是用Java面向对象的思想来写的，而数据库是根据SQL结构化语言来写的，我们在这里做了一层Mapping，让我们用JAVA面向对象的方式来操作数据库</em></p>
+<p><em>对于DOM而言，D是Document,而O是Object ,M是Model<br>在Web中，文档的内容是用HTML标签来表示的，而文档的逻辑是用JavaScript来实现的，我们把一个HTML标签对应地实现它相应的一个JavaScript Object（将HTML的attribute映射为object的key等等）我们可以用JavaScript来动态地修改HTML标签等等</em></p>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+    </body>
+</html>
