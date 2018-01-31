@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> HTML-web语义化 </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/HTML/">HTML</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语义化/">语义化</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-01-30
+        </span>
+    </div>
+    <div class="post-content">
+        <p>语义化，指对文本内容的结构化（内容语义化），选择合乎语义的标签（代码语义化），便于开发者阅读，维护和写出更优雅的代码的同时，让浏览器的爬虫和辅助技术更好的解析（帮助机器读懂web内容）。<br><a id="more"></a></p>
+<h2 id="代码相关"><a href="#代码相关" class="headerlink" title="代码相关"></a>代码相关</h2><pre><code class="html">&lt;!-- 来自MDN上的一段示例 --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+
+    &lt;title&gt;My page title&lt;/title&gt;
+    &lt;link href=&quot;https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Sonsie+One&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
+
+    &lt;!-- the below three lines are a fix to get HTML5 semantic elements working in old versions of Internet Explorer--&gt;
+    &lt;!--[if lt IE 9]&gt;
+      &lt;script src=&quot;http://html5shiv.googlecode.com/svn/trunk/html5.js&quot;&gt;&lt;/script&gt;
+    &lt;![endif]--&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    &lt;!-- Here is our main header that is used accross all the pages of our website --&gt;
+
+    &lt;header&gt;
+      &lt;h1&gt;Header&lt;/h1&gt;
+    &lt;/header&gt;
+
+    &lt;nav&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Our team&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Projects&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Contact&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+
+       &lt;!-- A Search form is another commmon non-linear way to navigate through a website. --&gt;
+
+       &lt;form&gt;
+         &lt;input type=&quot;search&quot; name=&quot;q&quot; placeholder=&quot;Search query&quot;&gt;
+         &lt;input type=&quot;submit&quot; value=&quot;Go!&quot;&gt;
+       &lt;/form&gt;
+     &lt;/nav&gt;
+
+    &lt;!-- Here is our page&#39;s main content --&gt;
+    &lt;main&gt;
+
+      &lt;!-- It contains an article --&gt;
+      &lt;article&gt;
+        &lt;h2&gt;Article heading&lt;/h2&gt;
+
+        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Donec a diam lectus. Set sit amet ipsum mauris. Maecenas congue ligula as quam viverra nec consectetur ant hendrerit. Donec et mollis dolor. Praesent et diam eget libero egestas mattis sit amet vitae augue. Nam tincidunt congue enim, ut porta lorem lacinia consectetur.&lt;/p&gt;
+
+        &lt;h3&gt;subsection&lt;/h3&gt;
+
+        &lt;p&gt;Donec ut librero sed accu vehicula ultricies a non tortor. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aenean ut gravida lorem. Ut turpis felis, pulvinar a semper sed, adipiscing id dolor.&lt;/p&gt;
+
+        &lt;p&gt;Pelientesque auctor nisi id magna consequat sagittis. Curabitur dapibus, enim sit amet elit pharetra tincidunt feugiat nist imperdiet. Ut convallis libero in urna ultrices accumsan. Donec sed odio eros.&lt;/p&gt;
+
+        &lt;h3&gt;Another subsection&lt;/h3&gt;
+
+        &lt;p&gt;Donec viverra mi quis quam pulvinar at malesuada arcu rhoncus. Cum soclis natoque penatibus et manis dis parturient montes, nascetur ridiculus mus. In rutrum accumsan ultricies. Mauris vitae nisi at sem facilisis semper ac in est.&lt;/p&gt;
+
+        &lt;p&gt;Vivamus fermentum semper porta. Nunc diam velit, adipscing ut tristique vitae sagittis vel odio. Maecenas convallis ullamcorper ultricied. Curabitur ornare, ligula semper consectetur sagittis, nisi diam iaculis velit, is fringille sem nunc vet mi.&lt;/p&gt;
+      &lt;/article&gt;
+
+      &lt;!-- the aside content can also be nested within the main content --&gt;
+      &lt;aside&gt;
+        &lt;h2&gt;Related&lt;/h2&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Oh I do like to be beside the seaside&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Oh I do like to be beside the sea&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Although in the North of England&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;It never stops raining&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Oh well...&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/aside&gt;
+
+    &lt;/main&gt;
+
+    &lt;!-- And here is our main footer that is used across all the pages of our website --&gt;
+
+    &lt;footer&gt;
+      &lt;p&gt;©Copyright 2050 by nobody. All rights reversed.&lt;/p&gt;
+    &lt;/footer&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>以上代码对应以下网站<br><img src="/2018/01/30/html-semantic/semantic-web.png" width="100%"></p>
+<p><strong>以上代码与具体网站的对应直观地展示了一部分HTML5新标签的语义</strong></p>
+<h2 id="语义化的重点"><a href="#语义化的重点" class="headerlink" title="语义化的重点"></a>语义化的重点</h2><p>语义化标签说白了就是我们要用具有一定语义的标签来代替无语义的标签。web语义化是HTML5标准的一大目标。在HTML5之前我们表示网站结构可能会使用类似以下</p>
+<pre><code class="html">&lt;div class=&quot;navbar&quot;&gt;&lt;/div&gt;
+</code></pre>
+<p>来表示网站的导航栏结构<br>自从HTML5新增了<code>&lt;nav&gt;</code>标签后。我们就可以使用</p>
+<pre><code class="html">&lt;nav&gt;&lt;/nav&gt;
+</code></pre>
+<p>来包裹网站的导航栏。<br>nav相比于div来说是具有语义的，这会使人类更容易阅读代码，但是更重要的意义在于帮助机器来理解文档。作为优秀的程序员，应该找到最符合语义的标签来编写HTML文档。同时不能纯粹为了显示一些样式而使用<code>&lt;b&gt; &lt;em&gt; &lt;strong&gt; &lt;i&gt; &lt;u&gt;</code>等一些标签。样式应该交给CSS去做。具体不同标签的语义可以参考下面的一些文档</p>
+<h3 id="一些参考"><a href="#一些参考" class="headerlink" title="一些参考"></a>一些参考</h3><p><a href="https://justineo.github.io/slideshows/semantic-html/" target="_blank" rel="noopener">HTML各个元素语义的描述-by顾轶灵</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Introduction_to_HTML/HTML_text_fundamentals" target="_blank" rel="noopener">MDN HTML4之前的标签语义</a><br><a href="https://developer.mozilla.org/zh-CN/docs/learn/HTML/Introduction_to_HTML/%E6%96%87%E4%BB%B6%E5%92%8C%E7%BD%91%E7%AB%99%E7%BB%93%E6%9E%84" target="_blank" rel="noopener">MDN HTML5新增替代div的标签语义</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/Sections_and_Outlines_of_an_HTML5_document" target="_blank" rel="noopener">MDN HTML5的文档节段和纲要</a></p>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
+    </body>
+</html>

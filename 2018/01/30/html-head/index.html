@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> HTML-head标签 </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/HTML/">HTML</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-01-30
+        </span>
+    </div>
+    <div class="post-content">
+        <p>在页面加载完成的时候，标签head里的内容，是不会在页面中显示出来的。不像<code>&lt;body&gt;</code>元素的内容可以显示在浏览器中，head 的内容不会在浏览器中显示，它的作用是包含一些页面的元数据。它包含了像页面的<code>&lt;title&gt;</code>(标题) ,CSS(如果你想用CSS来美化页面内容)，图标和其他的元数据(比如 作者，关键词，摘要)。</p>
+<a id="more"></a>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Introduction_to_HTML/The_head_metadata_in_HTML" target="_blank" rel="noopener">MDN head新手入门</a></p>
+<h2 id="相关代码"><a href="#相关代码" class="headerlink" title="相关代码"></a>相关代码</h2><pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;!-- 设置HTML文档的语言，文档就会被搜索引擎更有效地索引 (例如，允许它在特定于语言的结果中正确显示) --&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;!-- //HTML5设定网页字符集的方式，推荐使用UTF-8 --&gt;
+    &lt;meta name=&quot;keywords&quot; content=&quot;博客，HTML，前端&quot;&gt;
+    &lt;!-- 用于告诉搜索引擎，你网页的关键字 --&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;热爱前端与编程,这是我的前端博客&quot;&gt;
+    &lt;!-- 用于告诉搜索引擎，你网站的主要内容 --&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+    &lt;!-- 为了适配移动端浏览器 --&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge,chrome=1&quot;/&gt;
+    &lt;!-- 用于告知浏览器以何种版本来渲染页面(一般都设置为最新模式) --&gt;
+    &lt;meta http-equiv=&quot;cache-control&quot; content=&quot;no-cache&quot;&gt;
+    &lt;!--指定请求和响应遵循的缓存机制,参考http缓存--&gt;
+    &lt;title&gt;My test page&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;my-css-file.css&quot;&gt;
+    &lt;script src=&quot;my-js-file.js&quot;&gt;&lt;/script&gt;
+    &lt;!-- 实际上，把js放在文档的尾部（在 &lt;/body&gt;标签之前）是一个更好的选择 --&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3 id="标签-lt-title-gt"><a href="#标签-lt-title-gt" class="headerlink" title="标签&lt;title&gt;"></a>标签<code>&lt;title&gt;</code></h3><pre><code class="html">&lt;title&gt;My test page&lt;/title&gt;
+</code></pre>
+<p>title标签会显示在标签页，当页面被添加为书签时title的内容会被作为建议的书签名</p>
+<h3 id="元数据-lt-meta-gt"><a href="#元数据-lt-meta-gt" class="headerlink" title="元数据&lt;meta&gt;"></a>元数据<code>&lt;meta&gt;</code></h3><p>HTML <code>&lt;meta&gt;</code> 元素表示那些不能由其它HTML元相关元素 (<code>&lt;base&gt;</code>, <code>&lt;link&gt;</code>, <code>&lt;script&gt;</code>, <code>&lt;style&gt;</code> 或 <code>&lt;title&gt;</code>) 之一表示的任何元数据信息.</p>
+<p>许多<code>&lt;meta&gt;</code> 元素包含了name 和 content 特性:</p>
+<ul>
+<li>http-equiv 这个枚举属性定义了能改变服务器和用户引擎行为的编译,相当于HTTP的作用，比如说定义些HTTP参数啥的</li>
+<li>name 特性指定了meta 元素的类型; 说明该元素包含了什么类型的信息。</li>
+<li>content 指定了实际的元数据内容。为 http-equiv 或 name 属性提供了与其相关的值的定义。</li>
+</ul>
+<p>一些参考:<br><a href="https://segmentfault.com/a/1190000004279791" target="_blank" rel="noopener">HTML meta标签总结与属性使用介绍</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/meta" target="_blank" rel="noopener">MDN 完整meta标签文档</a> </p>
+<h3 id="外部CSS-lt-link-gt-内部CSS-lt-style-gt-外部JS-lt-script-gt"><a href="#外部CSS-lt-link-gt-内部CSS-lt-style-gt-外部JS-lt-script-gt" class="headerlink" title="外部CSS&lt;link&gt; 内部CSS&lt;style&gt; 外部JS&lt;script&gt;"></a>外部CSS<code>&lt;link&gt;</code> 内部CSS<code>&lt;style&gt;</code> 外部JS<code>&lt;script&gt;</code></h3><p><code>&lt;link&gt;</code> 元素经常位于文档的头部，它有2个属性， rel=”stylesheet”，表明这是文档的样式表，而 href,包含了样式表文件的路径</p>
+<pre><code class="html">&lt;link rel=&quot;stylesheet&quot; href=&quot;my-css-file.css&quot;&gt;
+</code></pre>
+<p><code>&lt;script&gt;</code> 部分没必要非要放在文档头部; 实际上，把它放在文档的尾部（在 <code>&lt;/body&gt;</code>标签之前）是一个更好的选择 ，这样可以确保在加载脚本之前浏览器已经解析了HTML内容（如果脚本加载某个不存在的元素，浏览器会报错）。</p>
+<pre><code class="html">&lt;script src=&quot;my-js-file.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>注意： <code>&lt;script&gt;</code>元素看起来像一个空元素，但它并不是，因此需要一个结束标记。您还可以选择将脚本放入<code>&lt;script&gt;</code>元素中，而不是指向外部脚本文件</p>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
+    </body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> 浏览器同源策略-规避同源策略的方式 </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/web安全/">web安全</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/同源策略/">同源策略</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/跨域/">跨域</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-01-31
+        </span>
+    </div>
+    <div class="post-content">
+        <p>虽然这些同源策略限制是必要的，但是有时很不方便，合理的用途也受到影响。下面，我将详细介绍，如何规避同源策略限制。<br><a id="more"></a><br>关于浏览器同源策略的前置知识请查看本系列第一篇<br><a href="/2018/01/31/same-origin-policy1/" title="浏览器同源策略-从iframe谈起">浏览器同源策略-从iframe谈起</a></p>
+<h3 id="常见规避同源限制的方法"><a href="#常见规避同源限制的方法" class="headerlink" title="常见规避同源限制的方法"></a>常见规避同源限制的方法</h3><ul>
+<li>document.domain</li>
+<li>window.name</li>
+<li>location.hash</li>
+<li>HTML5 API window.postMessage</li>
+</ul>
+<h2 id="document-domain"><a href="#document-domain" class="headerlink" title="document.domain"></a>document.domain</h2><p><em>仅适用于相同主域的跨域</em><br>在同源策略中cai.com和son1.cai.com和son2.cai.com被视为互不不同源，也受同源策略的限制。但是实际上他们之间具有相同的一级域名(主域)cai.com。想要绕过同源限制可以将不同页面的document.domain都指向主域就行</p>
+<pre><code class="js">document.domain = &#39;cai.com&#39;
+</code></pre>
+<p>一个例子如下</p>
+<pre><code class="html">&lt;!-- foo.com/a.html --&gt;
+&lt;iframe id=&quot;ifr&quot; src=&quot;http://img.foo.com/b.html&quot;&gt;&lt;/iframe&gt;
+&lt;script&gt;
+document.domain = &#39;foo.com&#39;;
+function aa(str) {
+    console.log(str);
+}
+window.onload = function () {
+    document.querySelector(&#39;#ifr&#39;).contentWindow.bb(&#39;aaa&#39;);
+}
+// 现在获取iframe的DOM就不会报错了
+&lt;/script&gt;
+</code></pre>
+<pre><code class="html">&lt;!-- img.foo.com/b.html --&gt;
+&lt;script&gt;
+document.domain = &#39;foo.com&#39;;
+function bb(str) {
+    console.log(str);
+}
+
+parent.aa(&#39;bbb&#39;);
+&lt;/script&gt;
+</code></pre>
+<h2 id="window-name"><a href="#window-name" class="headerlink" title="window.name"></a>window.name</h2><p>只要不关闭浏览器，window.name可以在不同页面加载后依然保持。尝试在浏览器打开百度baidu.com，然后在控制台输入window.name=’aaa’;回车，接着在地址栏输入qq.com转到腾讯首页，打开控制台输入window.name查看它的值，可以看到输出了”aaa”。</p>
+<p>一个很hack的例子：子页面bar.com/b.html向父页面foo.com/a.html传数据。</p>
+<pre><code class="html">&lt;!-- foo.com/a.html --&gt;
+&lt;iframe id=&quot;ifr&quot; src=&quot;http://bar.com/b.html&quot;&gt;&lt;/iframe&gt;
+&lt;script&gt;
+function callback(data) {
+    console.log(data)
+}
+&lt;/script&gt;
+</code></pre>
+<pre><code class="html">&lt;!-- bar.com/b.html --&gt;
+&lt;input id=&quot;txt&quot; type=&quot;text&quot;&gt;
+&lt;input type=&quot;button&quot; value=&quot;发送&quot; onclick=&quot;send();&quot;&gt;
+
+
+&lt;script&gt;
+var proxyA = &#39;http://foo.com/aa.html&#39;;    // foo.com下代理页面
+var proxyB = &#39;http://bar.com/bb.html&#39;;    // bar.com下代理空页面
+
+var ifr = document.createElement(&#39;iframe&#39;);
+ifr.style.display = &#39;none&#39;;
+document.body.appendChild(ifr);
+
+function send() {
+    ifr.src = proxyB;
+}
+
+ifr.onload = function() {
+    ifr.contentWindow.name = document.querySelector(&#39;#txt&#39;).value;
+    //当然这里也可以ifr.contentWindow.name = document.cookie;将cookie发送过去
+    ifr.src = proxyA;
+}
+&lt;/script&gt;
+</code></pre>
+<pre><code class="html">&lt;!-- foo.com/aa.html --&gt;
+top.callback(window.name)
+</code></pre>
+<p>这种方法的优点是，window.name容量很大，可以放置非常长的字符串；缺点是必须监听子窗口window.name属性的变化，影响网页性能。</p>
+<h2 id="location-hash"><a href="#location-hash" class="headerlink" title="location.hash"></a>location.hash</h2><p>URL的#号后面的部分，比如<a href="http://example.com/x.html#fragment" target="_blank" rel="noopener">http://example.com/x.html#fragment</a> 的 #fragment。如果只是改变片段标识符，页面不会重新刷新。这种做法和window.name很像，只是存放数据的地方不同而已</p>
+<p>还是一个很hack的例子：获取子页面bar.com/b.html的高度及其他数据</p>
+<pre><code class="html">&lt;!-- foo.com/a.html --&gt;
+&lt;iframe id=&quot;ifr&quot; src=&quot;http://bar.com/b.html&quot;&gt;&lt;/iframe&gt;
+&lt;script&gt;
+function callback(data) {
+    console.log(data)
+}
+&lt;/script&gt;
+</code></pre>
+<pre><code class="js">&lt;!-- bar.com/b.html --&gt;
+window.onload = function() {
+    var ifr = document.createElement(&#39;iframe&#39;);
+    ifr.style.display = &#39;none&#39;;
+    var height = document.documentElement.scrollHeight;
+    var data = &#39;{&quot;h&quot;:&#39;+ height+&#39;, &quot;json&quot;: {&quot;a&quot;:1,&quot;b&quot;:2}}&#39;;
+    ifr.src = &#39;http://foo.com/aa.html#&#39; + data;
+    document.body.appendChild(ifr);
+}
+</code></pre>
+<pre><code class="js">&lt;!-- foo.com/aa.html --&gt;
+var data = JSON.parse(location.hash.substr(1));
+top.document.getElementById(&#39;ifr&#39;).style.height = data.h + &#39;px&#39;;
+top.callback(data);
+</code></pre>
+<h2 id="HTML5-API-window-postMessage"><a href="#HTML5-API-window-postMessage" class="headerlink" title="HTML5 API window.postMessage"></a>HTML5 API window.postMessage</h2><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><pre><code class="js">otherWindow.postMessage(message, targetOrigin, [transfer]);
+</code></pre>
+<ul>
+<li>otherWindow<br>其他窗口的一个引用，比如iframe的contentWindow属性、执行window.open返回的窗口对象、或者是命名过或数值索引的window.frames。</li>
+<li>message<br>将要发送到其他 window的数据。它将会被结构化克隆算法序列化。这意味着你可以不受什么限制的将数据对象安全的传送给目标窗口而无需自己序列化。</li>
+<li>targetOrigin<br>通过窗口的origin属性来指定哪些窗口能接收到消息事件，其值可以是字符串”*“（表示无限制）或者一个URI。在发送消息的时候，如果目标窗口的协议、主机地址或端口这三者的任意一项不匹配targetOrigin提供的值，那么消息就不会被发送；只有三者完全匹配，消息才会被发送。这个机制用来控制消息可以发送到哪些窗口；例如，当用postMessage传送密码时，这个参数就显得尤为重要，必须保证它的值与这条包含密码的信息的预期接受者的origin属性完全一致，来防止密码被恶意的第三方截获。如果你明确的知道消息应该发送到哪个窗口，那么请始终提供一个有确切值的targetOrigin，而不是”*“。不提供确切的目标将导致数据泄露到任何对数据感兴趣的恶意站点。<pre><code class="js">window.addEventListener(&quot;message&quot;, receiveMessage, false);
+function receiveMessage(event){
+  //处理逻辑。可以获取ecent.data,event.origin,event.source 
+}
+</code></pre>
+监听的事件名为’message’, function(e)回调函数第一个参数接收 Event 对象，有三个常用属性：</li>
+<li>data<br>从其他 window 中传递过来的对象。</li>
+<li>origin<br>调用 postMessage  时消息发送方窗口的 origin . 这个字符串由 协议、“://“、域名、“ : 端口号”拼接而成。例如 “<a href="https://example.org" target="_blank" rel="noopener">https://example.org</a> (隐含端口 443)” 、“<a href="http://example.net" target="_blank" rel="noopener">http://example.net</a> (隐含端口 80)” 、 “<a href="http://example.com:8080”" target="_blank" rel="noopener">http://example.com:8080”</a> 。请注意，这个origin不能保证是该窗口的当前或未来origin，因为postMessage被调用后可能被导航到不同的位置。</li>
+<li>source<br>对发送消息的窗口对象的引用; 您可以使用此来在具有不同origin的两个窗口之间建立双向通信。</li>
+</ul>
+<ol>
+<li>再来一个不那么hack的例子：一个简单的父页面foo.com/a.html 和子页面 bar.com/b.html建立通信<pre><code class="html">&lt;!-- foo.com/a.html --&gt;
+&lt;iframe id=&quot;ifr&quot; src=&quot;http://bar.com/b.html&quot;&gt;&lt;/iframe&gt;
+&lt;script&gt;
+window.onload = function () {
+ var ifr = document.querySelector(&#39;#ifr&#39;);
+ ifr.contentWindow.postMessage({a: 1}, &#39;*&#39;);
+}
+window.addEventListener(&#39;message&#39;, function(e) {
+ console.log(&#39;bar say: &#39;+e.data);
+}, false);
+&lt;/script&gt;
+</code></pre>
+<pre><code class="html">&lt;!-- bar.com/b.html --&gt;
+&lt;script&gt;
+window.addEventListener(&#39;message&#39;, function(e){
+ console.log(&#39;foo say: &#39; + e.data.a);
+ e.source.postMessage(&#39;get&#39;, &#39;*&#39;);
+}, false)
+&lt;/script&gt;
+</code></pre>
+</li>
+<li>另一个例子<br>localStorage的同源限制无法通过document.domain的方式解除，但可以通过postMessage</li>
+</ol>
+<pre><code class="js">// cai.com/a.html
+window.onmessage = function(e) {
+  if (e.origin !== &#39;http://cai.com&#39;) {
+    //如果不是发给自己的就不接收
+    return;
+  }
+  var payload = JSON.parse(e.data);
+  localStorage.setItem(payload.key, JSON.stringify(payload.data));
+};
+</code></pre>
+<pre><code class="js">var win = document.getElementsByTagName(&#39;iframe&#39;)[0].contentWindow;
+var obj = { name: &#39;Jack&#39; };
+win.postMessage(JSON.stringify({key: &#39;storage&#39;, data: obj}), &#39;http://cai.com&#39;);
+</code></pre>
+<h3 id="主要参考资料"><a href="#主要参考资料" class="headerlink" title="主要参考资料"></a>主要参考资料</h3><p><a href="http://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html" target="_blank" rel="noopener">浏览器同源政策及其规避方法 by阮一峰</a><br><a href="https://segmentfault.com/a/1190000000702539" target="_blank" rel="noopener">新手学跨域之iframe by亦秋</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/postMessage" target="_blank" rel="noopener">MDN postMessage</a></p>
+<p>前两篇文章一直都没有提到跨域的重头戏ajax,将在下一篇中讲解<br><a href="/2018/01/31/same-origin-policy3/" title="浏览器同源策略-跨域Ajax">浏览器同源策略-跨域Ajax</a></p>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
+    </body>
+</html>

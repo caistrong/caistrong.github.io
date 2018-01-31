@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> HTML-DOCTYPE </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/HTML/">HTML</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/doctype/">doctype</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文档模式/">文档模式</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-01-30
+        </span>
+    </div>
+    <div class="post-content">
+        <p>在很久以前的网络上，页面通常有两种版本：为网景（Netscape）的 Navigator准备的版本以及为微软（Microsoft）的 Internet Explorer准备的版本。当 W3C 创立网络标准后，为了不破坏当时既有的网站，浏览器不能直接起用这些标准。因此，浏览器采用了两种模式，用以把能符合新规范的网站和老旧网站区分开。<br><a id="more"></a></p>
+<h2 id="相关代码"><a href="#相关代码" class="headerlink" title="相关代码"></a>相关代码</h2><pre><code class="html">&lt;!DOCTYPE html&gt;
+</code></pre>
+<h3 id="文档模式"><a href="#文档模式" class="headerlink" title="文档模式"></a>文档模式</h3><ul>
+<li>quirks mode 混杂模式/怪异模式</li>
+<li>standards mode 标准模式</li>
+<li>almost standards mode 接近标准模式/准标准模式</li>
+</ul>
+<p>在怪异模式下，排版会模拟 Navigator 4 与 Internet Explorer 5 的非标准行为。为了支持在网络标准被广泛采用前，就已经建好的网站，这么做是必要的。在标准模式下，行为即（但愿如此）由 HTML 与 CSS 的规范描述的行为。在接近标准模式下，只有少数的怪异行为被实现。</p>
+<p><em>接近标准模式下浏览器的特性很多是符合标准的，除了处理图片间隙的时候，因此可以把接近标准模式和标准模式混为一谈</em></p>
+<h3 id="标准模式和怪异模式的来由"><a href="#标准模式和怪异模式的来由" class="headerlink" title="标准模式和怪异模式的来由"></a>标准模式和怪异模式的来由</h3><p>在HTML与CSS的标准化未完成之前，各个浏览器对于HTML和CSS的解析有各自不同的实现，而有很多旧的网页都是按照这些非标准的实现去设计的。在HTML与CSS标准确定之后，浏览器一方面要按照标准去实现对HTML与CSS的支持，另一方面又要保证对非标准的旧网页设计的后向兼容性。因此，现代的浏览器一般都有两种渲染模式：标准模式和怪异模式。在标准模式下，浏览器按照HTML与CSS标准对文档进行解析和渲染；而在怪异模式下，浏览器则按照旧有的非标准的实现方式对文档进行解析和渲染。这样的话，对于旧有的网页，浏览器启动怪异模式，就能够使得旧网页正常显示；对于新的网页，则可以启动标准模式，使得新网页能够使用HTML与CSS的标准特性。</p>
+<h3 id="标准模式与怪异模式的两个常见区别"><a href="#标准模式与怪异模式的两个常见区别" class="headerlink" title="标准模式与怪异模式的两个常见区别"></a>标准模式与怪异模式的两个常见区别</h3><ol>
+<li>盒模型的处理差异：标准CSS盒模型的宽度和高度等于内容区的高度和宽度，不包含内边距和边框，而IE6之前的浏览器实现的盒模型的宽高计算方式是包含内边距和边框的。因此，对于IE，怪异模式和标准模式下的盒模型宽高计算方式是不一样的；</li>
+<li>行内元素的垂直对齐：很多早期的浏览器对齐图片至包含它们的盒子的下边框，虽然CSS的规范要求它们被对齐至盒内文本的基线。标准模式下，基于Gecko的浏览器将会对齐至基线，而在quirks模式下它们会对齐至底部。最直接的例子就是图片的显示。在标准模式下，图片并不是与父元素的下边框对齐的，如果仔细观察，你会发现图片与父元素下边框之间存在一点小空隙。那是因为标准模式下，图片是基线对齐的。而怪异模式下，则不存在这个问题。具体请看这篇文章 <a href="http://www.zhangxinxu.com/wordpress/2015/08/css-deep-understand-vertical-align-and-line-height/" target="_blank" rel="noopener">CSS深入理解vertical-align和line-height的基友关系</a>。</li>
+</ol>
+<h3 id="当今的最佳选择"><a href="#当今的最佳选择" class="headerlink" title="当今的最佳选择"></a>当今的最佳选择</h3><pre><code class="html">&lt;!DOCTYPE html&gt;
+</code></pre>
+<p>&lt;!DOCTYPE html&gt;，是所有可用的DOCTYPE之中最简单的，而且是HTML5 所推荐的。HTML的早期变种也属于推荐标准，不过今日的浏览器都会对这个 DOCTYPE 使用标准模式，就算是已过时的 Internet Explorer 6 也一样。目前并没有正当的理由，去使用其他更复杂的 DOCTYPE。如果你使用其他的 DOCTYPE，你可能会冒着触发接近标准模式或者怪异模式的风险。</p>
+<p><em>请确定你把 DOCTYPE 正确地放在 HTML 文件的顶端。任何放在 DOCTYPE 前面的东西，比如批注或 XML 声明，会令 Internet Explorer 9 或更早期的浏览器触发怪异模式。</em></p>
+<p>在 HTML5中，DOCTYPE 唯一的作用是启用标准模式。更早期的 HTML 标准会附加其他意义，但没有任何浏览器会将 DOCTYPE 用于怪异模式和标准模式之间互换以外的用途。</p>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
+    </body>
+</html>

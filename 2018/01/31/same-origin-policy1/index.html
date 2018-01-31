@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> 浏览器同源策略-从iframe谈起 </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/web安全/">web安全</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同源策略/">同源策略</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-01-31
+        </span>
+    </div>
+    <div class="post-content">
+        <p>1995年，同源政策由 Netscape 公司引入浏览器。目前，所有浏览器都实行这个政策。<br><a id="more"></a></p>
+<h3 id="所谓同源策略是指"><a href="#所谓同源策略是指" class="headerlink" title="所谓同源策略是指"></a>所谓同源策略是指</h3><ul>
+<li>协议相同</li>
+<li>域名相同</li>
+<li>端口相同</li>
+</ul>
+<p><em>(IE未将端口号加入到同源策略的组成部分之中，因此 <a href="http://company.com:81/index.html" target="_blank" rel="noopener">http://company.com:81/index.html</a> 和<a href="http://company.com/index.html" target="_blank" rel="noopener">http://company.com/index.html</a>  属于同源并且不受任何限制)</em></p>
+<h3 id="同源策略的目的"><a href="#同源策略的目的" class="headerlink" title="同源策略的目的"></a>同源策略的目的</h3><p><em>(这只是一个以cookie为例的例子，实际的作用远不止于此)</em><br>同源政策的目的，是为了保证用户信息的安全，防止恶意的网站窃取数据。</p>
+<p>设想这样一种情况：A网站是一家银行，用户登录以后，又去浏览其他网站。如果其他网站可以读取A网站的 Cookie，会发生什么？</p>
+<p>很显然，如果 Cookie 包含隐私（比如存款总额），这些信息就会泄漏。更可怕的是，Cookie 往往用来保存用户的登录状态，如果用户没有退出登录，其他网站就可以冒充用户，为所欲为。因为浏览器同时还规定，提交表单不受同源政策的限制。</p>
+<p>由此可见，”同源政策”是必需的，否则 Cookie 可以共享，互联网就毫无安全可言了。</p>
+<h3 id="同源限制的范围"><a href="#同源限制的范围" class="headerlink" title="同源限制的范围"></a>同源限制的范围</h3><ul>
+<li>cookie、localStroage等</li>
+<li>DOM</li>
+<li>AJAX请求无法发送</li>
+</ul>
+<h3 id="不受同源限制的情况"><a href="#不受同源限制的情况" class="headerlink" title="不受同源限制的情况"></a>不受同源限制的情况</h3><ul>
+<li>多媒体元素标签<code>&lt;img src=&quot;&quot;&gt; &lt;video src=&quot;&quot;&gt; &lt;audio src=&quot;&quot;&gt;</code></li>
+<li>脚本标签<code>&lt;script src=&quot;&quot;&gt;</code></li>
+<li>样式标签<code>&lt;link rel=&quot;stylesheet&quot; href=&quot;&quot;&gt;</code></li>
+<li>嵌入对象和java applet<code>&lt;embed src=&quot;&quot;&gt; &lt;object codebase=&quot;&quot;&gt; &lt;applet codebase=&quot;&quot;&gt;</code></li>
+<li><code>&lt;frame&gt;, &lt;iframe&gt;</code></li>
+<li><code>&lt;a&gt;</code></li>
+<li>API: location.*, window.open()</li>
+</ul>
+<h3 id="iframe标签的同源限制"><a href="#iframe标签的同源限制" class="headerlink" title="iframe标签的同源限制"></a>iframe标签的同源限制</h3><p>DOM提供了一些API来让我们获取iframe的内容<br><strong>在父页面获取iframe标签的内容</strong></p>
+<pre><code class="js"> var iframe = document.getElementById(&quot;iframe1&quot;);
+ var iwindow = iframe.contentWindow;//获取iframe的window对象
+ var idoc = iframe.contentDocument //获取iframe的document对象
+ //也可以var idoc = iwindow.document;
+</code></pre>
+<p><strong>在iframe中获取父级内容</strong></p>
+<pre><code class="js">window.parent//获取上一级的window对象，如果还是iframe则是该iframe的window对象
+window.top//获取最顶级容器的window对象，即，就是你打开页面的文档
+</code></pre>
+<p>以上的API仅在同源下有效，如果两个页面(父页面及子iframe引入的页面)不同源，就会报错</p>
+<pre><code class="js">document.getElementById(&quot;myIFrame&quot;).contentWindow.document
+// Uncaught DOMException: Blocked a frame from accessing a cross-origin frame.
+window.parent.document.body
+// 在子窗口获取父窗口的DOM也报错
+</code></pre>
+<p>这里的同源策略合情合理，假设iframe之间获取DOM没有同源限制。那么我可以随便写一个网站</p>
+<pre><code class="html">&lt;!-- 在cai.com下 --&gt;
+&lt;iframe id=&quot;bankframe&quot; src=&quot;bank.com&quot;&gt;&lt;/iframe&gt;
+&lt;script&gt;
+     var cookie = document.getElementById(&quot;bankframe&quot;).contentWindow.document.cookie
+     //将你bank.com下的cookie发送到收集信息的服务器
+&lt;/script&gt;
+</code></pre>
+<p>然而在事实是浏览器有同源限制，因为以上两个页面不同源，所以获取DOM的操作会报错。</p>
+<p>在某些情况下我们希望绕过同源策略，具体方法请查看本系列第二篇<br><a href="/2018/01/31/same-origin-policy2/" title="浏览器同源策略-规避同源策略的方式">浏览器同源策略-规避同源策略的方式</a></p>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
+    </body>
+</html>
