@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> CSS-盒子模型 </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CSS/">CSS</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/盒子模型/">盒子模型</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-02-02
+        </span>
+    </div>
+    <div class="post-content">
+        <p>盒子模型是CSS永远绕不过去的话题</p>
+<a id="more"></a>
+<h3 id="基本模型"><a href="#基本模型" class="headerlink" title="基本模型"></a>基本模型</h3><p>文档的每个元素被构造成文档布局内的一个矩形框，框每层的大小都可以使用一些特定的CSS属性调整。相关属性如下:</p>
+<p><img src="/2018/02/02/css-boxmodel/boxmodel.png" width="100%"></p>
+<p><em>还有其他属性可以更巧妙地处理内容的大小——设置大小约束而不是绝对的大小。这些属性包括min-width、max-width、min-height 和 max-height。</em></p>
+<p><em>外边距有一个特别的行为被称作<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Box_Model/Mastering_margin_collapsing" target="_blank" rel="noopener">外边距塌陷（margin collapsing）</a>：当两个框彼此接触时，它们的间距将取两个相邻外边界的最大值，而非两者的总和。</em></p>
+<h4 id="display"><a href="#display" class="headerlink" title="display"></a>display</h4><p>HTML标签有块级元素和行内元素之分。其实可以理解为默认有display:block,display:inline之分,可以通过修改display属性来切换块级元素和行内元素。</p>
+<p>在本篇文章，我们将关注三个最普遍的类型：block, inline, and inline-block。</p>
+<ul>
+<li>块框（ block box）是定义为堆放在其他框上的框（例如：其内容会独占一行），而且可以设置它的宽高，之前所有对于框模型的应用适用于块框 （ block box）</li>
+<li>行内框（ inline box）与块框是相反的，它随着文档的文字（例如：它将会和周围的文字和其他行内元素出现在同一行，而且它的内容会像一段中的文字一样随着文字部分的流动而打乱），对行内盒设置宽高无效，设置padding, margin 和 border都会更新周围文字的位置，但是对于周围的的块框（ block box）不会有影响。</li>
+<li>行内块状框（inline-block box） 像是上述两种的集合：它不会重新另起一行但会像行内框（ inline box）一样随着周围文字而流动，而且他能够设置宽高，并且像块框一样保持了其块特性的完整性，它不会在段落行中断开。（在下面的示例中，行内块状框会放在第二行文本上，因为第一行没有足够的空间，并且不会突破两行。然而，如果没有足够的空间，行内框会在多条线上断裂，而它会失去一个框的形状。）</li>
+</ul>
+<p>来个直观的例子吧<br><img src="/2018/02/02/css-boxmodel/display.png" width="100%"></p>
+<pre><code class="html">&lt;p&gt;
+   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+   &lt;span class=&quot;inline&quot;&gt;Mauris tempus turpis id ante mollis dignissim.&lt;/span&gt;
+   Nam sed dolor non tortor lacinia lobortis id dapibus nunc.
+&lt;/p&gt;
+
+&lt;p&gt;
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  &lt;span class=&quot;block&quot;&gt;Mauris tempus turpis id ante mollis dignissim.&lt;/span&gt;
+  Nam sed dolor non tortor lacinia lobortis id dapibus nunc.
+&lt;/p&gt;
+
+&lt;p&gt;
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  &lt;span class=&quot;inline-block&quot;&gt;Mauris tempus turpis id ante mollis dignissim.&lt;/span&gt;
+  Nam sed dolor non tortor lacinia lobortis id dapibus nunc.
+&lt;/p&gt;
+</code></pre>
+<pre><code class="css">p {
+  padding : 1em;
+  border  : 1px solid black;
+}
+
+span {
+  padding : 0.5em;
+  border  : 1px solid green;
+
+  /* That makes the box visible, regardless of its type */
+  background-color: yellow;
+}
+
+.inline       { display: inline;       }
+.block        { display: block;        }
+.inline-block { display: inline-block; }
+</code></pre>
+<h4 id="overflow"><a href="#overflow" class="headerlink" title="overflow"></a>overflow</h4><p>当你使用绝对的值设置了一个框的大小（如，固定像素的宽/高），允许的大小可能不适合放置内容，这种情况下内容会从盒子溢流。我们使用overflow属性来控制这种情况的发生。它有一些可能的值，但是最常用的是：</p>
+<ul>
+<li>auto: 当内容过多，溢流的内容被隐藏，然后出现滚动条来让我们滚动查看所有的内容。</li>
+<li>hidden: 当内容过多，溢流的内容被隐藏。</li>
+<li>visible: 当内容过多，溢流的内容被显示在盒子的外边（这个是默认的行为）</li>
+</ul>
+<pre><code class="html">&lt;p class=&quot;autoscroll&quot;&gt;
+   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+   Mauris tempus turpis id ante mollis dignissim. Nam sed
+   dolor non tortor lacinia lobortis id dapibus nunc. Praesent
+   iaculis tincidunt augue. Integer efficitur sem eget risus
+   cursus, ornare venenatis augue hendrerit. Praesent non elit
+   metus. Morbi vel sodales ligula.
+&lt;/p&gt;
+
+&lt;p class=&quot;clipped&quot;&gt;
+   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+   Mauris tempus turpis id ante mollis dignissim. Nam sed
+   dolor non tortor lacinia lobortis id dapibus nunc. Praesent
+   iaculis tincidunt augue. Integer efficitur sem eget risus
+   cursus, ornare venenatis augue hendrerit. Praesent non elit
+   metus. Morbi vel sodales ligula.
+&lt;/p&gt;
+
+&lt;p class=&quot;default&quot;&gt;
+   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+   Mauris tempus turpis id ante mollis dignissim. Nam sed
+   dolor non tortor lacinia lobortis id dapibus nunc. Praesent
+   iaculis tincidunt augue. Integer efficitur sem eget risus
+   cursus, ornare venenatis augue hendrerit. Praesent non elit
+   metus. Morbi vel sodales ligula.
+&lt;/p&gt;
+</code></pre>
+<pre><code class="css">p {
+  width  : 400px;
+  height : 2.5em;
+  padding: 1em 1em 1em 1em;
+  border : 1px solid black;
+}
+
+.autoscroll { overflow: auto;    }
+.clipped    { overflow: hidden;  }
+.default    { overflow: visible; }
+</code></pre>
+<p>效果如下…感觉不需要解释了<br><img src="/2018/02/02/css-boxmodel/overflow.png" width="100%"></p>
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><em>说来惭愧 这里基本上是全抄了</em><br><a href="https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Introduction_to_CSS/Box_model" target="_blank" rel="noopener">MDN 的盒模型</a></p>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
+    </body>
+</html>

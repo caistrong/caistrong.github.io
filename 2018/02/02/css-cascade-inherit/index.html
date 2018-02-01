@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> CSS-层叠和继承 </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CSS/">CSS</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-02-02
+        </span>
+    </div>
+    <div class="post-content">
+        <p>元素的最终样式可以在多个地方定义，它们以复杂的形式相互影响。这些复杂的相互作用使CSS变得非常强大，但也使其非常难于调试和理解。这篇文章旨在明晰其中的部分复杂性：主要包括层叠和继承两种机制</p>
+<a id="more"></a>
+<h2 id="层叠"><a href="#层叠" class="headerlink" title="层叠"></a>层叠</h2><p>CSS 是 Cascading Style Sheets 的缩写，这暗示层叠（cascade）的概念是很重要的。在最基本的层面上，它表明CSS规则的顺序很重要，但它比那更复杂。什么选择器在层叠中胜出取决于三个因素（这些都是按重量级顺序排列的——前面的的一种会否决后一种）：</p>
+<ol>
+<li>重要性（Importance）</li>
+<li><strong>专用性（Specificity）</strong></li>
+<li>源代码次序（Source order）</li>
+</ol>
+<p>大部分情况下是由专用性决定的</p>
+<h3 id="重要性"><a href="#重要性" class="headerlink" title="重要性"></a>重要性</h3><p>!important 总是优先</p>
+<pre><code class="css">.first{
+    border: none !important
+}
+/* 不管怎样这个first类控制的元素别想有边框了 */
+</code></pre>
+<p><em>知道 !important存在是很有用的，这样当你在别人的代码中遇到它时，你就知道它是什么了。<strong>但是！</strong>我们建议你千万不要使用它，除非你绝对必须使用它。您可能不得不使用它的一种情况是，当您在CMS中工作时，您不能编辑核心的CSS模块，并且您确实想要重写一种不能以其他方式覆盖的样式。 但是，如果你能避免的话，不要使用它。由于 !important 改变了层叠正常工作的方式，因此调试CSS问题，尤其是在大型样式表中，会变得非常困难。</em></p>
+<h3 id="专用性"><a href="#专用性" class="headerlink" title="专用性"></a>专用性</h3><p>一个选择器具有的专用性的量是用四种不同的值（或组件）来衡量的，它们可以被认为是千位，百位，十位和个位——在四个列中的四个简单数字：</p>
+<ol>
+<li>千位：如果声明是在style 属性中该列加1分（这样的声明没有选择器，所以它们的专用性总是1000。）否则为0。</li>
+<li>百位：在整个选择器中每包含一个ID选择器就在该列中加1分。</li>
+<li>十位：在整个选择器中每包含一个类选择器、属性选择器、或者伪类就在该列中加1分。</li>
+<li>个位：在整个选择器中每包含一个元素选择器或伪元素就在该列中加1分。</li>
+</ol>
+<p><em>通用选择器 (</em>), 复合选择器 (+, &gt;, ~, ‘ ‘) 和否定伪类 (:not) 在专用性中无影响。*</p>
+<p><img src="/2018/02/02/css-cascade-inherit/zhuanyong.png" width="100%"></p>
+<h3 id="源代码次序"><a href="#源代码次序" class="headerlink" title="源代码次序"></a>源代码次序</h3><p>如上所述，如果多个相互竞争的选择器<strong>具有相同的重要性和专用性</strong>，那么第三个因素将帮助决定哪一个规则获胜——后面的规则将战胜先前的规则。</p>
+<pre><code class="css">p {
+  color: blue;
+}
+
+/* This rule will win over the first one */
+p {
+  color: red;
+}
+</code></pre>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>CSS继承是我们需要研究的最后一部分，以获取所有信息并了解什么样式应用于元素。其思想是，应用于某个元素的一些属性值将由该元素的子元素继承，而有些则不会。</p>
+<ul>
+<li>例如，对 font-family 和 color 进行继承是有意义的，因为这使得您可以很容易地设置一个站点范围的基本字体，方法是应用一个字体到 <html> 元素；然后，您可以在需要的地方覆盖单个元素的字体。如果要在每个元素上分别设置基本字体，那就太麻烦了。</html></li>
+<li>再如，让 margin，padding，border 和 background-image 不被继承是有意义的。想象一下，如果您将这些属性设置在一个容器元素上，并将它们继承到每个子元素，然后不得不将它们全部放在每个单独的元素上，那么将会出现的样式/布局混乱。</li>
+</ul>
+<p>哪些属性默认被继承哪些不被继承大部分符合常识。如果你想确定，你可以参考<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/Reference" target="_blank" rel="noopener">MDN CSS参考</a>—— 每个单独的属性页都会从一个汇总表开始，其中包含有关该元素的各种详细信息，包括是否被继承。</p>
+<h3 id="控制继承"><a href="#控制继承" class="headerlink" title="控制继承"></a>控制继承</h3><p>CSS为处理继承提供了三种特殊的通用属性值：</p>
+<ul>
+<li>inherit： 该值将应用到选定元素的属性值设置为与其父元素一样。</li>
+<li>initial ：该值将应用到选定元素的属性值设置为与浏览器默认样式表中该元素设置的值一样。如果浏览器默认样式表中没有设置值，并且该属性是自然继承的，那么该属性值就被设置为 inherit。</li>
+<li>unset ：该值将属性重置为其自然值，即如果属性是自然继承的，那么它就表现得像 inherit，否则就是表现得像 initial。</li>
+</ul>
+<p><em>initial 和 unset 不被IE支持。</em></p>
+<p><strong>看一个例子</strong></p>
+<pre><code class="html">&lt;ul&gt;
+  &lt;li&gt;Default &lt;a href=&quot;#&quot;&gt;link&lt;/a&gt; color&lt;/li&gt;
+  &lt;li class=&quot;inherit&quot;&gt;Inherit the &lt;a href=&quot;#&quot;&gt;link&lt;/a&gt; color&lt;/li&gt;
+  &lt;li class=&quot;initial&quot;&gt;Reset the &lt;a href=&quot;#&quot;&gt;link&lt;/a&gt; color&lt;/li&gt;
+  &lt;li class=&quot;unset&quot;&gt;Unset the &lt;a href=&quot;#&quot;&gt;link&lt;/a&gt; color&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<pre><code class="css">body {
+  color: green;
+}
+
+.inherit a {
+  color: inherit;
+}
+
+.initial a {
+  color: initial
+}
+
+.unset a {
+  color: unset;
+}
+</code></pre>
+<p>结果如下：<br><img src="/2018/02/02/css-cascade-inherit/lizi.png" width="100%"></p>
+<p>解释如下:</p>
+<blockquote>
+<ol>
+<li>我们首先设置<code>&lt;body&gt;</code> 的color为绿色。</li>
+<li>由于color属性是自然继承的，所有的body子元素都会有相同的绿色。需要注意的是默认情况下浏览器设置链接的颜色为蓝色，而不是自然继承color属性，因此在我们列表中的第一个链接是蓝色的。</li>
+<li>第二个规则设置一个类 inherit 的元素内的链接，并从父类继承它的颜色。在这种情况下, 意思是说链接继承了父元素<code>&lt;li&gt;</code>的颜色，默认情况下<code>&lt;li&gt;</code>的颜色来自于它的父元素 <code>&lt;ul&gt;</code> , 最后<code>&lt;ul&gt;</code> 继承自 <code>&lt;body&gt;</code>元素，而<code>&lt;body&gt;</code>的color 根据第一条规则设置成了绿色。</li>
+<li>第三个规则选择了在元素上使用类 initial 的任意链接然后设置他们的颜色为 initial 。通常， initial 的值被浏览器设置成了黑色，因此该链接被设置成了黑色。</li>
+<li>最后一个规则选择了在元素上使用类 unset 的所有链接然后设置它们的颜色为 unset  ——即我们不设置值。因为color属性是一个自然继承的属性，它实际上就像把值设置成 inherit 一样。结果是，该链接被设置成了与body一样的颜色——绿色。</li>
+</ol>
+</blockquote>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
+    </body>
+</html>

@@ -51,6 +51,56 @@
     
        <article class="post paper-style">
            <div class="post-title">
+               <a class="post-title-link" href="/2018/01/27/android-broadcast/">四大组件之Broadcast Receiver</a>
+           </div>
+           <div class="post-content">
+               <p>Android中的广播机制很灵活，Android中每个应用程序都可以对自己感兴趣的广播进行注册。这样该程序就只会接收到自己所关心的广播内容。这些广播可能是来自于系统的，也可能是来自于其他应用程序的。Android提供了一套完整的API，允许应用程序自由地发送和接收广播。发送广播的方法之前稍微提到过。是借助Intent。而接收广播的方法需要引入全新的概念–广播接收器(Broadcast Receiver)</p>
+           </div>
+           <div class="post-meta">
+               <span class="post-time">2018-01-27</span>
+           </div>
+       </article>
+    
+       <article class="post paper-style">
+           <div class="post-title">
+               <a class="post-title-link" href="/2018/01/27/android-service/">四大组件之Service</a>
+           </div>
+           <div class="post-content">
+               <p>服务的运行不依赖于任何用户界面，即使程序被切换到后台，或者用户打开了另一个应用程序，服务仍然能够保持正常运行</p>
+<p>尽管如此，服务并不是运行在一个独立的进程当中的，而是依赖于创建服务时所在的应用程序进程。当某个应用程序进程被杀掉时，所有依赖于该进程的服务也会停止运行</p>
+<p>实际上服务也并不会自动开启线程，所有的代码都是默认运行在主线程当中的，也就是说我们需要在服务的内部手动创建子线程，并在这里执行具体的任务，否则可能出现主线程被阻塞的情况</p>
+           </div>
+           <div class="post-meta">
+               <span class="post-time">2018-01-27</span>
+           </div>
+       </article>
+    
+       <article class="post paper-style">
+           <div class="post-title">
+               <a class="post-title-link" href="/2018/01/27/android-multiThread/">安卓多线程编程</a>
+           </div>
+           <div class="post-content">
+               <p>当我们需要执行一些耗时操作，比如说发起一条网络请求时，服务器未必会立即响应我们的请求。如果不将这类操作放在子线程里去执行，就会导致主线程被阻塞住。从而影响用户对软件的正常使用</p>
+           </div>
+           <div class="post-meta">
+               <span class="post-time">2018-01-27</span>
+           </div>
+       </article>
+    
+       <article class="post paper-style">
+           <div class="post-title">
+               <a class="post-title-link" href="/2018/01/26/android-ui/">安卓UI</a>
+           </div>
+           <div class="post-content">
+               <p>安卓一些常见的基本控件介绍，以及安卓四大布局的介绍。安卓几种Menu的介绍。安卓如何自定义控件</p>
+           </div>
+           <div class="post-meta">
+               <span class="post-time">2018-01-26</span>
+           </div>
+       </article>
+    
+       <article class="post paper-style">
+           <div class="post-title">
                <a class="post-title-link" href="/2018/01/26/android-activity/">四大组件之activity</a>
            </div>
            <div class="post-content">
@@ -61,35 +111,11 @@
            </div>
        </article>
     
-       <article class="post paper-style">
-           <div class="post-title">
-               <a class="post-title-link" href="/2018/01/26/android-intro/">安卓起步</a>
-           </div>
-           <div class="post-content">
-               <p>本系列是我阅读&lt;第一行代码&gt;所作的一些笔记，本篇是起始篇</p>
-           </div>
-           <div class="post-meta">
-               <span class="post-time">2018-01-26</span>
-           </div>
-       </article>
-    
-       <article class="post paper-style">
-           <div class="post-title">
-               <a class="post-title-link" href="/2018/01/26/init/">搬新家了</a>
-           </div>
-           <div class="post-content">
-               <p>作为一个程序员，自己觉得有一个记录的地方很重要。</p>
-           </div>
-           <div class="post-meta">
-               <span class="post-time">2018-01-26</span>
-           </div>
-       </article>
-    
 </section>
 
 
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/page/6/"><</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
+        <a class="extend prev" rel="prev" href="/page/6/"><</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/">></a>
     </nav>
 
         </div>
