@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> CSS布局-从normal flow谈起 </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CSS/">CSS</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/布局/">布局</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-02-02
+        </span>
+    </div>
+    <div class="post-content">
+        <p>Normal FLow(文档流、普通流)是指在不对页面进行任何布局控制时，浏览器默认的HTML布局方式。我们讨论CSS布局就从文档流开始。</p>
+<a id="more"></a>
+<h2 id="文档流"><a href="#文档流" class="headerlink" title="文档流"></a>文档流</h2><p>html的标签有块级元素(常见的html标签中如 div, form, ul, li, p, h1)、行内元素之分(常见的html标签中如 span, img, font, a, b, em)。可以分别视为display:block,display:inline。</p>
+<p>文档流的过程如下</p>
+<ol>
+<li>块级元素按照其在HTML中的顺序，在其容器框里从左上角开始，从上到下垂直地依次分配空间、堆砌( stack )，并独占一行，边界紧贴父容器。两相邻元素间的距离由 margin 属性决定</li>
+<li>行内元素从容器的顶端开始，一个接一个地水平排布。水平填充、边框和边距对行内元素有效。但垂直的填充、边框和空白边不影响其高度。</li>
+</ol>
+<p><a href="https://swordair.com/css-positioning-schemes-normal-flow/" target="_blank" rel="noopener">更高深的文档流介绍参考这里</a></p>
+<h2 id="脱离文档流"><a href="#脱离文档流" class="headerlink" title="脱离文档流"></a>脱离文档流</h2><blockquote>
+<p>An element is called out of flow if it is floated, absolutely positioned, or is the root element. An element is called in-flow if it is not out-of-flow. The flow of an element A is the set consisting of A and all in-flow elements whose nearest out-of-flow ancestor is A.<br>以上截取自W3C文档。我们可以简单理解为。<strong>被float和被绝对定位的元素会脱离文档流</strong>。除了这两种情况(其实还有fixed定位)以外的情况下，布局都是按照normal flow(文档流)的过程来布局的</p>
+</blockquote>
+<p><em>脱离文档流可以理解为元素释放了原本占据的空间，浮向了往上一层的图层</em></p>
+<p>而float元素和绝对定位的元素脱离文档流的方式有不同之处，下面会具体提到</p>
+<p><em>Floated elements <strong>remain a part of the flow of the web page</strong>. This is distinctly different than page elements that use absolute positioning. Absolutely positioned page elements are removed from the flow of the webpage</em></p>
+<p>先来一段html代码，我们等下要让outofnormal这个div脱离文档流</p>
+<pre><code class="html">&lt;body&gt;
+    &lt;div id=&quot;outofnormal&quot;&gt;
+        Out of normal: 
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi esse impedit autem praesentium magni culpa, amet corporis, veniam consequatur voluptates temporibus. Voluptates eius similique asperiores cupiditate fugit hic atque quisquam?
+    &lt;/div&gt;
+    &lt;h2&gt;Normal Content&lt;/h2&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum praesentium nam tempora beatae quis nobis laboriosam alias aliquid, tenetur exercitationem. Odio, aperiam, illo! Eveniet natus dignissimos architecto velit eligendi id!&lt;/p&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem reprehenderit velit nam delectus distinctio at unde aliquid officia illo, tempore vitae et incidunt non, ut eos nesciunt quaerat. Enim, minus.&lt;/p&gt;
+&lt;/body&gt;
+</code></pre>
+<pre><code class="css">/* 为了方便观察添加的CSS */
+#outofnormal {
+    width: 200px;
+    background-color: cyan;
+    padding: 10px;
+}
+</code></pre>
+<p>以上元素都置于普通流的布局时效果如下<br><img src="/2018/02/02/css-layout1/normal.png" width="100%"></p>
+<h3 id="脱离文档流的浮动框"><a href="#脱离文档流的浮动框" class="headerlink" title="脱离文档流的浮动框"></a>脱离文档流的浮动框</h3><p>更改css代码</p>
+<pre><code class="css">#outofnormal {
+    width: 200px;
+    background-color: cyan;
+    opacity:0.7;
+    padding: 10px;
+    float:left;
+    /* 这下这个div脱离文档流了 */
+}
+h2{
+    border: 3px dotted red;
+}
+p{
+    border: 3px dotted green;
+}
+</code></pre>
+<p>效果如下<br><img src="/2018/02/02/css-layout1/float.png" width="100%"><br>我们可以看到，现在#outofnormal这个div脱离文档流了，所以后面那些还在文档流的元素无视了#outofnormal这个div浮动框。填满了他原先占有的位置。然而。我们发现标题Normal Content,以及p标签的文字依然意识到了浮动框的存在，并自己向右空出了浮动框的位置。（有人称作是float元素脱离了文档流，但不脱离文本流。）</p>
+<h3 id="脱离文档流的绝对定位"><a href="#脱离文档流的绝对定位" class="headerlink" title="脱离文档流的绝对定位"></a>脱离文档流的绝对定位</h3><p>将上文给出的CSS代码，删掉float:left。然后加上</p>
+<pre><code class="css">#outofnormal {
+    position:absolute;
+}
+</code></pre>
+<p>效果如下<br><img src="/2018/02/02/css-layout1/absolute.png" width="100%"></p>
+<p>嗯。。这下完全脱离文档流了</p>
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><a href="https://www.zhihu.com/question/24529373/answer/29135021" target="_blank" rel="noopener">关于CSS脱离文档流 by张秋怡</a></p>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
+    </body>
+</html>
