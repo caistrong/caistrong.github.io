@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> 今夜我们一起学习HTTP之状态码 </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/计算机网络/">计算机网络</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/状态码/">状态码</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-02-06
+        </span>
+    </div>
+    <div class="post-content">
+        <p>状态码的职责是当客户端向服务端发送请求时，描述返回的请求的结果。</p>
+<a id="more"></a>
+<h2 id="状态码分类"><a href="#状态码分类" class="headerlink" title="状态码分类"></a>状态码分类</h2><table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">类别</th>
+<th style="text-align:center">原因短语</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1xx</td>
+<td style="text-align:center">Informational(信息性状态码)</td>
+<td style="text-align:center">接收的请求正在处理</td>
+</tr>
+<tr>
+<td style="text-align:center">2xx</td>
+<td style="text-align:center">Success(成功状态码)</td>
+<td style="text-align:center">请求正常处理完毕</td>
+</tr>
+<tr>
+<td style="text-align:center">3xx</td>
+<td style="text-align:center">Redirection(重定向状态码)</td>
+<td style="text-align:center">需要进行附加操作以完成请求</td>
+</tr>
+<tr>
+<td style="text-align:center">4xx</td>
+<td style="text-align:center">Client Error(客户端错误状态码)</td>
+<td style="text-align:center">服务器无法处理请求</td>
+</tr>
+<tr>
+<td style="text-align:center">5xx</td>
+<td style="text-align:center">Server Error(服务端错误状态码)</td>
+<td style="text-align:center">服务器处理请求出错</td>
+</tr>
+</tbody>
+</table>
+<h2 id="常见的14个状态码"><a href="#常见的14个状态码" class="headerlink" title="常见的14个状态码"></a>常见的14个状态码</h2><ol>
+<li>200 OK</li>
+</ol>
+<p>客户端发来的请求在服务端被正常处理了</p>
+<ol>
+<li>204 No Content</li>
+</ol>
+<p>服务器接收的请求已经成功处理，但是没有资源可返回，也就是返回的响应报文中不含实体的主体部分</p>
+<ol>
+<li>206 Partial Content</li>
+</ol>
+<p>客户端只进行了范围请求(与request headers的Range有关吧).服务器的响应报文中只包含了资源的一部分</p>
+<ol>
+<li>301 Moved Permanently</li>
+</ol>
+<p>永久重定向301说明请求的资源已经被移动到了由 Location 头部指定的url上，是固定的不会再改变。搜索引擎会根据该响应修正。</p>
+<ol>
+<li>302 Found</li>
+</ol>
+<p>302 Found 重定向状态码表明请求的资源被暂时的移动到了由<strong>Location 头部</strong>指定的 URL 上。浏览器本次会重定向到这个URL， 但是搜索引擎不会对该资源的链接进行更新 </p>
+<p><em>几乎所有的重定向响应都会带有Location首部，浏览器接到带有Location首部的响应都会到响应的URL去看看</em></p>
+<ol>
+<li>303 See Other</li>
+</ol>
+<p>303 See Other 重定向状态码，通常作为 PUT 或 POST 操作的返回结果，它表示重定向链接指向的不是新上传的资源，而是另外一个页面，比如消息确认页面或上传进度页面。而请求重定向页面的方法要总是使用 GET</p>
+<p><em>你用PUT或者POST上传了一张了一张图片到/cai.com/a.png这个位置，这时候服务器不想让你继续访问/cai.com/a.png这个URI而是返回303 See Other,让你用GET到/cai.com/uploadsucess.html这里然后给你展示一个“嘿恭喜你上传成功”之类的页面..</em></p>
+<ol>
+<li><strong>304 Not Modified</strong></li>
+</ol>
+<p>客户端使用附带的条件请求(比如请求报文的headers中包含If-Match、If-Modified-Since、If-None-Match、If-Range、If-Unmodified-Since中的任一首部)时，服务器端允许这个请求访问资源，但是因为资源未满足条件，所以用304状态码返回，但是不包含任何响应的主体部分。<strong>304虽然被划分在3XX但是和重定向没关系</strong></p>
+<p><em>我能想到的和304有关的就是HTTP缓存，你发一个request，带上If-Modified-Since之类的headers到服务器，如果服务器返回了304，这时候你就直接用本地的缓存好了，不需要再去接收服务端的数据，因为和你上次请求的并无差别</em></p>
+<ol>
+<li>307 Temporary Redirect</li>
+</ol>
+<p>临时重定向，和302差不多，302的标准禁止POST变换成GET，但大家都不遵守。而307则会遵守浏览器标准，不会从POST变成GET</p>
+<ol>
+<li><strong>400 Bad Request</strong></li>
+</ol>
+<p>请求报文中存在语法错误，服务器无法理解这个请求</p>
+<ol>
+<li>401 Unauthorized</li>
+</ol>
+<p>这个状态码表示发送的请求需要通过HTTP认证(BASIC认证、DIGEST认证)的认证信息，浏览器初次接收401时会弹出认证用的对话窗口，如果之后再收到401.就表示之前的用户认证失败</p>
+<ol>
+<li>403 Forbidden</li>
+</ol>
+<p>浏览器请求的资源访问被服务器拒绝了，有可能是没有获得文件系统的访问授权，又或者访问权限出现问题(从未授权的发送源IP地址试图访问)等情况都有可能导致403</p>
+<ol>
+<li>404 Not Found</li>
+</ol>
+<p>服务器上找不到你请求的资源。服务器也可以在拒绝请求，并且不想说明理由时使用</p>
+<ol>
+<li>500 Internal Server Error</li>
+</ol>
+<p>服务端在执行请求时发生了错误，服务端的web应用存在bug或者临时的故障</p>
+<ol>
+<li>503 Service Unavailable</li>
+</ol>
+<p>服务器暂时处于超负载或正在进行停机维护，无法处理请求。如果事先知道解除以上状况需要的时间，最好写入Retry-After首部字段再返回给客户端</p>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
+    </body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> TCP协议的三次握手和四次分手 </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/计算机网络/">计算机网络</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/tcp/">tcp</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-02-06
+        </span>
+    </div>
+    <div class="post-content">
+        <p>额…这似乎是很经典的面试题，网上也有各种各样的讲解了。我就班门弄斧一下，写一点粗浅的整理。</p>
+<a id="more"></a>
+<h2 id="TCP是什么"><a href="#TCP是什么" class="headerlink" title="TCP是什么"></a>TCP是什么</h2><p>首先TCP是一种传输层的通信协议，处于应用层的HTTP协议依赖于传输层的TCP，而TCP自身又依赖于网络层的IP协议，IP协议又依赖于数据链路层的ARP…</p>
+<p>TCP协议头部有很多字段，具体的格式很容易找到。与本文关系最大的头部字段主要有:Sequence Number(序号)、Acknowledgment Number、SYN(表示同步序号)、ACK(此标志表示应答域有效)、FIN(表示发送端已经达到数据末尾)</p>
+<ul>
+<li><p>ACK ： TCP协议规定，只有ACK=1时有效，也规定连接建立后所有发送的报文的ACK必须为1</p>
+</li>
+<li><p>SYN(SYNchronization) ： 在连接建立时用来同步序号。当SYN=1而ACK=0时，表明这是一个连接请求报文。对方若同意建立连接，则应在响应报文中使SYN=1和ACK=1. 因此, SYN置1就表示这是一个连接请求或连接接受报文。</p>
+</li>
+<li><p>FIN （finis） ：即完，终结的意思， 用来释放一个连接。当 FIN = 1 时，表明此报文段的发送方的数据已经发送完毕，并要求释放连接。</p>
+</li>
+<li><p>Sequence Number:用来标识从TCP发端向TCP收端发送的数据字节流，它表示在这个报文段中的的第一个数据字节在数据流中的序号；主要用来解决网络报乱序的问题</p>
+</li>
+<li><p>Acknowledgment Number:32位确认序列号包含发送确认的一端所期望收到的下一个序号，因此，确认序号应当是上次已成功收到数据字节序号加1。不过，只有当标志位中的ACK标志（下面介绍）为1时该确认序列号的字段才有效。主要用来解决不丢包的问题；</p>
+</li>
+</ul>
+<h2 id="三次握手和四次分手的过程"><a href="#三次握手和四次分手的过程" class="headerlink" title="三次握手和四次分手的过程"></a>三次握手和四次分手的过程</h2><p><img src="/2018/02/06/http-tcp/tcp.jpg" width="100%"></p>
+<p>举个比较具体的例子</p>
+<h3 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h3><p><em>ack表示Acknowledgment Number</em><br>IP 192.168.1.116 &gt; 192.168.1.123: SYN=1 Seq=3626544836<br>IP 192.168.1.123 &gt; 192.168.1.116: SYN=1 Seq=1739326486 ACK=1 ack=3626544837<br>IP 192.168.1.116 &gt; 192.168.1.123: ACK=1 ack=1739326487</p>
+<ol>
+<li><p>第一次握手：192.168.1.116发送位码syn＝1,随机产生seq number=3626544836的数据包到192.168.1.123,192.168.1.123由SYN=1知道192.168.1.116要求建立联机;</p>
+</li>
+<li><p>第二次握手：192.168.1.123收到请求后要确认联机信息，向192.168.1.116发送ack number=3626544837,syn=1,ack=1,随机产生seq=1739326486的包;</p>
+</li>
+<li><p>第三次握手：192.168.1.116收到后检查ack number是否正确，即第一次发送的seq number+1,以及位码ack是否为1，若正确，192.168.1.116会再发送ack number=1739326487,ack=1，192.168.1.123收到后确认seq=seq+1,ack=1则连接建立成功。</p>
+</li>
+</ol>
+<h3 id="为什么需要三次握手？两次或者四次不行吗？"><a href="#为什么需要三次握手？两次或者四次不行吗？" class="headerlink" title="为什么需要三次握手？两次或者四次不行吗？"></a>为什么需要三次握手？两次或者四次不行吗？</h3><p><strong>四次握手</strong></p>
+<p>首先是四次握手，四次握手基本上就是把上面三次握手的第二次握手SYN+ACK分开，先发ACK确认第一次的SYN，再发SYN同步。很明显是这两个步骤可以合并，合并之后变成三次握手，这样可以提高连接的速度和效率。</p>
+<p><strong>两次握手</strong></p>
+<p>关于为什么不能有两次握手主要看到两种说法</p>
+<ol>
+<li><p>所谓两次握手，就是直接取消了第三次握手的发起方对接受方的ACK确认。以上面那个实例就是192.168.1.116一直不向192.168.1.123发送ACK。这样的话192.168.1.123就无法知道192.168.1.116是不是收到了自己第二次握手发给他的SYN,所以192.168.1.123会超时重传自己的SYN同步信号，一直到收到了192.168.1.116的ACK信号为止</p>
+</li>
+<li><p>第二种说法来自谢希仁的《计算机网络》一书。假设TCP被设计成只有两次握手就行。那么就可能会产生以下现象：<br>A发出第一个SYN到B，但是这个SYN在某个网络结点长时间滞留了，这时候导致B没有收到这个SYN，所以没有回ACK确认给A。A看到B没回ACK以为是第一个SYN请求缺失了，所以发了第二个SYN给B，这下B接收到了这个SYN,马上回了一个ACK给A，这时候双方就建立了连接(只有两次握手)，这下第一个SYN通过了那个网关，达到了B。B看到又来一个SYN,马上又返回一个ACK给A。(由于两次握手只要发了ACK就算建立连接)。所以B发完ACK就算是建立连接的，但是A却不理睬B的ACK，因为他觉得自己并没有发SYN,(这个SYN，A以为他早丢失了，他想传递的数据在第二个SYN发送后建立起来的连接中已经传递完了)。所以B就自己一直在那里孤独地等待A传数据过来，B(一般是服务器)就因为一直等待而浪费资源</p>
+</li>
+</ol>
+<h3 id="为什么要四次分手，而不是像握手一样把二三步合并"><a href="#为什么要四次分手，而不是像握手一样把二三步合并" class="headerlink" title="为什么要四次分手，而不是像握手一样把二三步合并?"></a>为什么要四次分手，而不是像握手一样把二三步合并?</h3><p>TCP协议是一种面向连接的、可靠的、基于字节流的运输层通信协议。TCP是全双工模式，这就意味着，当主机1发出FIN报文段时，只是表示主机1已经没有数据要发送了，主机1告诉主机2，它的数据已经全部发送完毕了；但是，这个时候主机1还是可以接受来自主机2的数据；当主机2返回ACK报文段时，表示它已经知道主机1没有数据发送了，但是主机2还是可以发送数据到主机1的；当主机2也发送了FIN报文段时，这个时候就表示主机2也没有数据要发送了，就会告诉主机1，我也没有数据要发送了，之后彼此就会愉快的中断这次TCP连接。</p>
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><a href="https://github.com/jawil/blog/issues/14" target="_blank" rel="noopener">通俗大白话来理解TCP协议的三次握手和四次分手</a><br><a href="https://www.zhihu.com/question/24853633" target="_blank" rel="noopener">TCP 为什么是三次握手，为什么不是两次或四次？</a></p>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
+    </body>
+</html>

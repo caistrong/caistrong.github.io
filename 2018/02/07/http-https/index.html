@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> 今夜我们一起学习HTTP之https </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/计算机网络/">计算机网络</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web安全/">web安全</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-02-07
+        </span>
+    </div>
+    <div class="post-content">
+        <p>HTTP+通信加密+证书+完整性保护 = HTTPS</p>
+<a id="more"></a>
+<p>通常HTTP直接和TCP通信，使用HTTPS之后演变成先和SSL通信，再由SSL和TCP通信</p>
+<p>http主要有以下这些不足</p>
+<ol>
+<li>通信使用明文(不加密)，内容可能会被窃听</li>
+<li>不验证通信方的身份，因此有可能遭遇伪装<br>存在“服务器是否就是发送请求中URI真正指定的主机(有可能是伪装的web服务器)，返回的响应是否真的返回到了实际提出请求的客户端(有可能是伪装的客户端)”等类似的问题</li>
+<li>无法证明报文的完整性，所以有可能已遭篡改<br>换句话说，就是没有办法确认，客户端发出的请求和服务端收到的请求是否一致，有没有中途被篡改。或者服务端发出的响应和客户端接收到的是否一致，有没有中途被篡改。请求和响应在传输途中遭攻击者拦截并篡改内容的攻击叫做中间人攻击</li>
+</ol>
+<p>https分别采用了一些方法来克服http的不足</p>
+<p>对于1</p>
+<ul>
+<li>通信加密<br>HTTP over SSL<br>先用SSL建立起安全通信线路之后，就可以在这条线路上进行HTTP通信了</li>
+<li>内容加密<br>如果客户端和服务器同时具备加密揭秘机制。可以对报文进行加密处理后再发送请求。不同于SSL将整个通信线路加密，内容加密后仍有被篡改的风险<br>对于2</li>
+<li>查明对方的证书<br>SSL不仅提供了加密处理，还提供了一种被称为证书的手段，可用于确定对方<br>对于3</li>
+<li>可以用PGP创建数字签名及MD5算法生成散列值</li>
+</ul>
+<h2 id="SSL"><a href="#SSL" class="headerlink" title="SSL"></a>SSL</h2><h3 id="相互交换密钥的公开密钥加密技术"><a href="#相互交换密钥的公开密钥加密技术" class="headerlink" title="相互交换密钥的公开密钥加密技术"></a>相互交换密钥的公开密钥加密技术</h3><p>近代加密算法中加密算法都是公开的，而只有密钥是保密的。</p>
+<ul>
+<li>Common Key crypto system(共享密钥加密/对称密钥加密)</li>
+</ul>
+<p>加密和解密都是用同一把密钥，所以通信的双方必须有同一把密钥，这把密钥如果落入攻击者手里，那么加密形同虚设，因为加密算法大家都知道，密钥+加密算法就可以把加密信息破解了。而在HTTP中，不管是从服务器到客户端，还是从客户端到服务器。怎样安全转交这把密钥都是个问题。如果密钥本身可以保证被安全转交，那么数据也可以用同样的方法进行安全传递。因此对称密钥加密陷入困境。</p>
+<ul>
+<li>两把钥匙的公开密钥加密(非对称密钥加密)</li>
+</ul>
+<p>使用一对非对称密钥，其中一把叫做私有密钥(private key).另一把叫做公开密钥(public key)。顾名思义私有密钥不让其他任何人知道，公开密钥可以随意发布，任何人都可以获得。</p>
+<p>使用公开密钥加密方式，发送信息的一方使用对方的公开密钥进行加密处理，对方收到被加密过密文后使用自己的私有密钥进行解密。利用这种方式，就不用发送私密密钥给对方供对方解密，就不用胆信被攻击者盗走。</p>
+<p>攻击者仅凭公钥是无法对密文进行破解的，至少目前的技术来看破解不现实</p>
+<p><img src="/2018/02/07/http-https/rsakey.png" width="100%"></p>
+<p>https采用混合加密机制，也就是混合共享和公开两种密钥加密方式。</p>
+<p>因为公开密钥加密比较复杂所以效率比共享低</p>
+<p>因此仅在传递共享密钥时使用公开密钥加密的方式，之后建立通信交换报文阶段则使用共享密钥加密方式</p>
+<h3 id="证明公开密钥正确性的证书"><a href="#证明公开密钥正确性的证书" class="headerlink" title="证明公开密钥正确性的证书"></a>证明公开密钥正确性的证书</h3><p>公开密钥加密方式还是存在一定问题。那就是无法证明公开密钥是货真价实的公开密钥，比如你正准备和服务器A建立公开密钥加密方式的通信时，如何证明你收到的公开密钥就是你原先想建立通信的服务器A的公开密钥，也许在公钥传输途中，有中间人替换了一把假的公钥给你(这把假的公钥有可能正是中间人自己的伪装服务器A的服务器上私钥相对的公钥)</p>
+<p>为了解决这个问题，所以可以使用由数字证书认证机构（CA）和其他相关机关颁发的公开密钥证书</p>
+<p>CA处于客户端和服务器双方都可信赖的第三方机构的立场上。</p>
+<p>首先，服务器运营人员向CA提出公开密钥的申请，CA在判明提出申请者的身份后，会用自己的私钥对这个已申请的公开密钥做数字签名，然后分配这个已签名的公开密钥，并将该公开密钥放入公钥证书后绑定在一起。</p>
+<p>服务器会将这份由CA颁发的公钥证书发送给客户端，以进行公开密钥加密方式通信。公钥证书也可叫做是数字证书或者直接叫证书。</p>
+<p>接到证书的客户端可以用CA这个机构的公开密钥(随着浏览器发布，浏览器自身带有很多CA的公开密钥)对证书上的数字签名进行验证，如果验证通过。那客户端就可以明确这个公钥是值得信任的。然后就可以信任地用这个公钥加密信息发送到服务器了。服务器也可以用自己的私钥对该信息进行解密了。</p>
+<p><img src="/2018/02/07/http-https/CA.png" width="100%"></p>
+<p>至此我们已经能够保证客户端访问的服务端是货真价实的服务端了。可是服务端怎么证明自己响应发送到了那个实际发出请求的客户端呢。<br>答案是: 用以确认客户端的客户端证书<br>方法和服务器证书如出一辙，但是由于证书需要付费购买。现在仅在网上银行之类的地方采用了客户端证书。</p>
+<p>建立HTTPS通信的整个流程图示如下</p>
+<p><img src="https.png" width="100%"></p>
+<p>https存在的问题:</p>
+<p>慢</p>
+<ol>
+<li><p>通信慢，因为还要进行SSL通信(HTTP不需要这一步)</p>
+</li>
+<li><p>处理速度慢，消耗CPU及内存等资源来进行加密解密</p>
+</li>
+</ol>
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p>&lt;图解HTTP&gt; 上野宣 第七章 确保web安全的https</p>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
+    </body>
+</html>

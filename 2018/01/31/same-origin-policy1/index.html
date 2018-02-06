@@ -87,7 +87,10 @@
 <li><code>&lt;a&gt;</code></li>
 <li>API: location.*, window.open()</li>
 </ul>
-<h3 id="iframe标签的同源限制"><a href="#iframe标签的同源限制" class="headerlink" title="iframe标签的同源限制"></a>iframe标签的同源限制</h3><p>DOM提供了一些API来让我们获取iframe的内容<br><strong>在父页面获取iframe标签的内容</strong></p>
+<h3 id="iframe标签的同源限制"><a href="#iframe标签的同源限制" class="headerlink" title="iframe标签的同源限制"></a>iframe标签的同源限制</h3><p><strong>X-Frame-Options</strong></p>
+<pre><code>x-Frame-Options: DENY/SAMEORIGIN
+</code></pre><p>HTTP响应报文首部可能会包含以上值，意思分别是拒绝响应主体被插在iframe标签里面，和仅允许同源域名下的页面用iframe把响应主体插在iframe标签里。</p>
+<p>DOM提供了一些API来让我们获取iframe的内容<br><strong>在父页面获取iframe标签的内容</strong></p>
 <pre><code class="js"> var iframe = document.getElementById(&quot;iframe1&quot;);
  var iwindow = iframe.contentWindow;//获取iframe的window对象
  var idoc = iframe.contentDocument //获取iframe的document对象
