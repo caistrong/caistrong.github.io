@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cai&#39;s</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+      <div class="container">
+        <header class="header">
+    <div class"blog-title">
+        <a href="/" class="logo">Cai&#39;s</a>
+    </div>
+    <nav class="navbar">
+        <ul class="menu">
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/"> 主页 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/archives"> 归档 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/tags"> 标签 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/categories"> 分类 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="/about"> 简历 </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a class="menu-item-link" href="https://github.com/caistrong"> Github </a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+        <div class="main">
+          <article class="post">
+    <div class="post-title">
+        <h2 class="title"> JavaScript类型判断 </h2>
+    </div>
+    <div class="post-meta">
+        <span class="post-category">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a></li></ul>
+        </span>
+        <span class="post-tags">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/类型判断/">类型判断</a></li></ul>
+        </span>
+        <span class="post-time">
+            2018-02-12
+        </span>
+    </div>
+    <div class="post-content">
+        <p>我们知道JavaScript有七种数据类型,其中基本类型(Primitive types)有六种，分别是Undefined、Null、Boolean、Number、String、Symbol(ES6引入)。引用类型(Reference type)有一种，是Object(我们常见的Array、Date、RegExp等其实都属于Object)。</p>
+<a id="more"></a>
+<h2 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h2><p>我觉得可以简单地把typeof理解为就是用来判断这7种类型的,即对JavaScript的任何一个value，在他前面使用typeof操作符，可以判断出他属于这七种类型的哪一种。但是存在一些特殊情况。</p>
+<pre><code class="js">typeof undvar // &quot;undefined&quot;
+typeof undefined //&quot;undefined&quot;
+typeof null //&quot;object&quot;
+typeof true //&quot;boolean&quot;
+typeof 123 //&quot;number&quot;
+typeof &quot;cai&quot; //&quot;string&quot;
+typeof Symbol(&#39;cai&#39;) //&quot;symbol&quot;
+typeof {} //&quot;object&quot;
+typeof [] //&quot;object&quot;
+typeof function foo(){} //&quot;function&quot; (特殊情况)
+</code></pre>
+<p>特殊要点:</p>
+<ol>
+<li>typeof null 返回”object”: 我认为这可以当作是JavaScript的一个设计上的错误,不过在高程中解释为null(Null类型唯一一个值)表示空对象指针,如果定义的变量准备在将来用于保存对象，在变量初始化时可以初始化为null</li>
+<li>typeof [] 返回”object”: 这一点实际上不特殊,但是他是要点,首先JavaScript的数组也是对象,其次使我们明白了typeof只能判断那7种类型,没办法判断是哪种对象,我们可以使用instanceof或者其他方法,将在后文叙述。</li>
+<li>typeof function foo(){} : 这一点也是特殊的地方,按typeof []返回”object”的逻辑上,实际上这里的typeof function foo(){}也应该返回”object”,毕竟JavaScript的函数也是对象,不过在JavaScript中function一直具有特殊性,所以我们也能理解这种设计</li>
+<li>typeof undvar: typeof是一种安全操作,对于未声明的变量也会返回”undefined”,不过如果这个未声明的变量在暂时性死区内则会报错。</li>
+</ol>
+<h2 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h2><p>由于typeof的局限性(对于引用类型只能判断是不是object而无法具体判断是哪种object),ECMAScript引入了instanceof操作符。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><pre><code class="js">object instanceof constructor
+</code></pre>
+<p>简单一句话描述:<strong>instanceof 运算符用来检测 constructor.prototype 是否存在于参数 object 的原型链上。</strong></p>
+<p>我们来看一下instanceof操作符的实现原理(来自参考资料的连接)。</p>
+<pre><code class="js">function instanceof(L, R) { //L是表达式左边，R是表达式右边
+    var O = R.prototype;
+    L = L.__proto__;
+    while(true) {
+        if (L === null)
+            return false;
+        if (L === O)
+            return true;
+        L = L.__proto__;
+    }
+}
+</code></pre>
+<p>我们举个实际的例子,比如</p>
+<pre><code class="js">instanceof(a,Array)
+</code></pre>
+<p>用来判断a是不是Array的实例,是的话返回true，否则返回false.<br>这个时候我们取</p>
+<pre><code class="js">var O = Array.prototype //值就是 &quot;实例原型&quot; 这个对象
+</code></pre>
+<p><em>也就是构造函数的prototype属性,这个时候你每用这个构造函数new一个新的实例出来的时候,这个实例就会关联一个<code>__proto__</code>属性,这个属性指向的就是构造函数的prototype属性的值,这个属性的值(我们称之为实例原型)是一个对象,这个对象包含constructor这个属性,又指向回构造函数。这方面不懂的话可以再仔细阅读<a href="https://github.com/mqyqingfeng/Blog/issues/2" target="_blank" rel="noopener">JavaScript深入之从原型到原型链 </a>这篇文章。</em></p>
+<p>接着我们取</p>
+<pre><code class="js">L = a.__proto__; // 看看这个a关联的实例原型是哪个
+</code></pre>
+<p>用L去和O比较,如果一样则返回true,如果不一样则顺着a的原型链往下遍历</p>
+<pre><code class="js">L = L.__proto__;
+</code></pre>
+<p>因为原型链的末端是null,所以判断到null之后就可以返回false了</p>
+<h2 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h2><p>每个对象实例都会有用<code>__proto___</code>关联的实例原型，这个实例原型有constructor属性指向他的构造函数。所以我们可以使用constructor来判断类型</p>
+<pre><code class="js">function Animal(){}
+var a = new Animal()
+a.constructor === Animal    // true
+</code></pre>
+<p>使用constructor来判断变量类型的适用范围和局限性与instanceof大同小异，不同之处主要有</p>
+<ol>
+<li>constructor指向的是最初创建当前对象的函数，是原型链最上层的那个方法,而instanceof是顺着原型链的。<pre><code class="js">a.constructor === Object //false
+</code></pre>
+</li>
+<li>constructor可以用来判断基本数据类型，而instanceof不行<pre><code class="js">&#39;abc&#39;.constructor === String // true
+// 上面代码等价于
+(new String(&#39;abc&#39;)).constructor === String
+</code></pre>
+</li>
+</ol>
+<p><em>constructor和instanceof方法的一个局限性在于有可能因为constructor属性被修改或者原型链被修改导致失效</em></p>
+<p><em>constructor和instanceof类型判断的另一个局限在在于会存在跨窗口问题，这点具体查看参考资料</em></p>
+<h2 id="Object-prototype-toString"><a href="#Object-prototype-toString" class="headerlink" title="Object.prototype.toString()"></a>Object.prototype.toString()</h2><p>当学习完了typeof和instanceof两个简洁明朗的操作符之后。我本以为本文差不多就可以完结了,当我一开始了解用Object.prototype.toString()这种方式来进行类型检查时,我甚至没有明白这种丑陋的方法有什么存在的必要。</p>
+<p>我所忽略的是，在判断某个值的类型时，往往我们无法预先知道他是否是对象，也就由此无法知道是该用instanceof还是typeof。我们知道前者只适用于对象(基本类型没有原型链)，后者只能判断是不是对象，而无法判断具体是哪种对象。一般来说得先用typeof再用instanceof。实在过于麻烦。同时也由于前面几种方法各自的局限性。</p>
+<p>相较于前面几种方法而言，toString方法是最为可靠的类型检测手段，它会将当前对象转换为字符串并输出。</p>
+<pre><code class="js">var number = 1;          // [object Number]
+var string = &#39;123&#39;;      // [object String]
+var boolean = true;      // [object Boolean]
+var und = undefined;     // [object Undefined]
+var nul = null;          // [object Null]
+var sym = Symbol(&quot;cai&quot;); // [object Symbol]
+var obj = {a: 1}         // [object Object]
+var array = [1, 2, 3];   // [object Array]
+var set = new Set();     // [object Set]
+var map = new Map();     // [object Map]
+var date = new Date();   // [object Date]
+var error = new Error(); // [object Error]
+var reg = /a/g;          // [object RegExp]
+var func = function foo(){}; // [object Function]
+
+function checkType() {
+    for (var i = 0; i &lt; arguments.length; i++) {
+        console.log(Object.prototype.toString.call(arguments[i]))
+    }
+}
+checkType(number, string, boolean, und, nul, sym, obj, array, set, map, date, error, reg, func)
+</code></pre>
+<p>当然除了以下这样利用Object.prototype.toString()的方式</p>
+<pre><code class="js">Object.prototype.toString.call(1)===&quot;[object Number]&quot; //true
+</code></pre>
+<p>我们也可以编写如下的type api来利用Object.prototype.toString() </p>
+<pre><code class="js">//代码来自jQuery改写
+var class2type = {};
+&quot;Boolean Number String Function Array Set Map Date RegExp Object Error Null Undefined Symbol&quot;.split(&quot; &quot;).map(function(item,index){
+    class2type[&quot;[object &quot; + item + &quot;]&quot;] = item.toLowerCase();
+})
+function type(obj) {
+    return typeof obj === &quot;object&quot; || typeof obj === &quot;function&quot; ?
+        class2type[Object.prototype.toString.call(obj)] || &quot;object&quot; :
+        typeof obj;
+}
+type(function foo(){}) //&quot;function&quot;
+type(new Set()) //&quot;set&quot;
+type(Object.create(null)) //&quot;object&quot;
+type(Symbol(&#39;cai&#39;)) //&quot;symbol&quot;
+type(1) //&quot;number&quot;
+</code></pre>
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><a href="https://zhuanlan.zhihu.com/p/27943354" target="_blank" rel="noopener">JavaScript之instanceof实现原理</a><br><a href="https://github.com/mqyqingfeng/Blog/issues/28" target="_blank" rel="noopener">JavaScript专题之类型判断(上)</a><br><a href="http://harttle.land/2015/09/18/js-type-checking.html" target="_blank" rel="noopener">如何检查JavaScript变量类型</a><br><a href="https://github.com/mqyqingfeng/Blog/issues/30" target="_blank" rel="noopener">判断plainObject、EmptyObject、Window 对象、ArrayLike、isElement的实现方法</a></p>
+
+    </div>
+</article>
+
+<!-- 由于这里是post的模板,所以page表示的是post的数据-->
+        </div>
+      </div>
+      <script>
+          hljs.initHighlightingOnLoad();
+      </script>
+    </body>
+</html>
