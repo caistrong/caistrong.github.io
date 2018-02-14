@@ -71,7 +71,7 @@
 <li>约束函数–用约束函数在扩展结点处剪去不满足约束的子树；<br>•见0-1背包问题</li>
 <li>限界函数–用限界函数剪去得不到最优解的子树；<br>•见TSP问题</li>
 </ol>
-<h3 id="两种类型的解空间树"><a href="#两种类型的解空间树" class="headerlink" title="两种类型的解空间树"></a>两种类型的解空间树</h3><h4 id="子集树"><a href="#子集树" class="headerlink" title="子集树"></a>子集树</h4><p>2^n个叶结点  01背包问题<br><img src="/2018/01/27/algo-backTrack/zijitree.png" width="100%"></p>
+<h3 id="两种类型的解空间树"><a href="#两种类型的解空间树" class="headerlink" title="两种类型的解空间树"></a>两种类型的解空间树</h3><h4 id="子集树"><a href="#子集树" class="headerlink" title="子集树"></a>子集树</h4><p>2^n个叶结点  01背包问题<br><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/algo-backTrack/zijitree.png" alt=""></p>
 <p><strong>搜索子集树的一般算法</strong><br>（完全n叉树属于子集树）</p>
 <pre><code class="cpp">//t表示当时搜的深度
 //n一般是问题规模，是数组x的长度，诸如背包问题中石块的数量
@@ -90,7 +90,7 @@ void backtrack( int t)
             }
 }
 </code></pre>
-<h4 id="排列树"><a href="#排列树" class="headerlink" title="排列树"></a>排列树</h4><p>n!个叶结点   TSP旅行商问题<br><img src="/2018/01/27/algo-backTrack/pailietree.png" width="100%"><br><strong>搜索排列树的一般算法</strong></p>
+<h4 id="排列树"><a href="#排列树" class="headerlink" title="排列树"></a>排列树</h4><p>n!个叶结点   TSP旅行商问题<br><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/algo-backTrack/pailietree.png" alt=""><br><strong>搜索排列树的一般算法</strong></p>
 <pre><code class="cpp">//n是问题的规模
 //t是当前搜索的深度
 //x是解集
@@ -117,7 +117,7 @@ void backtrack( int t)
 <p>根据从活结点表中选取新的扩展结点的方式不同可以分为<br>1.队列式FIFO分支限界法 和 2.优先队列式分支限界法 两种不同的分支限界法</p>
 <p>其中队列式FIFO分支限界法，将活结点表组织成一个队列，并按队列的先进先出FIFO原则选取下一个结点作为当前扩展结点</p>
 <p>优先队列式分支限界法，将活结点表组织成一个优先队列，并按优先队列中规定的结点优先级，选取剩余队列中优先级最高的下一个结点作为当前扩展结点；</p>
-<h4 id="和回溯法的异同"><a href="#和回溯法的异同" class="headerlink" title="和回溯法的异同"></a>和回溯法的异同</h4><p><img src="/2018/01/27/algo-backTrack/yitong1.png" width="100%"><br><img src="/2018/01/27/algo-backTrack/yitong2.png" width="100%"></p>
+<h4 id="和回溯法的异同"><a href="#和回溯法的异同" class="headerlink" title="和回溯法的异同"></a>和回溯法的异同</h4><p><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/algo-backTrack/yitong1.png" alt=""><br><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/algo-backTrack/yitong2.png" alt=""></p>
 
     </div>
 </article>

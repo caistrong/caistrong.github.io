@@ -74,7 +74,7 @@
 <p>2.紧接着第1步分析，根据实际问题去推理出，m[i][1]和m[i-1][1]之间的关系，并用数学式子表现出来。一般情况下会是m[i][1]=m[i-1][1]+p之类的形式。这一步可能需要分情形讨论，同时应该会有一个递归出口，即i到了一定小的规模 等于0啊或者等于1之类的时候有直接的解，不需要再递归调用。</p>
 <p>3.计算最优值，根据第2步分析出来的递归公式，一般采用递归函数的形式去模拟递归公式。比如说m[i][1] = m[i-1][1] +p可以换成类似mfunc(i)=mfunc(i-1)之类的式子，我们定义的求最优值的函数就是这个mfunc，函数前面部分会定义递归出口，或者查找备忘录之类的</p>
 <p>4.在计算最优值中一般会记录一些关键信息，比如矩阵连乘中记录分点。然后之后再根据记录的这些信息Backtrace出最优解(这一步不一定需要)</p>
-<h2 id="备忘录方法"><a href="#备忘录方法" class="headerlink" title="备忘录方法"></a>备忘录方法</h2><p><img src="/2018/01/27/algo-dp/dp0.png" width="100%"></p>
+<h2 id="备忘录方法"><a href="#备忘录方法" class="headerlink" title="备忘录方法"></a>备忘录方法</h2><p><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/algo-dp/dp0.png" alt=""></p>
 <h3 id="以上这个算法的分析"><a href="#以上这个算法的分析" class="headerlink" title="以上这个算法的分析"></a>以上这个算法的分析</h3><p>首先先查看m[i][j]这个的值，如果已经存在了就直接返回 避免重复计算//解决重叠子问题<br>其次如果i==j的话直接返回0,矩阵和自身相乘无需计算，这也是一个递归出口<br>递归调用LookupChain是将i和j的差逐渐缩小，所以出口就是i=j时</p>
 <p>定义好了递归出口，同时建好了备忘录，以下就开始递归调用了</p>
 <p>假设现在要求A1A2A3A4A5的最优解，那么显然需要知道先分成哪两半相乘<br>则有A1(A2A3A4A5)  | (A1A2)(A3A4A5) | (A1A2A3)(A4A5) | (A1A2A3A4)A5<br>这些选择，要知道哪个是最优的，则只好循环、比较<br>先假设第一个是最优的所以有</p>
@@ -94,7 +94,7 @@ s[i][j]=i;
 <pre><code class="cpp">u=m[i][j];
 return u;
 </code></pre>
-<h4 id="两种方法应用方面的比较"><a href="#两种方法应用方面的比较" class="headerlink" title="两种方法应用方面的比较"></a>两种方法应用方面的比较</h4><p><img src="/2018/01/27/algo-dp/dp1.png" width="100%"></p>
+<h4 id="两种方法应用方面的比较"><a href="#两种方法应用方面的比较" class="headerlink" title="两种方法应用方面的比较"></a>两种方法应用方面的比较</h4><p><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/algo-dp/dp1.png" alt=""></p>
 
     </div>
 </article>

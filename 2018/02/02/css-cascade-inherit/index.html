@@ -86,7 +86,7 @@
 <li>个位：在整个选择器中每包含一个元素选择器或伪元素就在该列中加1分。</li>
 </ol>
 <p><em>通用选择器 (</em>), 复合选择器 (+, &gt;, ~, ‘ ‘) 和否定伪类 (:not) 在专用性中无影响。*</p>
-<p><img src="/2018/02/02/css-cascade-inherit/zhuanyong.png" width="100%"></p>
+<p><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/css-cascade-inherit/zhuanyong.png" alt=""></p>
 <h3 id="源代码次序"><a href="#源代码次序" class="headerlink" title="源代码次序"></a>源代码次序</h3><p>如上所述，如果多个相互竞争的选择器<strong>具有相同的重要性和专用性</strong>，那么第三个因素将帮助决定哪一个规则获胜——后面的规则将战胜先前的规则。</p>
 <pre><code class="css">p {
   color: blue;
@@ -134,8 +134,7 @@ p {
   color: unset;
 }
 </code></pre>
-<p>结果如下：<br><img src="/2018/02/02/css-cascade-inherit/lizi.png" width="100%"></p>
-<p>解释如下:</p>
+<p>结果如下：<br><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/css-cascade-inherit/lizi.png" alt=""><br>解释如下:</p>
 <blockquote>
 <ol>
 <li>我们首先设置<code>&lt;body&gt;</code> 的color为绿色。</li>

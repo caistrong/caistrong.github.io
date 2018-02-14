@@ -153,8 +153,7 @@
     }
 })
 </code></pre>
-<p><img src="/2018/01/26/android-activity/ysIntent.png" width="100%"></p>
-<p>在AndroidManifest.xml中修改ThirdActivity的intent-filter</p>
+<p><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/android-activity/ysIntent.png" alt=""><br>在AndroidManifest.xml中修改ThirdActivity的intent-filter</p>
 <p><strong>AndroidManifest.xml</strong></p>
 <pre><code class="xml">&lt;activity android:name=&quot;.ThirdActivity&quot;&gt;
     &lt;intent-filter&gt;
@@ -174,7 +173,7 @@
     }
 })
 </code></pre>
-<p>就会让我们在Browser和ActivityTest(含有ThirdActivity这个Activity的app)中二选一<br><img src="android-activity/httpIntent.png" width="100%"></p>
+<p>就会让我们在Browser和ActivityTest(含有ThirdActivity这个Activity的app)中二选一<br><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/android-activity/httpIntent.png" alt=""></p>
 <p>除了http以外还有很多协议，geo表示显示地理位置，tel表示拨打电话</p>
 <pre><code class="java">button1.setOnClickListener(new View.OnClickListener(){
     @Override
@@ -257,10 +256,10 @@ protected void OnActivityResult(int requestCode,int resultCode,Intent data){
     }
 }
 </code></pre>
-<p>关于onActivityResult()<br>  <img src="/2018/01/26/android-activity/onActivityResult.png" width="100%"></p>
-<h2 id="Activity的生命周期"><a href="#Activity的生命周期" class="headerlink" title="Activity的生命周期"></a>Activity的生命周期</h2><h4 id="活动状态"><a href="#活动状态" class="headerlink" title="活动状态"></a>活动状态</h4><p><img src="/2018/01/26/android-activity/activityState.png" width="100%"></p>
-<h4 id="生命周期钩子"><a href="#生命周期钩子" class="headerlink" title="生命周期钩子"></a>生命周期钩子</h4><p><img src="/2018/01/26/android-activity/activityHooks.png" width="100%"><br><img src="/2018/01/26/android-activity/activityHooks2.png" width="100%"></p>
-<h4 id="生命周期图"><a href="#生命周期图" class="headerlink" title="生命周期图"></a>生命周期图</h4><p><img src="/2018/01/26/android-activity/lifecycle.png" width="100%"></p>
+<p>关于onActivityResult()<br><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/android-activity/onActivityResult.png" alt=""></p>
+<h2 id="Activity的生命周期"><a href="#Activity的生命周期" class="headerlink" title="Activity的生命周期"></a>Activity的生命周期</h2><h4 id="活动状态"><a href="#活动状态" class="headerlink" title="活动状态"></a>活动状态</h4><p><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/android-activity/activityState.png" alt=""></p>
+<h4 id="生命周期钩子"><a href="#生命周期钩子" class="headerlink" title="生命周期钩子"></a>生命周期钩子</h4><p><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/android-activity/activityHooks.png" alt=""><br><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/android-activity/activityHooks2.png" alt=""></p>
+<h4 id="生命周期图"><a href="#生命周期图" class="headerlink" title="生命周期图"></a>生命周期图</h4><p><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/android-activity/lifecycle.png" alt=""></p>
 <h3 id="onSaveInstanceState"><a href="#onSaveInstanceState" class="headerlink" title="onSaveInstanceState()"></a>onSaveInstanceState()</h3><p>Activity提供了一个onSaveInstanceState()回调方法，这个方法它可以保证活动在被回收之前一定会被调用。用来保存要被回收的活动的一些重要数据</p>
 <p><strong>保存</strong><br>在MainActivity.java</p>
 <pre><code class="java">@Override

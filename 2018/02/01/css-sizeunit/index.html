@@ -136,10 +136,15 @@ div{
 }
 </code></pre>
 <p>对于上面的设计方式而言，在浏览器初始设定html的font-size为16px时。button1的里面字体的大小是1.25x16=20px。内边距是16x2.5=40px。内边距刚好是字体大小的两倍。但是当你想修改button1的字体大小，比如将其改为1.5rem。那么如果你想继续保持内边距是字体的两倍时，你也要将padding改为3rem。如果你还有margin,line-height等属性想保持一定的比例，那你就都得改。使用button2的方式padding永远是本元素font-size的2倍，你如果想改font-size直接改就是。</p>
-<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="%适用场景"></a>%适用场景</h3><p><strong>多列布局</strong><br>布局中的列宽通常应该是 %，因此他们可以流畅适应无法预知大小的视区。</p>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p><strong>多列布局</strong><br>布局中的列宽通常应该是 %，因此他们可以流畅适应无法预知大小的视区。</p>
 <p>然而单一列一般仍然应使用 rem 值来设置最大宽度。</p>
 <p>例如:</p>
-<p>.container {<br>    width: 100%;<br>    max-width: 75rem;<br>}<br>这保持列的灵活，可扩展。又能防止变得太宽了。</p>
+<pre><code class="css">.container {
+    width: 100%;
+    max-width: 75rem;
+}
+</code></pre>
+<p>这保持列的灵活，可扩展。又能防止变得太宽了。</p>
 <h4 id="重要参考"><a href="#重要参考" class="headerlink" title="重要参考"></a>重要参考</h4><p><a href="https://webdesign.tutsplus.com/zh-hans/tutorials/comprehensive-guide-when-to-use-em-vs-rem--cms-23984" target="_blank" rel="noopener">综合指南: 何时使用 Em 与 Rem</a></p>
 
     </div>

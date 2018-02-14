@@ -65,25 +65,22 @@
         <p>Android中的广播机制很灵活，Android中每个应用程序都可以对自己感兴趣的广播进行注册。这样该程序就只会接收到自己所关心的广播内容。这些广播可能是来自于系统的，也可能是来自于其他应用程序的。Android提供了一套完整的API，允许应用程序自由地发送和接收广播。发送广播的方法之前稍微提到过。是借助Intent。而接收广播的方法需要引入全新的概念–广播接收器(Broadcast Receiver)</p>
 <a id="more"></a>
 <p><strong>发送广播</strong><br>intent<br><strong>接收广播</strong><br>Broadcast Receiver</p>
-<h3 id="安卓中广播的两种类型：标准广播、有序广播"><a href="#安卓中广播的两种类型：标准广播、有序广播" class="headerlink" title="安卓中广播的两种类型：标准广播、有序广播"></a>安卓中广播的两种类型：标准广播、有序广播</h3><p><img src="/2018/01/27/android-broadcast/2kindbr.jpg" width="100%"></p>
-<h3 id="接收系统广播"><a href="#接收系统广播" class="headerlink" title="接收系统广播"></a>接收系统广播</h3><p><img src="/2018/01/27/android-broadcast/sysbr.png" width="100%"></p>
-<h4 id="动态注册监听网络变化"><a href="#动态注册监听网络变化" class="headerlink" title="动态注册监听网络变化"></a>动态注册监听网络变化</h4><p><img src="/2018/01/27/android-broadcast/sysbr1.jpg" width="100%"></p>
-<h4 id="动态注册java"><a href="#动态注册java" class="headerlink" title="动态注册java"></a>动态注册java</h4><p><img src="/2018/01/27/android-broadcast/sysbr2.png" width="100%"></p>
-<p><strong>以上代码的解释如下</strong></p>
-<p><img src="/2018/01/27/android-broadcast/sysbr3.png" width="100%"></p>
-<p><strong>同时以下代码还使用了获得系统服务的实例</strong></p>
-<p><img src="/2018/01/27/android-broadcast/sysbr4.png" width="100%"></p>
+<h3 id="安卓中广播的两种类型：标准广播、有序广播"><a href="#安卓中广播的两种类型：标准广播、有序广播" class="headerlink" title="安卓中广播的两种类型：标准广播、有序广播"></a>安卓中广播的两种类型：标准广播、有序广播</h3><p><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/android-broadcast/2kindbr.jpg" alt=""></p>
+<h3 id="接收系统广播"><a href="#接收系统广播" class="headerlink" title="接收系统广播"></a>接收系统广播</h3><p><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/android-broadcast/sysbr.png" alt=""></p>
+<h4 id="动态注册监听网络变化"><a href="#动态注册监听网络变化" class="headerlink" title="动态注册监听网络变化"></a>动态注册监听网络变化</h4><p><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/android-broadcast/sysbr1.jpg" alt=""></p>
+<h4 id="动态注册java"><a href="#动态注册java" class="headerlink" title="动态注册java"></a>动态注册java</h4><p><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/android-broadcast/sysbr2.png" alt=""><br><strong>以上代码的解释如下</strong></p>
+<p><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/android-broadcast/sysbr3.png" alt=""><br><strong>同时以下代码还使用了获得系统服务的实例</strong></p>
+<p><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/android-broadcast/sysbr4.png" alt=""></p>
 <p>以下代码需要加在AndroidManifest.xml</p>
 <pre><code class="xml">&lt;use-permission android:name=&quot;android.permission.ACCESS_NETWORK_STATE&quot;/&gt;
 </code></pre>
-<h4 id="静态注册实现开机启动"><a href="#静态注册实现开机启动" class="headerlink" title="静态注册实现开机启动"></a>静态注册实现开机启动</h4><p><strong>动态注册的不足</strong><br><img src="/2018/01/27/android-broadcast/weakd.png" width="100%"><br>比如说需要实现开机启动就没办法了</p>
-<p><strong>新建一个BroadcastReceiver</strong><br><img src="/2018/01/27/android-broadcast/newbr.png" width="100%"></p>
-<p><strong>在AndroidManifest.xml注册</strong><br><img src="/2018/01/27/android-broadcast/newbrregi.png" width="100%"></p>
-<p>在AndroidManifest.xml中添加权限</p>
+<h4 id="静态注册实现开机启动"><a href="#静态注册实现开机启动" class="headerlink" title="静态注册实现开机启动"></a>静态注册实现开机启动</h4><p><strong>动态注册的不足</strong><br><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/android-broadcast/weakd.png" alt=""><br>比如说需要实现开机启动就没办法了</p>
+<p><strong>新建一个BroadcastReceiver</strong><br><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/android-broadcast/newbr.png" alt=""></p>
+<p><strong>在AndroidManifest.xml注册</strong><br><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/android-broadcast/newbrregi.png" alt=""><br>在AndroidManifest.xml中添加权限</p>
 <pre><code class="xml">&lt;use-permission android:name=&quot;android.permission.RECEIVE_BOOT_COMPLETED&quot;/&gt;
 </code></pre>
 <p>Android系统启动完成后会发出一条值为android.intent.action.BOOT_COMPLETED的广播，我们需要在receiver中用intent-filter来监听这条广播</p>
-<p><img src="/2018/01/27/android-broadcast/recefilter.png" width="100%"></p>
+<p><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/android-broadcast/recefilter.png" alt=""></p>
 <h3 id="发送广播"><a href="#发送广播" class="headerlink" title="发送广播"></a>发送广播</h3><h4 id="发送标准广播"><a href="#发送标准广播" class="headerlink" title="发送标准广播"></a>发送标准广播</h4><p><strong>发送前先设置监听器</strong></p>
 <pre><code class="java">public class MyBroadcastReceiver extends BroadcastReceiver{
     @Override
@@ -135,12 +132,12 @@
 sendOrderedBroadcast(intent,null);
 </code></pre>
 <p>这个时候广播接收器有先后顺序的，而且前面的广播接收器可以将广播截断，阻止他继续传播</p>
-<p><strong>设定广播接收器优先级</strong><br><img src="/2018/01/27/android-broadcast/brpri.png" width="100%"></p>
-<p><strong>截断广播</strong><br><img src="/2018/01/27/android-broadcast/brabort.png" width="100%"></p>
-<h3 id="本地广播"><a href="#本地广播" class="headerlink" title="本地广播"></a>本地广播</h3><p>简介<br><img src="/2018/01/27/android-broadcast/localbrintro.png" width="100%"></p>
-<p>例子<br><img src="/2018/01/27/android-broadcast/localbrexample.png" width="100%"></p>
+<p><strong>设定广播接收器优先级</strong><br><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/android-broadcast/brpri.png" alt=""></p>
+<p><strong>截断广播</strong><br><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/android-broadcast/brabort.png" alt=""></p>
+<h3 id="本地广播"><a href="#本地广播" class="headerlink" title="本地广播"></a>本地广播</h3><p>简介<br><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/android-broadcast/localbrintro.png" alt=""></p>
+<p>例子<br><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/android-broadcast/localbrexample.png" alt=""></p>
 <p>以上例子的解释</p>
-<p><img src="/2018/01/27/android-broadcast/brexampleintro.png" width="100%"></p>
+<p><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/android-broadcast/brexampleintro.png" alt=""></p>
 
     </div>
 </article>

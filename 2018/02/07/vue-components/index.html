@@ -64,7 +64,7 @@
     <div class="post-content">
         <p>组件实例的作用域是孤立的。这意味着不能 (也不应该) 在子组件的模板内直接引用父组件的数据。同时父组件也无法直接引用子组件的数据。</p>
 <a id="more"></a>
-<p>在 Vue 中，父子组件的关系可以总结为 prop 向下传递，事件向上传递。父组件通过 prop 给子组件下发数据，子组件通过事件给父组件发送消息。先来张直观的图。<br><img src="/2018/02/07/vue-components/passemit.png" width="100%"></p>
+<p>在 Vue 中，父子组件的关系可以总结为 prop 向下传递，事件向上传递。父组件通过 prop 给子组件下发数据，子组件通过事件给父组件发送消息。先来张直观的图。<br><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/vue-components/passemit.png" alt=""></p>
 <h2 id="Pass-Props"><a href="#Pass-Props" class="headerlink" title="Pass Props"></a>Pass Props</h2><p>首先子组件要显式地用<a href="https://cn.vuejs.org/v2/api/#props" target="_blank" rel="noopener">proprs选项</a>声明它预期的数据：</p>
 <pre><code class="js">Vue.component(&#39;child&#39;, {
     // 声明 props

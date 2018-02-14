@@ -99,7 +99,7 @@ span {
   border: 1px solid black;
 }
 </code></pre>
-<p><img src="/2018/02/02/css-layout3/normal.png" width="100%"></p>
+<p><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/css-layout3/normal.png" alt=""></p>
 <h3 id="静态定位static"><a href="#静态定位static" class="headerlink" title="静态定位static"></a>静态定位static</h3><pre><code class="css">.positioned{
     position: static;
 }
@@ -112,7 +112,7 @@ span {
     left: 30px;
 }
 </code></pre>
-<p><img src="/2018/02/02/css-layout3/relative.png" width="100%"><br>发现div相对自己原来的位置偏移了，往右往下各30px。同时原来占据的空间没有被其他元素占据。relative是不脱离文档流的。</p>
+<p><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/css-layout3/relative.png" alt=""><br>发现div相对自己原来的位置偏移了，往右往下各30px。同时原来占据的空间没有被其他元素占据。relative是不脱离文档流的。</p>
 <h3 id="绝对定位absolute"><a href="#绝对定位absolute" class="headerlink" title="绝对定位absolute"></a>绝对定位absolute</h3><pre><code class="css">.positioned{
     position: absolute;
     background: yellow;
@@ -120,7 +120,7 @@ span {
     left: 30px;
 }
 </code></pre>
-<p><img src="/2018/02/02/css-layout3/absolute.png" width="100%"></p>
+<p><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/css-layout3/absolute.png" alt=""></p>
 <p>可以看到他相对于html元素离压面的边缘的顶部和左侧都相距30px。并且脱离了文档流。原来占据的空间被其他还在文档流的元素占据了。</p>
 <p><em>绝对定位的元素不再存在于正常文档布局流程中。相反，它坐在它自己的层独立于一切。这是非常有用的——这意味着我们可以创建不干扰页面上其他元素的位置的隔离的UI功能 ——例如弹出信息框和控制菜单，翻转面板，可以在页面上的任何地方拖放的UI功能等。</em></p>
 <h4 id="定位上下文"><a href="#定位上下文" class="headerlink" title="定位上下文"></a>定位上下文</h4><p>我们把body改为相对定位</p>
@@ -128,7 +128,7 @@ span {
     position: relative;
 }
 </code></pre>
-<p>这下我们的positioned这个div由相对html改为相对body定位了<br><img src="/2018/02/02/css-layout3/absolute1.png" width="100%"></p>
+<p>这下我们的positioned这个div由相对html改为相对body定位了<br><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/css-layout3/absolute1.png" alt=""></p>
 <p><strong>绝对定位相对于其自身元素的(第一个被positioned，且positon不能为static的)祖先元素定位</strong></p>
 <p>而z-index可以决定，谁在图层(暂且这么叫)的上方，谁在下方</p>
 <h3 id="固定定位"><a href="#固定定位" class="headerlink" title="固定定位"></a>固定定位</h3><p>还有一种类型的定位覆盖——fixed。 这与绝对定位的工作方式完全相同，只有一个主要区别——绝对定位固定元素是相对于 <code>&lt;html&gt;</code> 元素或其最近的定位祖先，而固定定位固定元素则是相对于浏览器视口本身。 这意味着您可以创建固定的有用的UI项目，如持久导航菜单。</p>

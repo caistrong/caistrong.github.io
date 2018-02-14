@@ -65,7 +65,7 @@
         <p>盒子模型是CSS永远绕不过去的话题</p>
 <a id="more"></a>
 <h3 id="基本模型"><a href="#基本模型" class="headerlink" title="基本模型"></a>基本模型</h3><p>文档的每个元素被构造成文档布局内的一个矩形框，框每层的大小都可以使用一些特定的CSS属性调整。相关属性如下:</p>
-<p><img src="/2018/02/02/css-boxmodel/boxmodel.png" width="100%"></p>
+<p><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/css-boxmodel/boxmodel.png" alt=""></p>
 <p><em>还有其他属性可以更巧妙地处理内容的大小——设置大小约束而不是绝对的大小。这些属性包括min-width、max-width、min-height 和 max-height。</em></p>
 <p><em>外边距有一个特别的行为被称作<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Box_Model/Mastering_margin_collapsing" target="_blank" rel="noopener">外边距塌陷（margin collapsing）</a>：当两个框彼此接触时，它们的间距将取两个相邻外边界的最大值，而非两者的总和。</em></p>
 <h4 id="设置宽高的约束"><a href="#设置宽高的约束" class="headerlink" title="设置宽高的约束"></a>设置宽高的约束</h4><pre><code>div{
@@ -78,7 +78,7 @@
 <h4 id="box-sizing"><a href="#box-sizing" class="headerlink" title="box-sizing"></a>box-sizing</h4><pre><code class="css">box-sizing: content-box;(默认值：框的宽度和高度等于通过CSS设置在 content 的宽度和高度)
 box-sizing: border-box;（框的宽度和高度等于content + padding + border）
 </code></pre>
-<p><img src="/2018/02/02/css-boxmodel/boxsizing.png" width="100%"></p>
+<p><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/css-boxmodel/boxsizing.png" alt=""></p>
 <h4 id="display"><a href="#display" class="headerlink" title="display"></a>display</h4><p>HTML标签有块级元素和行内元素之分。其实可以理解为默认有display:block,display:inline之分,可以通过修改display属性来切换块级元素和行内元素。</p>
 <p>在本篇文章，我们将关注三个最普遍的类型：block, inline, and inline-block。</p>
 <ul>
@@ -87,7 +87,7 @@ box-sizing: border-box;（框的宽度和高度等于content + padding + border�
 <li>行内块状框（inline-block box） 像是上述两种的集合：它不会重新另起一行但会像行内框（ inline box）一样随着周围文字而流动，而且他能够设置宽高，并且像块框一样保持了其块特性的完整性，它不会在段落行中断开。（在下面的示例中，行内块状框会放在第二行文本上，因为第一行没有足够的空间，并且不会突破两行。然而，如果没有足够的空间，行内框会在多条线上断裂，而它会失去一个框的形状。）</li>
 <li>display:flex可以启用flexbox布局<br>来个直观的例子吧</li>
 </ul>
-<p><img src="/2018/02/02/css-boxmodel/display.png" width="100%"></p>
+<p><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/css-boxmodel/display.png&quot;" alt=""></p>
 <pre><code class="html">&lt;p&gt;
    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
    &lt;span class=&quot;inline&quot;&gt;Mauris tempus turpis id ante mollis dignissim.&lt;/span&gt;
@@ -167,7 +167,7 @@ span {
 .clipped    { overflow: hidden;  }
 .default    { overflow: visible; }
 </code></pre>
-<p>效果如下…感觉不需要解释了<br><img src="/2018/02/02/css-boxmodel/overflow.png" width="100%"></p>
+<p>效果如下…感觉不需要解释了<br><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/css-boxmodel/overflow.png" alt=""></p>
 <h4 id="background-clip"><a href="#background-clip" class="headerlink" title="background-clip"></a>background-clip</h4><p>框的背景是由颜色和图片组成的，它们堆叠在一起（background-color, background-image）。 它们被应用到一个盒子里，然后被画在盒子的下面。默认情况下，背景延伸到了边界外沿。这通常是OK的，但是在一些情况下比较讨厌（假使你有一个平铺的背景图，你只想要它延伸到内容的边沿会怎么做？），该行为可以通过设置盒子的background-clip属性来调整。</p>
 <pre><code class="html">&lt;div class=&quot;default&quot;&gt;&lt;/div&gt;
 &lt;div class=&quot;padding-box&quot;&gt;&lt;/div&gt;
@@ -190,7 +190,7 @@ span {
 .padding-box { background-clip: padding-box; }
 .content-box { background-clip: content-box; }
 </code></pre>
-<p><img src="/2018/02/02/css-boxmodel/clip.png" width="30%"></p>
+<p><img src="https://raw.githubusercontent.com/caistrong/Blog/master/_posts/css-boxmodel/clip.png" alt=""></p>
 <h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><em>说来惭愧 这里基本上是全来自</em><br><a href="https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Introduction_to_CSS/Box_model" target="_blank" rel="noopener">MDN 的盒模型</a></p>
 
     </div>
